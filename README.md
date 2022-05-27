@@ -1,6 +1,11 @@
-# KajiBuntan
+# 家事分担（Kajibuntan）
 
+本プロジェクトは、2022年4月・5月にCode for Japanが企画したハッカソンにて開発されたものです。
 This project is made for the Hackathon organized by Code for Japan in April-May 2022.
+
+## アンケート
+アプリのご感想・ご意見ありましたら、下記のリンクにてお知らせください。
+https://forms.gle/kjHo2mRW1PpJEBE59
 
 ## Tech Stack
 
@@ -26,3 +31,4 @@ This project is made for the Hackathon organized by Code for Japan in April-May 
 ## Credits
 
 - Stock picture design by [Undraw.co](https://undraw.co/)
+
