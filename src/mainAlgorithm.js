@@ -67,6 +67,28 @@ function isEF(AliceUtility,BobUtility,AliceAllocation,BobAllocation){
 }
 
 
+function nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility){
+    const BBUChanged=[];
+    for (let k=0; k < bAllocation.length; k++){
+        BBUChanged.push(bobUtility[bAllocation[k]]);
+    }
+    const AAUChanged=[];
+    for (let k=0; k < aAllocation.length; k++){
+        AAUChanged.push(aliceUtility[aAllocation[k]]);
+    }
+    const BBU=[];
+    for (let k=0; k < BobAllocation.length; k++){
+        BBU.push(bobUtility[BobAllocation[k]]);
+    }
+    const AAU=[];
+    for (let k=0; k < AliceAllocation.length; k++){
+        AAU.push(aliceUtility[AliceAllocation[k]]);
+    }
+    const sumAliceUtility = SumArray(aliceUtility);
+    const sumBobUtility = SumArray(bobUtility);
+    return Math.abs(SumArray(BBUChanged)/sumBobUtility - SumArray(AAUChanged)/sumAliceUtility) >= Math.abs(SumArray(BBU)/sumBobUtility - SumArray(AAU)/sumAliceUtility);
+}
+
 
 function categoryShow(task){
     let category;
@@ -193,26 +215,24 @@ function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepa
                 t++;
             }
         }
-        for (let i = t; i < alist.length; i++){
+        for (let i = t+1; i < alist.length; i++){
             const BAU=[];
             const BBU=[];
-            let aAllocation = DeleteFromArray(AliceAllocation, alist[t][0]);
-            let bAllocation = AddIntoArray(BobAllocation, alist[t][0]);
-            for (let i=0; i < aAllocation.length; i++){
-                BAU.push(bobUtility[aAllocation[i]]);
+            let aAllocation = DeleteFromArray(AliceAllocation, alist[i][0]);
+            let bAllocation = AddIntoArray(BobAllocation, alist[i][0]);
+            for (let j=0; j < aAllocation.length; j++){
+                BAU.push(bobUtility[aAllocation[j]]);
             }
-            for (let i=0; i < bAllocation.length; i++){
-                BBU.push(bobUtility[bAllocation[i]]);
+            for (let k=0; k < bAllocation.length; k++){
+                BBU.push(bobUtility[bAllocation[k]]);
             }
-            if(SumArray(BBU) > SumArray(BAU)){
+            if(SumArray(BBU) > SumArray(BAU) || nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility)){
                 break;
             }
-            if(t < alist.length){
-                AliceAllocation = DeleteFromArray(AliceAllocation, alist[t][0]);
-                BobAllocation.push(alist[t][0]);
-                //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-                t++;
-            }
+            
+            AliceAllocation = DeleteFromArray(AliceAllocation, alist[i][0]);
+            BobAllocation.push(alist[i][0]);
+            //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
         }
     }else{
         AliceAllocation = [];
@@ -235,26 +255,23 @@ function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepa
                 t++;
             }
         }
-        for (let i = t; i < blist.length; i++){
+        for (let i = t+1; i < blist.length; i++){
             const ABU=[];
             const AAU=[];
-            let aAllocation = AddIntoArray(AliceAllocation, blist[t][0]);
-            let bAllocation = DeleteFromArray(BobAllocation, blist[t][0]);
-            for (let i=0; i < bAllocation.length; i++){
-                ABU.push(aliceUtility[bAllocation[i]]);
+            let aAllocation = AddIntoArray(AliceAllocation, blist[i][0]);
+            let bAllocation = DeleteFromArray(BobAllocation, blist[i][0]);
+            for (let j=0; j < bAllocation.length; j++){
+                ABU.push(aliceUtility[bAllocation[j]]);
             }
-            for (let i=0; i < aAllocation.length; i++){
-                AAU.push(aliceUtility[aAllocation[i]]);
+            for (let k=0; k < aAllocation.length; k++){
+                AAU.push(aliceUtility[aAllocation[k]]);
             }
-            if(SumArray(AAU) > SumArray(ABU)){
+            if(SumArray(AAU) > SumArray(ABU) || nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility)){
                 break;
             }
-            if(t < blist.length){
-                BobAllocation = DeleteFromArray(BobAllocation, blist[t][0]);
-                AliceAllocation.push(blist[t][0]);
-                //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-                t++;
-            }
+            BobAllocation = DeleteFromArray(BobAllocation, blist[i][0]);
+            AliceAllocation.push(blist[i][0]);
+            //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
         }
     }
     const aliceTask = [];

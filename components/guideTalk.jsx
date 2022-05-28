@@ -45,11 +45,11 @@ export default function GuideTalk(props) {
                 }
             }else{
                 if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'unchanged'){
-                    return "今の分担は既におおよそ公平です\n\n下のアイコンをクリックすると入替られるよ";
+                    return "今の分担は既におおよそ公平です\n\n家事をクリックすると入れ替えられるよ";
                 }else if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'changed'){
-                    return "例えば、これが理想の分担のひとつです\nこちらも公平ですね\n\n下のアイコンをクリックすると自分で入替られるよ";
+                    return "例えば、これが理想の分担のひとつです\nこちらも公平ですね\n\n家事をクリックすると自分で入れ替えられるよ";
                 }else{
-                    return "例えば、これが理想の分担のひとつです\n\n下のアイコンをクリックすると自分で入替られるよ";
+                    return "例えば、これが理想の分担のひとつです\n\n家事をクリックすると自分で入れ替えられるよ";
                 }
             }
         }        
