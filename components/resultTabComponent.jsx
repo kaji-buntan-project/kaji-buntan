@@ -107,7 +107,7 @@ export default function ResultTabComponent(props) {
         <Tab label="少し理想的な分担" value="2" />
         <Tab label="理想的な分担" value="3" />
       </TabList>
-      <TabPanel value="1" sx={{ width: 1, padding: {xs:0, sm:1}}}>
+      <TabPanel value="1" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={0} changeOrUnchageLeast={changeOrUnchageLeast}></GuideTalk>
         <ResultDashboard 
           value={currentTaskRepartition} 
@@ -122,7 +122,7 @@ export default function ResultTabComponent(props) {
         {/* <AllocationList head="私" data={props.currentAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.currentBobAllocation}></AllocationList> */}
       </TabPanel>
-      <TabPanel value="2" sx={{ width: 1, padding: {xs:0, sm:1}}}>
+      <TabPanel value="2" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={1} changeOrUnchageLeast={changeOrUnchageLeast} changedListLeast={changedListLeast}></GuideTalk>
         <ResultDashboard 
           value={ leastRepartition } 
@@ -138,7 +138,7 @@ export default function ResultTabComponent(props) {
         {/* <AllocationList head="私" data={props.leastChangeAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.leastChangeBobAllocation}></AllocationList> */}
       </TabPanel>
-      <TabPanel value="3" sx={{ width: 1, padding: {xs:0, sm:1}}}>
+      <TabPanel value="3" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={2} changeOrUnchageLeast={changeOrUnchageLeast} changeOrUnchageAW={changeOrUnchageAW}></GuideTalk>
         <ResultDashboard 
           value={ adjustedRepartition } 
