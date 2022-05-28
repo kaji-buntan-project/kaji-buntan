@@ -36,10 +36,15 @@ export default function ResultDashboard(props) {
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
   return (
     <Box>
-      <Grid container spacing={0.5} sx={{alignItems: "flex-start", borderBottom: 1, borderColor: "divider"} } >
-    <Grid item xs={6} cellHeight={200} width ={350} justifyContent="flex-end">
-      <b><font size="6">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
-      <MakePieChart head="私"  value={props.value} changedList={changedList} current={props.current}></MakePieChart>
+      <Grid container spacing={0.5} xs={12}  >
+      <Grid container item xs={6} justifyContent="center" alignItems="baseline">
+        <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
+      </Grid>
+      <Grid container item xs={6} justifyContent="center" alignItems="baseline">
+        <b><font size="3">パートナー</font></b><Image alt="introduction" src={partnerillust} width={52} height={52}></Image>
+      </Grid>
+    <Grid container item xs={6} justifyContent="center">
+        <MakePieChart head="私"  value={props.value} changedList={changedList} current={props.current}></MakePieChart>
       <AllocationList 
         head="私" 
         data={props.mydata} 
@@ -49,9 +54,8 @@ export default function ResultDashboard(props) {
         repartition={props.repartition}
       ></AllocationList>
       </Grid>
-    <Grid item xs={6} cellHeight={200} width ={350} justifyContent="flex-end">
-       <b><font size="6">パートナー</font></b><Image alt="introduction" src={partnerillust} width={52} height={52}></Image>
-        <MakePieChart head="パートナー" value={props.value} changedList={changedList} current={props.current}></MakePieChart>
+    <Grid container item xs={6} justifyContent="center">
+          <MakePieChart head="パートナー" value={props.value} changedList={changedList} current={props.current}></MakePieChart>
         <AllocationList 
           head="パートナー" 
           data={props.partnerdata}
