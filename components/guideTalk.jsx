@@ -66,7 +66,7 @@ export default function GuideTalk(props) {
                 paddingX: '1em',
                 position: 'relative',
             }}>
-                <b className='text'><font size="5">{ getSaying() }</font></b>
+                <b className='text'><font size="4">{ getSaying() }</font></b>
                 <Box sx={{
                     boxSizing: 'content-box',
                     backgroundColor: 'transparent',

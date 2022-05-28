@@ -6,7 +6,7 @@ import AllocationList from "./allocationList";
 import GuideTalk from 'components/guideTalk';
 import detectAllocationChange from "src/detectAllocationChange";
 import makeAliceBobUtility from "/src/mainAlgorithm";
-
+import ExplainQForm from 'components/ExplainQForm';
 
 function makeBothAllocation(TaskRepartition, allTasks){
   let aliceAllocation = [];
@@ -119,6 +119,10 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <ExplainQForm></ExplainQForm>
         {/* <AllocationList head="私" data={props.currentAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.currentBobAllocation}></AllocationList> */}
       </TabPanel>
@@ -135,6 +139,10 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <ExplainQForm></ExplainQForm>
         {/* <AllocationList head="私" data={props.leastChangeAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.leastChangeBobAllocation}></AllocationList> */}
       </TabPanel>
@@ -151,6 +159,10 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <ExplainQForm></ExplainQForm>
         {/* <AllocationList head="私" data={props.adjustedWinnerAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.adjustedWinnerBobAllocation}></AllocationList> */}
       </TabPanel>
