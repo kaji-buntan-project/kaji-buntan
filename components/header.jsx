@@ -17,8 +17,8 @@ export default function ButtonAppBar() {
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const logo = matches ? logoHorizon : logoSmall;
     return (
-        <header>
-            <Image src={logo} alt="Application Logo" height={'100px'} layout='fixed' objectFit='contain'></Image>
+        <header className="app-header">
+            <Image src={logo} alt="Application Logo" height={"100%"} layout='fixed' objectFit='contain'></Image>
         </header>
         /*<Box>
             <AppBar position="static">
