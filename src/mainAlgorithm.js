@@ -269,8 +269,8 @@ function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepa
             if(SumArray(AAU) > SumArray(ABU) || nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility)){
                 break;
             }
-            BobAllocation = DeleteFromArray(BobAllocation, blist[t][0]);
-            AliceAllocation.push(blist[t][0]);
+            BobAllocation = DeleteFromArray(BobAllocation, blist[i][0]);
+            AliceAllocation.push(blist[i][0]);
             //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
         }
     }
