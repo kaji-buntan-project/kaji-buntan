@@ -26,9 +26,9 @@ export default function GuideTalk(props) {
         if (props.tabnumber == 0){
             return "まずは家事を選択してね";
         }else if (props.tabnumber == 1){
-            return "あなたの ・担当家事 ・好き嫌い ・かかる時間 を教えてね";
+            return "あなたの\n ・担当家事\n ・好き嫌い\n ・かかる時間\n を教えてね";
         }else if (props.tabnumber == 2){
-            return "パートナーの ・好き嫌い ・かかる時間 を教えてね 　　　";
+            return "パートナーの\n ・好き嫌い\n ・かかる時間\n を教えてね ";
         }else {
             if (props.tabtabnumber == 0){
                 if (props.changeOrUnchageLeast=='unchanged'){
@@ -41,7 +41,7 @@ export default function GuideTalk(props) {
                     return "今の分担は既におおよそ公平です";
                 }else{
                     let category = categoryShow(props.changedListLeast[0]);
-                    return `少し変更しました\n「${ category }」の見直しは如何ですか`;
+                    return `少し変更しました\n「${ category }」\nの見直しはどうですか`;
                 }
             }else{
                 if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'unchanged'){
