@@ -21,9 +21,14 @@ a {
   box-sizing: border-box;
 }
 
+.app-header {
+  height: 15vh;
+  max-height: 15vh;
+}
+
 .app-container {
-  height: 90vh;
-  max-height: 90vh;
+  height: 85vh;
+  max-height: 85vh;
   overflow: scroll;
 
   display: flex;
@@ -34,8 +39,8 @@ a {
 main {
   flex-grow: 1;
   flex-shrink: 1;
-  height: 90vh;
-  max-height: 90vh;
+  height: 85vh;
+  max-height: 85vh;
   
   display: flex;
   flex-direction: column;

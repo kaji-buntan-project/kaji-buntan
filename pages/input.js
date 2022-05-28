@@ -6,7 +6,7 @@ import ResultTabComponent from '../components/resultTabComponent';
 import InputItem from '../components/inputItem';
 import  Tab from '@mui/material/Tab';
 import  Tabs from '@mui/material/Tabs';
-import { Box } from '@mui/material';
+import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
 
 import { DateTime } from 'luxon';
@@ -138,12 +138,21 @@ export default function InputPage() {
     // let [currentAliceAllocation, currentBobAllocation] = makeBothAllocation(currentTaskRepartition);
     // let [adjustedWinnerAliceAllocation, adjustedWinnerBobAllocation] = makeBothAllocation(adjustedWinnerTaskRepartition);
     // let [leastChangeAliceAllocation, leastChangeBobAllocation] = makeBothAllocation(leastChangeAllocationTaskRepartition);
-    
+
+    // 上までスクロール
+    const scrollToTop = () => {
+        // 単純なTopは固定されているので、内部をスクロールさせる。
+        document.getElementById("input-panel").scrollIntoView();
+    };
+
     return (
-        <div className={styles.inputPanel}>
+        <div className={styles.inputPanel} id="input-panel">
             <Tabs value={currentTab} 
-            sx={{ position: 'sticky', top: '10px', backgroundColor: 'white', zIndex: 50000, borderRadius: '5px' }} 
-            onChange={ (_, newValue) => setCurrentTab(newValue) }
+            sx={{ position: 'sticky', top: '10px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
+            onChange={ (_, newValue) => {
+                setCurrentTab(newValue);
+                scrollToTop();
+             }}
             centered
             variant="fullWidth"
             scrollButtons="auto"
@@ -176,16 +185,17 @@ export default function InputPage() {
               >
               </ResultTabComponent>
             </TabPanel>
-            {/* <Grid container spacing={12} justifyContent="center">
-                <Grid item xs={2} justifyContent="center">
-                    <Link href="/" passHref={true}><Button variant="contained" color="secondary">Cancel</Button></Link>
+            <Grid container spacing={3} justifyContent="center">
+                <Grid container item xs={6} justifyContent="flex-end">
+                    <Link href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
                 </Grid>
-                <Grid item xs={2} justifyContent="center">
-                    <Button variant="contained" color="secondary" disabled={currentTab === 3} onClick={() => {
-                        setCurrentTab(currentTab + 1)
-                    }}>Next</Button>
+                <Grid container item xs={6} justifyContent="flex-start">
+                    <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
+                        setCurrentTab(currentTab + 1);
+                        scrollToTop();
+                    }}>次へ</Button>
                 </Grid>
-            </Grid> */}
+            </Grid>
         </div>
     );
 }
