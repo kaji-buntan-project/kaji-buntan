@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import constants from "../src/constants";
 const allTasks = constants.allTasks
+import { isMobile } from "react-device-detect"
 
 function categoryShow(task){
     let category;
@@ -26,9 +27,17 @@ export default function GuideTalk(props) {
         if (props.tabnumber == 0){
             return "まずは家事を選択してね";
         }else if (props.tabnumber == 1){
-            return "あなたの担当家事，好き嫌い，かかる時間，を教えてね";
+            if(isMobile){
+                return "あなたの\n ・担当家事\n ・好き嫌い\n ・かかる時間\n を教えてね";
+            }else{
+                return "あなたの担当家事，好き嫌い，かかる時間　を教えてね　　　";
+            }
         }else if (props.tabnumber == 2){
-            return "パートナーの好き嫌い，かかる時間，を教えてね　　　";
+            if(isMobile){
+                return "パートナーの\n ・好き嫌い\n ・かかる時間\n を教えてね";
+            }else{
+                return "パートナーの好き嫌い，かかる時間　を教えてね　　　　　　";
+            }
         }else {
             if (props.tabtabnumber == 0){
                 if (props.changeOrUnchageLeast=='unchanged'){
@@ -41,7 +50,11 @@ export default function GuideTalk(props) {
                     return "今の分担は既におおよそ公平です";
                 }else{
                     let category = categoryShow(props.changedListLeast[0]);
-                    return `少し変更しました\n\n「${ category }」\nの見直しはどうですか`;
+                    if(isMobile){
+                        return `少し変更しました\n\n「${ category }」\nの見直しはどうですか`;
+                    }else{
+                        return `少し変更しました\n\n「${ category }」の見直しはどうですか`;
+                    }
                 }
             }else{
                 if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'unchanged'){
@@ -54,7 +67,10 @@ export default function GuideTalk(props) {
             }
         }        
     }
-    
+    let textsize=5;
+    if(isMobile){
+        textsize=4;
+    }
     return (
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}}>
             <Image alt="introduction" src={sensei} width={102} height={102}></Image>
@@ -66,7 +82,7 @@ export default function GuideTalk(props) {
                 paddingX: '1em',
                 position: 'relative',
             }}>
-                <b className='text'><font size="4">{ getSaying() }</font></b>
+                <b className='text'><font size={textsize}>{ getSaying() }</font></b>
                 <Box sx={{
                     boxSizing: 'content-box',
                     backgroundColor: 'transparent',
