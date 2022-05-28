@@ -36,7 +36,7 @@ export default function ResultDashboard(props) {
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
   return (
     <Box>
-      <Grid container spacing={0.5} xs={12} alignItems="flex-start" >
+      <Grid container spacing={0.5} alignItems="flex-start" >
       <Grid container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
       </Grid>
