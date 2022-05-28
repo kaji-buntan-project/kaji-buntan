@@ -59,7 +59,7 @@ export default function GuideTalk(props) {
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}}>
             <Image alt="introduction" src={sensei} width={102} height={102}></Image>
             <Box sx={{
-                backgroundColor: 'lightgrey',
+                backgroundColor: 'rgba(211,211,211,0.5)',
                 borderRadius: '5px',
                 marginLeft: '1.5em',
                 paddingY: '0.5em',
@@ -72,7 +72,7 @@ export default function GuideTalk(props) {
                     backgroundColor: 'transparent',
                     borderTop: '10px solid transparent',
                     borderBottom: '10px solid transparent',
-                    borderRight: '10px solid lightgrey',
+                    borderRight: '10px solid rgba(211,211,211,0.5)',
                     position: 'absolute',
                     left: '-10px',
                     top: '15px',
