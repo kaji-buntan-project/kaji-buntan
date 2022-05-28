@@ -217,6 +217,7 @@ export default function MakePieChart(props){
            plugins: {legend: {display: false}},
            responsive: true,
            maintainAspectRatio: true}}
+           style={{maxWidth:"300px", maxHeight:"300px"}}
            />
     }else{
         return <Pie
@@ -225,6 +226,7 @@ export default function MakePieChart(props){
             plugins: {legend: {display: false}},
             responsive: true,
             maintainAspectRatio: true}}
+            style={{maxWidth:"300px", maxHeight:"300px"}}
             />
     }        
     // return <Grid container sx={{alignItems: "center", borderBottom: 1, borderColor: "divider"}}>
