@@ -97,7 +97,12 @@ export default function ResultTabComponent(props) {
 
   return (
     <TabContext value={tabNum}>
-      <TabList onChange={handleChangeTab}>
+      <TabList onChange={handleChangeTab}
+        xs={6}
+        centered
+        variant="fullWidth"
+        scrollButtons="auto"
+      >
         <Tab label="今の家事分担" value="1" />
         <Tab label="少し理想的な分担" value="2" />
         <Tab label="理想的な分担" value="3" />
