@@ -58,11 +58,23 @@ export default function GuideTalk(props) {
                 }
             }else{
                 if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'unchanged'){
-                    return "今の分担は既におおよそ公平です\n\n家事をクリックすると入れ替えられるよ";
+                    if(isMobile){
+                        return "今の分担は既におおよそ公平です\n\n家事をクリックすると\n入れ替えられるよ";
+                    }else{
+                        return "今の分担は既におおよそ公平です\n\n家事をクリックすると入れ替えられるよ";
+                    }
                 }else if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'changed'){
-                    return "これが理想的な分担のひとつです\nこちらも公平ですね\n\n家事をクリックすると入れ替えられるよ";
+                    if(isMobile){
+                        return "これが理想的な分担の\nひとつです\nこちらも公平ですね\n\n家事をクリックすると\n入れ替えられるよ";
+                    }else{
+                        return "これが理想的な分担のひとつです\nこちらも公平ですね\n\n家事をクリックすると入れ替えられるよ";
+                    }
                 }else{
-                    return "これが理想的な分担のひとつです\n\n家事をクリックすると入れ替えられるよ";
+                    if(isMobile){
+                        return "これが理想的な分担の\nひとつです\n\n家事をクリックすると\n入れ替えられるよ";
+                    }else{
+                        return "これが理想的な分担のひとつです\n\n家事をクリックすると入れ替えられるよ";
+                    }
                 }
             }
         }        
