@@ -6,7 +6,7 @@ import AllocationList from "./allocationList";
 import GuideTalk from 'components/guideTalk';
 import detectAllocationChange from "src/detectAllocationChange";
 import makeAliceBobUtility from "/src/mainAlgorithm";
-import ExplainQForm from 'components/ExplainQForm';
+import ExplainQForm from 'components/explainQForm';
 
 function makeBothAllocation(TaskRepartition, allTasks){
   let aliceAllocation = [];
