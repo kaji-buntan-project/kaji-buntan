@@ -41,15 +41,15 @@ export default function GuideTalk(props) {
                     return "今の分担は既におおよそ公平です";
                 }else{
                     let category = categoryShow(props.changedListLeast[0]);
-                    return `少し変更しました\n「${ category }」の見直しはどうでしょう`;
+                    return `少し変更しました\n「${ category }」の見直しは如何ですか`;
                 }
             }else{
                 if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'unchanged'){
                     return "今の分担は既におおよそ公平です\n\n家事をクリックすると入れ替えられるよ";
                 }else if (props.changeOrUnchageLeast == 'unchanged' && props.changeOrUnchageAW == 'changed'){
-                    return "例えば、これが理想の分担のひとつです\nこちらも公平ですね\n\n家事をクリックすると自分で入れ替えられるよ";
+                    return "これが理想的な分担のひとつです\nこちらも公平ですね\n\n家事をクリックすると入れ替えられるよ";
                 }else{
-                    return "例えば、これが理想の分担のひとつです\n\n家事をクリックすると自分で入れ替えられるよ";
+                    return "これが理想的な分担のひとつです\n\n家事をクリックすると入れ替えられるよ";
                 }
             }
         }        
@@ -59,7 +59,7 @@ export default function GuideTalk(props) {
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}}>
             <Image alt="introduction" src={sensei} width={102} height={102}></Image>
             <Box sx={{
-                backgroundColor: 'lightgrey',
+                backgroundColor: 'rgba(211,211,211,0.5)',
                 borderRadius: '5px',
                 marginLeft: '1.5em',
                 paddingY: '0.5em',
@@ -72,7 +72,7 @@ export default function GuideTalk(props) {
                     backgroundColor: 'transparent',
                     borderTop: '10px solid transparent',
                     borderBottom: '10px solid transparent',
-                    borderRight: '10px solid lightgrey',
+                    borderRight: '10px solid rgba(211,211,211,0.5)',
                     position: 'absolute',
                     left: '-10px',
                     top: '15px',
