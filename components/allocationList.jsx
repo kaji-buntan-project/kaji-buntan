@@ -14,7 +14,8 @@ export default function AllocationList(props) {
         flexWrap: "wrap",
         listStyle: "none",
         m: 0.5,
-        p: 0
+        p: 0,
+        width:"100%"
       }} component="ul"
       >
         {
