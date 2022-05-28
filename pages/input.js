@@ -18,8 +18,6 @@ import AllocationList from 'components/allocationList';
 
 import GuideTalk from 'components/guideTalk';
 
-
-
 // TabPanel -> https://mui.com/material-ui/react-tabs/
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -45,24 +43,6 @@ function TabPanel(props) {
 const allTasks = constants.allTasks
 
 
-// function makeBothAllocation(TaskRepartition){
-//     let aliceAllocation = [];
-//     let bobAllocation = [];
-//     for (let category of allTasks){
-//         for (let task of category.children){
-//             if (task.checked){
-//                 const myTask1 = TaskRepartition['myTasks'][task.name];
-//                 const partnerTask1 = TaskRepartition['partnerTasks'][task.name];
-//                 if (myTask1 && myTask1.participates){
-//                     aliceAllocation.push(task.name);
-//                 }else if (partnerTask1 && partnerTask1.participates){
-//                     bobAllocation.push(task.name);
-//                 }
-//             }
-//         }
-//     }
-//     return [aliceAllocation,bobAllocation];
-// }
 
 export default function InputPage() {
 
@@ -161,7 +141,13 @@ export default function InputPage() {
     
     return (
         <div className={styles.inputPanel}>
-            <Tabs value={currentTab} sx={{ position: 'sticky', top: '10px', backgroundColor: 'white', zIndex: 50000, borderRadius: '5px' }} onChange={ (_, newValue) => setCurrentTab(newValue) }>
+            <Tabs value={currentTab} 
+            sx={{ position: 'sticky', top: '10px', backgroundColor: 'white', zIndex: 50000, borderRadius: '5px' }} 
+            onChange={ (_, newValue) => setCurrentTab(newValue) }
+            centered
+            variant="fullWidth"
+            scrollButtons="auto"
+            >
                 <Tab label="家事選択" sx={{ backgroundColor: 'white'}} />
                 <Tab label="私の評価" sx={{ backgroundColor: 'white'}}/>
                 <Tab label="パートナーの評価" sx={{ backgroundColor: 'white'}}/>
