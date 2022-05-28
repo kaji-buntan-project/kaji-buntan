@@ -28,7 +28,7 @@ export default function GuideTalk(props) {
         }else if (props.tabnumber == 1){
             return "あなたの担当家事，好き嫌い，かかる時間，を教えてね";
         }else if (props.tabnumber == 2){
-            return "パートナーの好き嫌い，かかる時間，を教えてね";
+            return "パートナーの好き嫌い，かかる時間，を教えてね　　　";
         }else {
             if (props.tabtabnumber == 0){
                 if (props.changeOrUnchageLeast=='unchanged'){
