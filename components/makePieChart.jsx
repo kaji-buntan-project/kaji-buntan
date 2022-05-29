@@ -215,21 +215,19 @@ export default function MakePieChart(props){
            data={ makeMyPieData(props)}
            options={{
            plugins: {legend: {display: false}},
-           responsive: false,
-           maintainAspectRatio: false}}
-           width={200}
-           height={200}
+           responsive: true,
+           maintainAspectRatio: true}}
+           style={{maxWidth:"300px", maxHeight:"300px"}}
            />
     }else{
         return <Pie
         data={makePartnerPieData(props)}
         options={{
             plugins: {legend: {display: false}},
-            responsive: false,
-            maintainAspectRatio: false}}
-        width={200}
-        height={200}
-        />
+            responsive: true,
+            maintainAspectRatio: true}}
+            style={{maxWidth:"300px", maxHeight:"300px"}}
+            />
     }        
     // return <Grid container sx={{alignItems: "center", borderBottom: 1, borderColor: "divider"}}>
     // <Grid item xs={6}>

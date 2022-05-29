@@ -6,7 +6,7 @@ import AllocationList from "./allocationList";
 import GuideTalk from 'components/guideTalk';
 import detectAllocationChange from "src/detectAllocationChange";
 import makeAliceBobUtility from "/src/mainAlgorithm";
-
+import ExplainQForm from 'components/explainQForm';
 
 function makeBothAllocation(TaskRepartition, allTasks){
   let aliceAllocation = [];
@@ -97,12 +97,17 @@ export default function ResultTabComponent(props) {
 
   return (
     <TabContext value={tabNum}>
-      <TabList onChange={handleChangeTab}>
+      <TabList onChange={handleChangeTab}
+        xs={6}
+        centered
+        variant="fullWidth"
+        scrollButtons="auto"
+      >
         <Tab label="今の家事分担" value="1" />
         <Tab label="少し理想的な分担" value="2" />
         <Tab label="理想的な分担" value="3" />
       </TabList>
-      <TabPanel value="1" sx={{ width: 1}}>
+      <TabPanel value="1" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={0} changeOrUnchageLeast={changeOrUnchageLeast}></GuideTalk>
         <ResultDashboard 
           value={currentTaskRepartition} 
@@ -114,10 +119,14 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <ExplainQForm></ExplainQForm>
         {/* <AllocationList head="私" data={props.currentAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.currentBobAllocation}></AllocationList> */}
       </TabPanel>
-      <TabPanel value="2" sx={{ width: 1}}>
+      <TabPanel value="2" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={1} changeOrUnchageLeast={changeOrUnchageLeast} changedListLeast={changedListLeast}></GuideTalk>
         <ResultDashboard 
           value={ leastRepartition } 
@@ -130,10 +139,14 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <ExplainQForm></ExplainQForm>
         {/* <AllocationList head="私" data={props.leastChangeAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.leastChangeBobAllocation}></AllocationList> */}
       </TabPanel>
-      <TabPanel value="3" sx={{ width: 1}}>
+      <TabPanel value="3" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={2} changeOrUnchageLeast={changeOrUnchageLeast} changeOrUnchageAW={changeOrUnchageAW}></GuideTalk>
         <ResultDashboard 
           value={ adjustedRepartition } 
@@ -146,6 +159,10 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <ExplainQForm></ExplainQForm>
         {/* <AllocationList head="私" data={props.adjustedWinnerAliceAllocation}></AllocationList>
         <AllocationList head="パートナー" data={props.adjustedWinnerBobAllocation}></AllocationList> */}
       </TabPanel>

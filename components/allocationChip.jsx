@@ -24,7 +24,7 @@ export default function AllocationChip(props) {
   let changedList = props.changedList;
   if (props.current != "current"){
     if (changedList.includes(props.label)){
-      return (<ListItem>
+      return (<ListItem sx={{maxWidth:"100%"}}>
         <Chip 
         sx = {{
           backgroundColor: backColor,
@@ -37,7 +37,7 @@ export default function AllocationChip(props) {
         </ListItem>
         )
     }else{
-      return (<ListItem>
+      return (<ListItem sx={{maxWidth:"100%"}}>
         <Chip 
         sx = {{
           backgroundColor: backColor,
@@ -51,7 +51,7 @@ export default function AllocationChip(props) {
         )
     }
   }else{
-    return (<ListItem>
+    return (<ListItem sx={{maxWidth:"100%"}}>
       <Chip 
       sx = {{
         backgroundColor: backColor,
