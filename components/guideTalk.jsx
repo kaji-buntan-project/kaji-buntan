@@ -41,9 +41,9 @@ export default function GuideTalk(props) {
         }else {
             if (props.tabtabnumber == 0){
                 if (props.changeOrUnchageLeast=='unchanged'){
-                    return "今の家事分担です\n\n円グラフは各個人の負担感を示します";
+                    return "今の家事分担です\n\n円グラフは各個人の負担感を表します";
                 }else{
-                    return "今の家事分担です\n\n円グラフは各個人の負担感を示します";
+                    return "今の家事分担です\n\n円グラフは各個人の負担感を表します";
                 }
             }else if (props.tabtabnumber==1){
                 if (props.changeOrUnchageLeast == 'unchanged'){
