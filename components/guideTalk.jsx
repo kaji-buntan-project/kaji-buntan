@@ -25,18 +25,18 @@ export default function GuideTalk(props) {
 
     function getSaying() {
         if (props.tabnumber == 0){
-            return "まずは家事を選択してね";
+            return "まずは分担する家事を選択してね";
         }else if (props.tabnumber == 1){
             if(isMobile){
-                return "あなたの\n ・担当家事\n ・好き嫌い\n ・かかる時間\n を教えてね";
+                return "あなたの\n ・担当家事\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
             }else{
-                return "あなたの担当家事，好き嫌い，かかる時間　を教えてね　　　";
+                return "あなたの担当家事，好き嫌い，一回あたりにかかる時間　を教えてね　　　";
             }
         }else if (props.tabnumber == 2){
             if(isMobile){
-                return "パートナーの\n ・好き嫌い\n ・かかる時間\n を教えてね";
+                return "パートナーの\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
             }else{
-                return "パートナーの好き嫌い，かかる時間　を教えてね　　　　　　";
+                return "パートナーの好き嫌い，一回あたりにかかる時間　を教えてね　　　　　　";
             }
         }else {
             if (props.tabtabnumber == 0){
@@ -65,7 +65,7 @@ export default function GuideTalk(props) {
                     return "これが理想的な分担のひとつです\n\n家事をクリックすると入れ替えられるよ";
                 }
             }
-        }        
+        }
     }
     let textsize=5;
     if(isMobile){
