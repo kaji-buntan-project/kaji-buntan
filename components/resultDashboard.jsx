@@ -38,10 +38,10 @@ export default function ResultDashboard(props) {
     <Box>
       <Grid container spacing={0.5} alignItems="flex-start" >
       <Grid container item xs={6} justifyContent="center" alignItems="baseline">
-        <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
+        <b><font size="3">You</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
       </Grid>
       <Grid container item xs={6} justifyContent="center" alignItems="baseline">
-        <b><font size="3">パートナー</font></b><Image alt="introduction" src={partnerillust} width={52} height={52}></Image>
+        <b><font size="3">Partner</font></b><Image alt="introduction" src={partnerillust} width={52} height={52}></Image>
       </Grid>
     <Grid container item xs={6} justifyContent="center">
         <MakePieChart head="私"  value={props.value} changedList={changedList} current={props.current}></MakePieChart>

@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 import { DateTime } from 'luxon';
 
-import constants from "../src/constants";
+import constants from "../src/constants3";
 
 import makeAliceBobUtility from "../src/mainAlgorithm";
 import AllocationList from 'components/allocationList';
@@ -157,10 +157,10 @@ export default function InputPage() {
             variant="fullWidth"
             scrollButtons="auto"
             >
-                <Tab label="家事選択" sx={{ backgroundColor: 'white'}} />
-                <Tab label="私の評価" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="パートナーの評価" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="コンシェルジュの提案" sx={{ backgroundColor: 'white'}}/>
+                <Tab label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} />
+                <Tab label="Your Evaluation" sx={{ backgroundColor: 'white'}}/>
+                <Tab label="Partner's Evaluation" sx={{ backgroundColor: 'white'}}/>
+                <Tab label="Proposal" sx={{ backgroundColor: 'white'}}/>
             </Tabs>
             
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
@@ -187,13 +187,13 @@ export default function InputPage() {
             </TabPanel>
             <Grid container spacing={3} justifyContent="center">
                 <Grid container item xs={6} justifyContent="flex-end">
-                    <Link href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
+                    <Link href="/" passhref={true}><Button variant="outlined" color="secondary">Cancel</Button></Link>
                 </Grid>
                 <Grid container item xs={6} justifyContent="flex-start">
                     <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
                         setCurrentTab(currentTab + 1);
                         scrollToTop();
-                    }}>次へ</Button>
+                    }}>NEXT</Button>
                 </Grid>
             </Grid>
         </div>

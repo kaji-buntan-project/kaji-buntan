@@ -1,7 +1,7 @@
 import { Grid, Box, Typography } from "@mui/material";
 import { Pie } from "react-chartjs-2";
 import React from "react";
-import constants from "../src/constants";
+import constants from "../src/constants3";
 import calculateBurden from "../src/calculateBurden";
 // import { Chart as ChartJS, registerables } from 'chart.js';
 // if(registerables){

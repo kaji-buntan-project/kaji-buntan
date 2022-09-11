@@ -11,6 +11,7 @@ import happy from '../public/images/happy.svg';
 import unhappy from '../public/images/unhappy.svg';
 
 import Image from 'next/image';
+import { width } from '@mui/system';
 
 export default function InputItem(props) {
 
@@ -23,19 +24,19 @@ export default function InputItem(props) {
     const sliderMarks = [
         {
             value: 10,
-            label: '10分',
+            label: '10m',
         },
         {
             value: 30,
-            label: '30分',
+            label: '30m',
         },
         {
             value: 60,
-            label: '60分',
+            label: '60m',
         },
         {
             value: 90,
-            label: '90分',
+            label: '90m',
         }
     ];
 
@@ -50,16 +51,16 @@ export default function InputItem(props) {
         }
     }, [isDoingTask, happyLevel, taskTime, onTaskChange, label, person, initialValue.category ] )
 
-    return (<div className={ styles.inputRow }>
+    return (<div className={ styles.inputRow } >
         <div className={ styles.taskLabel }>{ props.label }</div>
           
-        <ToggleButtonGroup value={isDoingTask} sx={{ gridArea: 'action' }} color="secondary" exclusive
+        <ToggleButtonGroup value={isDoingTask} sx={{ gridArea: 'action' }} color="secondary" exclusive 
             onChange={ (_, newValue) => {
                         if (newValue !== null) setDoingTask(newValue);
                     }}
             aria-label="タスク担当かどうか">
-            <ToggleButton value={true} aria-label="する"><font size="1.5">する</font></ToggleButton>
-            <ToggleButton value={false} aria-label="しない"><font size="1.5">しない</font></ToggleButton>
+            <ToggleButton value={true} aria-label="する"><font size="1.5">do</font></ToggleButton>
+            <ToggleButton value={false} aria-label="しない"><font size="1.5">do not</font></ToggleButton>
         </ToggleButtonGroup>
 
         <ToggleButtonGroup value={happyLevel} sx={{ gridArea: 'effort' }} color="secondary" exclusive
