@@ -23,8 +23,12 @@ export default function InputItem(props) {
 
     const sliderMarks = [
         {
-            value: 10,
-            label: '10m',
+            value: 1,
+            label: '1m',
+        },
+        {
+            value: 15,
+            label: '15m',
         },
         {
             value: 30,
@@ -34,10 +38,6 @@ export default function InputItem(props) {
             value: 60,
             label: '60m',
         },
-        {
-            value: 90,
-            label: '90m',
-        }
     ];
 
     useEffect(() => {
@@ -78,10 +78,10 @@ export default function InputItem(props) {
         <Slider
             value={ taskTime }
             sx={{ gridArea: 'duration', marginLeft: '1em' }}
-            step={10}
+            step={5}
             marks= { sliderMarks }
-            min={10}
-            max={90}
+            min={1}
+            max={70}
             onChange={ (_, newValue) => setTaskTime(newValue) }
             />
 
