@@ -103,9 +103,9 @@ export default function ResultTabComponent(props) {
         variant="fullWidth"
         scrollButtons="auto"
       >
-        <Tab label="Current Assignment" value="1" />
-        <Tab label="Slightly Improved Assignment" value="2" />
-        <Tab label="Improved Assignment" value="3" />
+        <Tab label="Current Allocation" value="1" />
+        <Tab label="Slightly Improved Allocation" value="2" />
+        <Tab label="Improved Allocation" value="3" />
       </TabList>
       <TabPanel value="1" sx={{ width: 1 }}>
       <GuideTalk tabnumber = {3} tabtabnumber={0} changeOrUnchageLeast={changeOrUnchageLeast}></GuideTalk>

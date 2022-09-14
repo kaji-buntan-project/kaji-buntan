@@ -7,8 +7,8 @@ export default function TaskCategoryList(props) {
         props.onChange(event);
     }
     return (
-        <List
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        <List align-items="center"
+            sx={{ width: '100%', bgcolor: 'background.paper' }}
         >
             {props.taskTree.map((d, idx) => {
                 return <TaskCategoryListItem key={idx} index={idx} onChange={handleChange} taskCategory={d}></TaskCategoryListItem>

@@ -8,7 +8,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import logoHorizon from '../public/images/logo_horizontal.png';
+import logoHorizon from '../public/images/logo_horizontal_eng.png';
 import logoSmall from '../public/images/logo_small.png';
 import Image from 'next/image';
 

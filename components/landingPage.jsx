@@ -12,8 +12,8 @@ export default function LandingPage() {
     
     return (
         <main>
-            <IntroImageStepper></IntroImageStepper>
-            <Link href="/input" passHref={true} ><Button variant="contained" color="secondary" sx={{m: 2, px: 6, py:2}}><Typography variant="h3">使ってみる</Typography></Button></Link>
+            {/* <IntroImageStepper></IntroImageStepper> */}
+            <Link href="/input" passHref={true} ><Button variant="contained" color="secondary" sx={{m: 2, px: 6, py:2}}><Typography variant="h3">Try now</Typography></Button></Link>
         </main>
     );
 }
