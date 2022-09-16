@@ -15,9 +15,9 @@ export default function ExplainQForm() {
                 position: 'relative',
             }}>
                 <b className='text'><font size="4">{ "For those who want to know more\n" }</font></b>
-                <b className='text'><font size="3" color="#9c27b0"><a href="https://drive.google.com/file/d/1VF6hrktuFPq-ggrXRL_iqQeUCKxWCzVk/view?usp=sharing">{ "→ Detail\n" }</a></font></b>
+                <b className='text'><font size="3" color="#9c27b0"><a href="https://drive.google.com/file/d/1dgzbjmEIKiERdxmgEyhW-dsbI2lYDX1d/view?usp=sharing">{ "→ Detail\n" }</a></font></b>
                 <b className='text'><font size="4">{ "Please give us your feedback\n" }</font></b>
-                <b className='text'><font size="3" color="#9c27b0"><a href="https://forms.gle/kjHo2mRW1PpJEBE59">{ "→ Google Form\n" }</a></font></b>
+                <b className='text'><font size="3" color="#9c27b0"><a href="https://docs.google.com/forms/d/1eUpm4_V8PvtACz3vNIOZEqBDEGZ5f_hrUAlKZx1glPc/prefill">{ "→ Google Form\n" }</a></font></b>
                 <Box sx={{
                     boxSizing: 'content-box',
                     backgroundColor: 'transparent',
