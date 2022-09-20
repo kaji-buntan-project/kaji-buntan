@@ -37,10 +37,10 @@ export default function GuideTalk(props) {
             }
         }else if (props.tabnumber == 2){
             if(isMobile){
-                return "For each chore, enter\n(1) whether you are currently responsible,\n(2) whether you are positive/neutral/negative,\n(3) how long it takes time for you to complete";
+                return "For each chore, enter\n(1) whether you are currently responsible,\n(2) whether you are positive/neutral/negative,\n(3) how long it takes time for you to complete\u3000\u3000\u3000\u3000\u3000";
                 //return "パートナーの\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
             }else{
-                return "For each chore, enter\n(1) whether you are currently responsible,\n(2) whether you are positive/neutral/negative,\n(3) how long it takes time for you to complete";
+                return "For each chore, enter\n(1) whether you are currently responsible,\n(2) whether you are positive/neutral/negative,\n(3) how long it takes time for you to complete\u3000\u3000\u3000\u3000\u3000";
                 //return "パートナーの好き嫌い，一回あたりにかかる時間　を教えてね　　　　　　";
             }
         }else {
