@@ -158,8 +158,8 @@ export default function InputPage() {
             scrollButtons="auto"
             >
                 <Tab label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} />
-                <Tab label="Your Evaluation" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="Partner's Evaluation" sx={{ backgroundColor: 'white'}}/>
+                <Tab label="Your Input" sx={{ backgroundColor: 'white'}}/>
+                <Tab label="Partner's Input" sx={{ backgroundColor: 'white'}}/>
                 <Tab label="Proposal" sx={{ backgroundColor: 'white'}}/>
             </Tabs>
             
