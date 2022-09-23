@@ -54,7 +54,7 @@ export default function GuideTalk(props) {
                 }
             }else if (props.tabtabnumber==1){
                 if (props.changeOrUnchageLeast == 'unchanged'){
-                    return "The current allocation is already approximately fair.";
+                    return "The current allocation is already approximately fair.\u3000\u3000\u3000\u3000\u3000";
                     //return "今の分担は既におおよそ公平です";
                 }else{
                     let category = categoryShow(props.changedListLeast[0]);

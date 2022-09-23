@@ -17,6 +17,9 @@ import makeAliceBobUtility from "../src/mainAlgorithm";
 import AllocationList from 'components/allocationList';
 
 import GuideTalk from 'components/guideTalk';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import InsertEmoticonOutlinedIcon from '@mui/icons-material/InsertEmoticonOutlined';
+import PieChartIcon from '@mui/icons-material/PieChart';
 
 // TabPanel -> https://mui.com/material-ui/react-tabs/
 function TabPanel(props) {
@@ -154,13 +157,14 @@ export default function InputPage() {
                 scrollToTop();
              }}
             centered
+            outlined
             variant="fullWidth"
             scrollButtons="auto"
             >
-                <Tab label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} />
-                <Tab label="Your Input" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="Partner's Input" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="Proposal" sx={{ backgroundColor: 'white'}}/>
+                <Tab icon={<CheckBoxOutlinedIcon/>} iconPosition="bottom" label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} />
+                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Your Input" sx={{ backgroundColor: 'white'}}/>
+                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Partner's Input" sx={{ backgroundColor: 'white'}}/>
+                <Tab icon={<PieChartIcon/>} iconPosition="bottom" label="Proposal" sx={{ backgroundColor: 'white'}}/>
             </Tabs>
             
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
