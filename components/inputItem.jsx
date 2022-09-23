@@ -2,6 +2,7 @@ import styles from 'styles/input.module.css';
 
 import { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup, Slider } from '@mui/material';
+import { SliderThumb, SliderValueLabelProps } from '@mui/material/Slider';
 
 import bad from '../public/images/bad.png';
 import soso from '../public/images/soso.png';
@@ -82,6 +83,8 @@ export default function InputItem(props) {
             marks= { sliderMarks }
             min={1}
             max={70}
+            aria-label="custom thumb label"
+            valueLabelDisplay="auto"
             onChange={ (_, newValue) => setTaskTime(newValue) }
             />
 
