@@ -36,6 +36,10 @@ export default function InputItem(props) {
             label: '30m',
         },
         {
+            value: 45,
+            label: '45m',
+        },
+        {
             value: 60,
             label: '60m',
         },
