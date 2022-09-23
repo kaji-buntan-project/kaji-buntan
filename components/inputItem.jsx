@@ -79,10 +79,10 @@ export default function InputItem(props) {
         <Slider
             value={ taskTime }
             sx={{ gridArea: 'duration', marginLeft: '1em' }}
-            step={5}
+            step={1}
             marks= { sliderMarks }
             min={1}
-            max={70}
+            max={60}
             aria-label="custom thumb label"
             valueLabelDisplay="auto"
             onChange={ (_, newValue) => setTaskTime(newValue) }
