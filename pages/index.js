@@ -161,10 +161,10 @@ export default function InputPage() {
             variant="fullWidth"
             scrollButtons="auto"
             >
-                <Tab icon={<CheckBoxOutlinedIcon/>} iconPosition="bottom" label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
-                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Your Input" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
-                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Partner's Input" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
-                <Tab icon={<PieChartIcon/>} iconPosition="bottom" label="Proposal" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
+                <Tab icon={<CheckBoxOutlinedIcon/>} iconPosition="bottom" label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.5rem" }} />
+                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Your Input" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.5rem" }} />
+                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Partner's Input" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.5rem" }} />
+                <Tab icon={<PieChartIcon/>} iconPosition="bottom" label="Proposal" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.5rem" }} />
             </Tabs>
             
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
