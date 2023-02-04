@@ -151,7 +151,7 @@ export default function InputPage() {
     return (
         <div className={styles.inputPanel} id="input-panel">
             <Tabs value={currentTab} 
-            sx={{ position: 'sticky', top: '10px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
+            sx={{ position: 'sticky', top: '0px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
             onChange={ (_, newValue) => {
                 setCurrentTab(newValue);
                 scrollToTop();
@@ -161,10 +161,10 @@ export default function InputPage() {
             variant="fullWidth"
             scrollButtons="auto"
             >
-                <Tab icon={<CheckBoxOutlinedIcon/>} iconPosition="bottom" label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} />
-                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Your Input" sx={{ backgroundColor: 'white'}}/>
-                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Partner's Input" sx={{ backgroundColor: 'white'}}/>
-                <Tab icon={<PieChartIcon/>} iconPosition="bottom" label="Proposal" sx={{ backgroundColor: 'white'}}/>
+                <Tab icon={<CheckBoxOutlinedIcon/>} iconPosition="bottom" label="Choose Your House Chores" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
+                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Your Input" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
+                <Tab icon={<InsertEmoticonOutlinedIcon/>} iconPosition="bottom" label="Partner's Input" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
+                <Tab icon={<PieChartIcon/>} iconPosition="bottom" label="Proposal" sx={{ backgroundColor: 'white'}} style={{ fontSize: "0.4rem" }} />
             </Tabs>
             
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
