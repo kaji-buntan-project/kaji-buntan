@@ -8,6 +8,8 @@ import detectAllocationChange from "src/detectAllocationChange";
 import makeAliceBobUtility from "/src/mainAlgorithm";
 import ExplainQForm from 'components/explainQForm';
 
+import DataCollect from "./dataCollect";
+
 function makeBothAllocation(TaskRepartition, allTasks){
   let aliceAllocation = [];
   let bobAllocation = [];
@@ -159,6 +161,13 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition = {currentTaskRepartition} 
           allTasks = {allTasks}
         ></ResultDashboard>
+        <h1></h1>
+        <br></br>
+        <h1></h1>
+        <DataCollect
+          mydata={ adjustedAliceAllocation } 
+          partnerdata={ adjustedBobAllocation }
+        ></DataCollect>
         <h1></h1>
         <br></br>
         <h1></h1>
