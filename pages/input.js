@@ -1,233 +1,216 @@
-import styles from '../styles/input.module.css';
+import styles from "../styles/input.module.css";
 
-import React from 'react';
+import React from "react";
 import TaskCategoryList from "../components/taskCategoryList";
-import ResultTabComponent from '../components/resultTabComponent';
-import InputItem from '../components/inputItem';
-import  Tab from '@mui/material/Tab';
-import  Tabs from '@mui/material/Tabs';
-import { Box,Grid,Button,Link } from '@mui/material';
-import { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import ResultTabComponent from "../components/resultTabComponent";
+import InputItem from "../components/inputItem";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import { Box, Grid, Button, Link } from "@mui/material";
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import NextLink from "next/link";
 
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 import constants from "../src/constants";
 
 import makeAliceBobUtility from "../src/mainAlgorithm";
-import AllocationList from 'components/allocationList';
+import AllocationList from "components/allocationList";
 
-import GuideTalk from 'components/guideTalk';
+import GuideTalk from "components/guideTalk";
+
+import { useAtom } from "jotai";
+
+import { currentTaskRepartitionAtom, allTasksAtom } from "../lib/atoms.js";
 
 // TabPanel -> https://mui.com/material-ui/react-tabs/
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={ value !== index }
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            { ...other }
-        >
-            {
-                value === index && (
-                    <Box sx={{width: '100%'}}>
-                        { children }
-                    </Box>
-                )
-            }
-        </div>
-    )
+  return (
+    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
+      {value === index && <Box sx={{ width: "100%" }}>{children}</Box>}
+    </div>
+  );
 }
-const allTasks = constants.allTasks
 
+export default React.memo(function InputPage() {
+  const router = useRouter();
+  const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
-export default function InputPage() {
+  //cookieの処理
+  const [cookies, setCookies] = useCookies(["cookieId"]);
 
-    //cookieの処理
-    const [cookies, setCookies] = useCookies(['cookieId']);
-    
-    //cookieによる初回か2回目以降かの判定
-    const cookieCheck = () => {
-        switch (cookies.cookieId) {
-          //初回のユーザー
-          default:
-              setCookies("cookieId", 10000);
-              break
-              
-          //2回目のユーザー
-          case 10000:
-              setCookies("cookieId", 20000);
-              break;
-              
-          //3回目以降のユーザー
-          case 20000:
-            break;
-        }
-      };
+  //cookieによる初回か2回目以降かの判定
+  const cookieCheck = () => {
+    switch (cookies.cookieId) {
+      //初回のユーザー
+      default:
+        setCookies("cookieId", 10000);
+        break;
 
-    const [ currentTab, setCurrentTab ] = useState(0);
-    const [ currentTaskRepartition, setAllTaskRepartition ] = useState(getInitialTaskRepartition());
-    
-    const getAllInputComponents = (taskArray, personKey) => {
+      //2回目のユーザー
+      case 10000:
+        setCookies("cookieId", 20000);
+        break;
 
-        const returnArray = [];
+      //3回目以降のユーザー
+      case 20000:
+        break;
+    }
+  };
 
-        for (let category of taskArray) {
-            let activeTasks = category.children.filter(task => task.checked).map((taskObject, index) => 
-                <InputItem label={taskObject.name} key={ `${taskObject.name}${index}` } person={personKey}
-                    onTaskChange={setTaskRepartition} initialValue={ getTaskRepartition(personKey, taskObject.name) }/>
-            );
-            if (activeTasks.length > 0) {
-                returnArray.push(
-                    <div className={ styles.categorySection } key={personKey[0] + category.name}>
-                        <h2 className={ styles.categoryHeader } style={{ color: 'white' }}>{ category.name }</h2>
-                        { activeTasks }
-                    </div>
-                );
-            }
-        }
+  const [currentTab, setCurrentTab] = useState(0);
 
-        return returnArray;
+  const [currentTaskRepartition, setAllTaskRepartition] = useAtom(currentTaskRepartitionAtom);
+
+  const getAllInputComponents = (taskArray, personKey) => {
+    const returnArray = [];
+
+    for (let category of taskArray) {
+      let activeTasks = category.children
+        .filter((task) => task.checked)
+        .map((taskObject, index) => (
+          <InputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={personKey} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(personKey, taskObject.name)} />
+        ));
+      if (activeTasks.length > 0) {
+        returnArray.push(
+          <div className={styles.categorySection} key={personKey[0] + category.name}>
+            <h2 className={styles.categoryHeader} style={{ color: "white" }}>
+              {category.name}
+            </h2>
+            {activeTasks}
+          </div>
+        );
+      }
     }
 
-    // Functions regarding the task repartition state -=-=-=-=-=-=-=-
-    // Creating the initial value
-    function getInitialTaskRepartition() {
-        const myTasks = {};
-        const partnerTasks = {};
+    return returnArray;
+  };
 
-        for (let categoryObject of allTasks) {
-            for (let taskObject of categoryObject.children) {
-                myTasks[taskObject.name] = {
-                    participates: false,
-                    effort: 0,
-                    duration : 10,
-                    category : categoryObject.name,
-                    userModified: false,
-                };
-                partnerTasks[taskObject.name] = {
-                    participates: false,
-                    effort: 0,
-                    duration : 10,
-                    category : categoryObject.name,
-                    userModified: false,
-                }
-            }
-        }
+  function getTaskRepartition(person, taskName) {
+    const personKey = person == "me" ? "myTasks" : "partnerTasks";
+    return currentTaskRepartition[personKey][taskName];
+  }
 
-        return { myTasks: myTasks, partnerTasks: partnerTasks};
+  function setTaskRepartition(person, taskName, taskRepartitionItem) {
+    const personKey = person == "me" ? "myTasks" : "partnerTasks";
+
+    currentTaskRepartition[personKey][taskName] = taskRepartitionItem;
+    currentTaskRepartition[personKey][taskName].userModified = true;
+
+    // "私の評価”を変更すれば、パートナーの評価も自動的に設定します（ユーザーから変更がなかった場合のみ）
+    // if (person == 'me' && !currentTaskRepartition['partnerTasks'][taskName].userModified) {
+    //     currentTaskRepartition['partnerTasks'][taskName].participates = !taskRepartitionItem.participates;
+    // }
+    if (person == "me") {
+      currentTaskRepartition["partnerTasks"][taskName].participates = !taskRepartitionItem.participates;
     }
-
-    function getTaskRepartition(person, taskName) {
-        const personKey = (person == 'me' ? 'myTasks' : 'partnerTasks');
-        return currentTaskRepartition[personKey][taskName];
+    if (person == "partner") {
+      currentTaskRepartition["myTasks"][taskName].participates = !taskRepartitionItem.participates;
     }
-    
-    function setTaskRepartition(person, taskName, taskRepartitionItem) {
-        const personKey = (person == 'me' ? 'myTasks' : 'partnerTasks');           
-        
-        currentTaskRepartition[personKey][taskName] = taskRepartitionItem;
-        currentTaskRepartition[personKey][taskName].userModified = true;
+    console.log("currentTaskRepartitionAtom", currentTaskRepartitionAtom);
+    console.log("currentTaskRepartition", currentTaskRepartition);
+  }
 
-        // "私の評価”を変更すれば、パートナーの評価も自動的に設定します（ユーザーから変更がなかった場合のみ）
-        // if (person == 'me' && !currentTaskRepartition['partnerTasks'][taskName].userModified) {
-        //     currentTaskRepartition['partnerTasks'][taskName].participates = !taskRepartitionItem.participates;
-        // }
-        if (person == 'me') {
-            currentTaskRepartition['partnerTasks'][taskName].participates = !taskRepartitionItem.participates;
-        }
-        if (person == 'partner') {
-            currentTaskRepartition['myTasks'][taskName].participates = !taskRepartitionItem.participates;
-        }
+  const handleChangeTasks = (event) => {
+    allTasks[event.index].children[event.child.index].checked = event.child.checked;
+    setAllTasks(allTasks);
+  };
 
-        setAllTaskRepartition(currentTaskRepartition);
+  //console.log(allTasks, currentTaskRepartition);
+  //let [adjustedWinnerTaskRepartition, leastChangeAllocationTaskRepartition] = makeAliceBobUtility(allTasks, currentTaskRepartition);
+  //console.log(adjustedWinnerTaskRepartition);
+  //console.log(leastChangeAllocationTaskRepartition);
 
-    }
-    
-    const handleChangeTasks = (event) => {
-        allTasks[event.index].children[event.child.index].checked = event.child.checked;
-    }
+  // let [currentAliceAllocation, currentBobAllocation] = makeBothAllocation(currentTaskRepartition);
+  // let [adjustedWinnerAliceAllocation, adjustedWinnerBobAllocation] = makeBothAllocation(adjustedWinnerTaskRepartition);
+  // let [leastChangeAliceAllocation, leastChangeBobAllocation] = makeBothAllocation(leastChangeAllocationTaskRepartition);
 
-    
-    //console.log(allTasks, currentTaskRepartition);
-    //let [adjustedWinnerTaskRepartition, leastChangeAllocationTaskRepartition] = makeAliceBobUtility(allTasks, currentTaskRepartition);
-    //console.log(adjustedWinnerTaskRepartition);
-    //console.log(leastChangeAllocationTaskRepartition);
-    
-    // let [currentAliceAllocation, currentBobAllocation] = makeBothAllocation(currentTaskRepartition);
-    // let [adjustedWinnerAliceAllocation, adjustedWinnerBobAllocation] = makeBothAllocation(adjustedWinnerTaskRepartition);
-    // let [leastChangeAliceAllocation, leastChangeBobAllocation] = makeBothAllocation(leastChangeAllocationTaskRepartition);
+  // 上までスクロール
+  const scrollToTop = () => {
+    // 単純なTopは固定されているので、内部をスクロールさせる。
+    document.getElementById("input-panel").scrollIntoView();
+  };
 
-    // 上までスクロール
-    const scrollToTop = () => {
-        // 単純なTopは固定されているので、内部をスクロールさせる。
-        document.getElementById("input-panel").scrollIntoView();
-    };
+  //テスト
+  const query = {
+    id: 1,
+    name: "yakkun",
+  };
 
-    return (
-        <div className={styles.inputPanel} id="input-panel">
-            <Tabs value={currentTab} 
-            sx={{ position: 'sticky', top: '10px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
-            onChange={ (_, newValue) => {
-                setCurrentTab(newValue);
-                scrollToTop();
-             }}
-            centered
-            variant="fullWidth"
-            scrollButtons="auto"
-            >
-                <Tab label="家事選択" sx={{ backgroundColor: 'white'}} />
-                <Tab label="私の評価" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="パートナーの評価" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="コンシェルジュの提案" sx={{ backgroundColor: 'white'}}/>
-            </Tabs>
-            
-            <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
-                <br/>
-                <GuideTalk tabnumber={0}></GuideTalk>
-                <TaskCategoryList taskTree={allTasks} onChange={handleChangeTasks}></TaskCategoryList>
-            </TabPanel>
-            <TabPanel value={ currentTab } index={1} sx={{ width: 1}} >
-                <br/>
-                <GuideTalk tabnumber={1}></GuideTalk>
-                { getAllInputComponents(allTasks, 'me') }
-            </TabPanel>
-            <TabPanel value={ currentTab } index={2} sx={{ width: 1}}>
-                <br/>
-                <GuideTalk tabnumber={2}></GuideTalk>
-                { getAllInputComponents(allTasks, 'partner') }
-            </TabPanel>
-            <TabPanel value={ currentTab } index={3} sx={{ width: 1}}>
-              <ResultTabComponent
-                currentTaskRepartition={ currentTaskRepartition }
-                allTasks={ allTasks }
-              >
-              </ResultTabComponent>
-            </TabPanel>
-            <Grid container spacing={3} justifyContent="center">
-                <Grid container item xs={6} justifyContent="flex-end">
-                    <Link href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
-                </Grid>
-                <Grid container item xs={6} justifyContent="flex-start">
-                    <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
-                        setCurrentTab(currentTab + 1);
-                        scrollToTop();
-                    }}>次へ</Button>
-                {currentTab === 2 ? 
-                // <Button href='/result' color="primary" variant="contained" onClick={cookieCheck(cookies, setCookies)} disabled={currentTab === 1}>
-                <Button href='/result' color="primary" variant="contained" onClick={()=>cookieCheck()} disabled={currentTab === 1}>
-                    {/* <Link 
-                    as={`/result`}
-                    href={{pathbane:`/result`, query:info}}
-                    >この内容で診断する</Link> */}
-                    この内容で診断する
-                </Button> 
-                : ''}
-                </Grid>
-            </Grid>
-        </div>
-    );
-}
+  return (
+    <div className={styles.inputPanel} id="input-panel">
+      <Tabs
+        value={currentTab}
+        sx={{ position: "sticky", top: "10px", backgroundColor: "whitesmoke", zIndex: 50000, borderRadius: "5px" }}
+        onChange={(_, newValue) => {
+          setCurrentTab(newValue);
+          scrollToTop();
+        }}
+        centered
+        variant="fullWidth"
+        scrollButtons="auto"
+      >
+        <Tab label="家事選択" sx={{ backgroundColor: "white" }} />
+        <Tab label="私の評価" sx={{ backgroundColor: "white" }} />
+        <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} />
+        <Tab label="コンシェルジュの提案" sx={{ backgroundColor: "white" }} />
+      </Tabs>
+
+      <TabPanel value={currentTab} index={0} sx={{ width: 1 }}>
+        <br />
+        <GuideTalk tabnumber={0}></GuideTalk>
+        <TaskCategoryList taskTree={allTasks} onChange={handleChangeTasks}></TaskCategoryList>
+      </TabPanel>
+      <TabPanel value={currentTab} index={1} sx={{ width: 1 }}>
+        <br />
+        <GuideTalk tabnumber={1}></GuideTalk>
+        {getAllInputComponents(allTasks, "me")}
+      </TabPanel>
+      <TabPanel value={currentTab} index={2} sx={{ width: 1 }}>
+        <br />
+        <GuideTalk tabnumber={2}></GuideTalk>
+        {getAllInputComponents(allTasks, "partner")}
+      </TabPanel>
+      <TabPanel value={currentTab} index={3} sx={{ width: 1 }}>
+        <ResultTabComponent currentTaskRepartition={currentTaskRepartition} allTasks={allTasks}></ResultTabComponent>
+      </TabPanel>
+      <Grid container spacing={3} justifyContent="center">
+        <Grid container item xs={6} justifyContent="flex-end">
+          <Link href="/" passhref={true}>
+            <Button variant="outlined" color="secondary">
+              キャンセル
+            </Button>
+          </Link>
+        </Grid>
+        <Grid container item xs={6} justifyContent="flex-start">
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={currentTab === 3}
+            onClick={() => {
+              setCurrentTab(currentTab + 1);
+              scrollToTop();
+            }}
+          >
+            次へ
+          </Button>
+          {currentTab === 2 ? (
+            // <Button color="primary" variant="contained" onClick={() => cookieCheck()} disabled={currentTab === 1}>
+            //   この内容で診断する
+            // </Button>
+            // <Link href="/result" onClick={()=>cookieCheck()}>この内容で診断する</Link>
+            <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/result" onClick={() => cookieCheck()}>
+              この内容で診断する
+            </NextLink>
+          ) : (
+            ""
+          )}
+        </Grid>
+      </Grid>
+    </div>
+  );
+});
