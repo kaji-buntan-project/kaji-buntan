@@ -157,7 +157,7 @@ export default React.memo(function InputPage() {
         <Tab label="家事選択" sx={{ backgroundColor: "white" }} />
         <Tab label="私の評価" sx={{ backgroundColor: "white" }} />
         <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} />
-        <Tab label="コンシェルジュの提案" sx={{ backgroundColor: "white" }} />
+        {/* <Tab label="コンシェルジュの提案" sx={{ backgroundColor: "white" }} /> */}
       </Tabs>
 
       <TabPanel value={currentTab} index={0} sx={{ width: 1 }}>
