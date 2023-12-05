@@ -1,9 +1,11 @@
 import styles from "../styles/input.module.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import TaskCategoryList from "../components/taskCategoryList";
 import ResultTabComponent from "../components/resultTabComponent";
 import InputItem from "../components/inputItem";
+import NewInputItem from "../components/newInputItem";
+import InputBox from "../components/InputBox";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { Box, Grid, Button, Link } from "@mui/material";
@@ -66,18 +68,40 @@ export default React.memo(function InputPage() {
 
   const [currentTaskRepartition, setAllTaskRepartition] = useAtom(currentTaskRepartitionAtom);
 
-  const getAllInputComponents = (taskArray, personKey) => {
-    const returnArray = [];
+  const [myTaskTimes, setMyTaskTimes] = useState(3)
+  const [partnerTaskTimes, setPartnerTaskTimes] = useState(4)
+  const [ourTaskTimes, setOurTaskTimes] = useState()
 
+  // useEffect(()=>{
+  // },[myTaskTimes ,partnerTaskTimes])
+
+
+  
+  
+  //toDo:別ファイルに分割
+  const getAllInputComponents = (taskArray) => {
+    const returnArray = [];
+    const person = ['me','partner']
+    const calculateTotal = ()=>{
+      setOurTaskTimes(myTaskTimes + partnerTaskTimes)
+    }
+    
     for (let category of taskArray) {
       let activeTasks = category.children
         .filter((task) => task.checked)
         .map((taskObject, index) => (
-          <InputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={personKey} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(personKey, taskObject.name)} />
+          <InputBox key={`${taskObject.name}${index}`} taskObject={taskObject} index={index} setTaskRepartition={setTaskRepartition} getTaskRepartition={getTaskRepartition}>
+          {/* {taskObject.name}
+          <NewInputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={'me'} calculateTotal={calculateTotal} myTaskTimes={myTaskTimes} setTaskTimes={setMyTaskTimes} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(person[0], taskObject.name)} />
+          {ourTaskTimes}回
+          <NewInputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={'partner'} calculateTotal={calculateTotal} partnerTaskTimes={partnerTaskTimes} setTaskTimes={setPartnerTaskTimes} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(person[1], taskObject.name)} />
+          {taskObject.name}
+          <br /> */}
+          </InputBox>
         ));
       if (activeTasks.length > 0) {
         returnArray.push(
-          <div className={styles.categorySection} key={personKey[0] + category.name}>
+          <div className={styles.categorySection} key={person[0] + category.name}>
             <h2 className={styles.categoryHeader} style={{ color: "white" }}>
               {category.name}
             </h2>
@@ -89,6 +113,29 @@ export default React.memo(function InputPage() {
 
     return returnArray;
   };
+  // const getAllInputComponents = (taskArray, personKey) => {
+  //   const returnArray = [];
+
+  //   for (let category of taskArray) {
+  //     let activeTasks = category.children
+  //       .filter((task) => task.checked)
+  //       .map((taskObject, index) => (
+  //         <InputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={personKey} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(personKey, taskObject.name)} />
+  //       ));
+  //     if (activeTasks.length > 0) {
+  //       returnArray.push(
+  //         <div className={styles.categorySection} key={personKey[0] + category.name}>
+  //           <h2 className={styles.categoryHeader} style={{ color: "white" }}>
+  //             {category.name}
+  //           </h2>
+  //           {activeTasks}
+  //         </div>
+  //       );
+  //     }
+  //   }
+
+  //   return returnArray;
+  // };
 
   function getTaskRepartition(person, taskName) {
     const personKey = person == "me" ? "myTasks" : "partnerTasks";
@@ -111,8 +158,6 @@ export default React.memo(function InputPage() {
     if (person == "partner") {
       currentTaskRepartition["myTasks"][taskName].participates = !taskRepartitionItem.participates;
     }
-    console.log("currentTaskRepartitionAtom", currentTaskRepartitionAtom);
-    console.log("currentTaskRepartition", currentTaskRepartition);
   }
 
   const handleChangeTasks = (event) => {
@@ -155,8 +200,9 @@ export default React.memo(function InputPage() {
         scrollButtons="auto"
       >
         <Tab label="家事選択" sx={{ backgroundColor: "white" }} />
-        <Tab label="私の評価" sx={{ backgroundColor: "white" }} />
-        <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} />
+        <Tab label="私とパートナーの評価" sx={{ backgroundColor: "white" }} />
+        {/* <Tab label="私の評価" sx={{ backgroundColor: "white" }} /> */}
+        {/* <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} /> */}
         {/* <Tab label="コンシェルジュの提案" sx={{ backgroundColor: "white" }} /> */}
       </Tabs>
 
@@ -168,13 +214,18 @@ export default React.memo(function InputPage() {
       <TabPanel value={currentTab} index={1} sx={{ width: 1 }}>
         <br />
         <GuideTalk tabnumber={1}></GuideTalk>
+        {getAllInputComponents(allTasks)}
+      </TabPanel>
+      {/* <TabPanel value={currentTab} index={1} sx={{ width: 1 }}>
+        <br />
+        <GuideTalk tabnumber={1}></GuideTalk>
         {getAllInputComponents(allTasks, "me")}
       </TabPanel>
       <TabPanel value={currentTab} index={2} sx={{ width: 1 }}>
         <br />
         <GuideTalk tabnumber={2}></GuideTalk>
         {getAllInputComponents(allTasks, "partner")}
-      </TabPanel>
+      </TabPanel> */}
       <Grid container spacing={3} justifyContent="center">
         <Grid container item xs={6} justifyContent="flex-end">
           <Link href="/" passhref={true}>
@@ -195,7 +246,7 @@ export default React.memo(function InputPage() {
           >
             次へ
           </Button>
-          {currentTab === 2 ? (
+          {currentTab === 1 ? (
             // <Button color="primary" variant="contained" onClick={() => cookieCheck()} disabled={currentTab === 1}>
             //   この内容で診断する
             // </Button>
