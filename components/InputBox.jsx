@@ -15,7 +15,7 @@ export default function InputBox(props) {
 
   //  合計値を計算する
   const countOurTask = () => {
-    setOurTaskCount(parseInt(myTaskCount) + parseInt(partnerTaskCount))
+    setOurTaskCount(Number(myTaskCount) + Number(partnerTaskCount))
     return ourTaskCount
   }
 
