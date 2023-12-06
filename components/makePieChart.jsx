@@ -35,7 +35,7 @@ function makeMyPieData(props){
                 if (props.value.myTasks[t.name]){
                     if (props.value.myTasks[t.name].participates){
                         labels.push(t.name);
-                        data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration));
+                        data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration ,props.value.myTasks[t.name].participates));
                         backgroundColor.push(myBackColorBorder);
                         hoverBackgroundColor.push(myBackColorBorder);
                     }
@@ -49,7 +49,7 @@ function makeMyPieData(props){
                 let category = c.name;
                 if (props.value.myTasks[t.name] && props.value.myTasks[t.name].participates==false){
                     labels.push(t.name);
-                    data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration));
+                    data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration ,props.value.myTasks[t.name].participates));
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
                 }
@@ -75,7 +75,7 @@ function makePartnerPieData(props){
                 if (props.value.partnerTasks[t.name]){
                     if (props.value.partnerTasks[t.name].participates){
                         labels.push(t.name);
-                        data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration));
+                        data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration ,props.value.partnerTasks[t.name].participates));
                         backgroundColor.push(partnerBackColorBorder);
                         hoverBackgroundColor.push(partnerBackColorBorder);
                     }
@@ -89,7 +89,7 @@ function makePartnerPieData(props){
                 let category = c.name;
                 if (props.value.partnerTasks[t.name] && props.value.partnerTasks[t.name].participates==false){
                     labels.push(t.name);
-                    data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration));
+                    data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration, props.value.partnerTasks[t.name].participates));
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
                 }

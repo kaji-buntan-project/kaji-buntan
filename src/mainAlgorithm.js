@@ -377,9 +377,9 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
         for (let task of category.children){
             if (task.checked){
                 const myTask1 = currentTaskRepartition['myTasks'][task.name];
-                aliceUtility.push(calculateBurden(myTask1.effort, myTask1.duration));
+                aliceUtility.push(calculateBurden(myTask1.effort, myTask1.duration, myTask1.participates));
                 const partnerTask1 = currentTaskRepartition['partnerTasks'][task.name];
-                bobUtility.push(calculateBurden(partnerTask1.effort, partnerTask1.duration));
+                bobUtility.push(calculateBurden(partnerTask1.effort, partnerTask1.duration, partnerTask1.participates));
                 taskList.push(task.name);
                 //console.log(myTask1);
                 if (myTask1 && myTask1.participates){
