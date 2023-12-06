@@ -68,23 +68,10 @@ export default React.memo(function InputPage() {
 
   const [currentTaskRepartition, setAllTaskRepartition] = useAtom(currentTaskRepartitionAtom);
 
-  const [myTaskTimes, setMyTaskTimes] = useState(3)
-  const [partnerTaskTimes, setPartnerTaskTimes] = useState(4)
-  const [ourTaskTimes, setOurTaskTimes] = useState()
-
-  // useEffect(()=>{
-  // },[myTaskTimes ,partnerTaskTimes])
-
-
-  
-  
   //toDo:別ファイルに分割
   const getAllInputComponents = (taskArray) => {
     const returnArray = [];
     const person = ['me','partner']
-    const calculateTotal = ()=>{
-      setOurTaskTimes(myTaskTimes + partnerTaskTimes)
-    }
     
     for (let category of taskArray) {
       let activeTasks = category.children
@@ -152,12 +139,13 @@ export default React.memo(function InputPage() {
     // if (person == 'me' && !currentTaskRepartition['partnerTasks'][taskName].userModified) {
     //     currentTaskRepartition['partnerTasks'][taskName].participates = !taskRepartitionItem.participates;
     // }
-    if (person == "me") {
-      currentTaskRepartition["partnerTasks"][taskName].participates = !taskRepartitionItem.participates;
-    }
-    if (person == "partner") {
-      currentTaskRepartition["myTasks"][taskName].participates = !taskRepartitionItem.participates;
-    }
+    // if (person == "me") {
+    //   currentTaskRepartition["partnerTasks"][taskName].participates = !taskRepartitionItem.participates;
+    // }
+    // if (person == "partner") {
+    //   currentTaskRepartition["myTasks"][taskName].participates = !taskRepartitionItem.participates;
+    // }
+    console.log(currentTaskRepartition);
   }
 
   const handleChangeTasks = (event) => {
