@@ -1,5 +1,7 @@
 ## 環境構築
 
+#### 0. リポジトリをcloneする
+
 #### 1. docker desktop をインストールする
 
 ■docker公式サイト
@@ -10,25 +12,29 @@ https://docs.docker.com/get-docker/
 
 PCがIntelチップかM1チップかは、左上のりんごマークをクリックし、「このマックについて」から確認できます。
 
-#### 2. コンテナの起動
+#### 2. dockerを起動する
+
+インストールしたdockerを起動します。
+
+#### 3. コンテナの起動
 
 プロジェクトのルートディレクトリで以下のコマンドを実行します
 
 ```bash
-# .envファイルの作成
+# .envファイルを作成する
 cp .env.example .env
-# docker imageのbuild
+# docker imageをbuildする
 docker compose build
-# dockerコンテナの起動
+# dockerコンテナを起動する
 docker compose up -d
-# appコンテナに入る
+# appコンテナに入る(以降のコマンドはコンテナ内で実行します)
 docker compose exec app bash
-# ライブラリをインストール
+# appコンテナ内でライブラリをインストールする
 npm install
-# js,cssをバンドル
+# appコンテナ内でjs,cssをバンドルする
 npm run build
-# appサーバーを起動
+# appコンテナ内でnextサーバーを起動する
 npm run start
 ```
 
-http://localhost:3000 にアクセスし、ページが表示されたら環境構築成功です
+http://localhost:3000 にアクセスし、ページが表示されたら環境構築成功です。
