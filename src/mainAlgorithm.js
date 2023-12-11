@@ -392,7 +392,8 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
                 //console.log(myTask1);
                 if (myTask1 && myTask1.participates){
                     aliceAllocation.push(task.name);
-                }else if (partnerTask1 && partnerTask1.participates){
+                }
+                if (partnerTask1 && partnerTask1.participates){
                     bobAllocation.push(task.name);
                 }
             }
