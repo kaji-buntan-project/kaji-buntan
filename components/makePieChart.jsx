@@ -43,13 +43,14 @@ function makeMyPieData(props){
             }
         })
     });
+    //パートナーの負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
                 let category = c.name;
-                if (props.value.myTasks[t.name] && props.value.myTasks[t.name].participates==false){
+                if (props.value.partnerTasks[t.name].userModified==true){
                     labels.push(t.name);
-                    data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration ,props.value.myTasks[t.name].participates));
+                    data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration ,props.value.partnerTasks[t.name].participates));
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
                 }
@@ -83,15 +84,17 @@ function makePartnerPieData(props){
             }
         })
     });
+    //私の負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
                 let category = c.name;
-                if (props.value.partnerTasks[t.name] && props.value.partnerTasks[t.name].participates==false){
+                if (props.value.myTasks[t.name].userModified==true){
                     labels.push(t.name);
-                    data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration, props.value.partnerTasks[t.name].participates));
+                    data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration, props.value.myTasks[t.name].participates));
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
+
                 }
             }
         });
