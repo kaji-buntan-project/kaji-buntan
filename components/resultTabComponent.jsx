@@ -71,6 +71,7 @@ export default function ResultTabComponent(props) {
   
 
 
+  // 家事の変更処理
   const changeRepartition = (person, taskName, tabtabnumber) => {
     let TaskRepartition = {}
     let setRepartition = null

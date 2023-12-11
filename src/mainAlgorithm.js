@@ -32,7 +32,7 @@ function MaxArray(Array1){
     return Array1.reduce((prev, cur) => Math.max(prev, cur),0);
 }
   
-  
+//公平性:妬みのない分担 (Envy-freeness)
 function isEFone(AliceUtility,BobUtility,AliceAllocation,BobAllocation){
     const AAU=[];
     const BAU=[];
@@ -197,19 +197,23 @@ function adjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition)
     return { myTasks: myTasks, partnerTasks: partnerTasks};
 }
 
-
+//理想的な分担
 function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition){
     let ranNum = Math.random();
+    //アリスのタスク番号（0,1,2...）
     let AliceAllocation = [];
     let BobAllocation = [];
+
+    //アリス＝私
     if (ranNum >= 0.5){
         AliceAllocation = Array.from(Array(aliceUtility.length), (v, k) => k);
         BobAllocation = [];
         let alist = [];
         for (let i=0; i < AliceAllocation.length; i++){
-            //console.log(isString(key));
+            //負担度の比を計算
             alist.push([AliceAllocation[i], bobUtility[AliceAllocation[i]]/aliceUtility[AliceAllocation[i]]]);
         }
+        //負担度比の小さい順から並べる（アリスにとって負担大きく、ボブにとって負担が少ない順）
         alist.sort((a, b) => (a[1]-b[1]));
         let t = 0;
         for (let i=0; i < alist.length; i++){
@@ -242,6 +246,7 @@ function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepa
             BobAllocation.push(alist[i][0]);
             //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
         }
+    //アリス＝パートナー
     }else{
         AliceAllocation = [];
         BobAllocation = Array.from(Array(bobUtility.length), (v, k) => k);
@@ -298,7 +303,7 @@ function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepa
 }
 
 
-
+//少し理想的な分担
 function leastChangeAllocation(aliceUtility,bobUtility,aliceAllocation, bobAllocation,taskList,currentTaskRepartition){
     let aliceAllocationIndex = [];
     let bobAllocationIndex = [];
@@ -318,7 +323,6 @@ function leastChangeAllocation(aliceUtility,bobUtility,aliceAllocation, bobAlloc
         let BAU=[];
         let ABU=[];
         let BBU=[];
-        //console.log(aliceAllocation);
         for (let i=0; i < aliceAllocation.length; i++){
             let indexa = taskList.indexOf(aliceAllocation[i]);
             AAU.push(aliceUtility[indexa]);
@@ -374,13 +378,19 @@ function leastChangeAllocation(aliceUtility,bobUtility,aliceAllocation, bobAlloc
 }
   
 
-
+//アリス役、ボブ役の設定
 export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
+    //アリスの負担度
     let aliceUtility = [];
+    //ボブの負担度
     let bobUtility = [];
+    //アリスのタスク番号
     let aliceAllocation = [];
+    //ボブのタスク番号
     let bobAllocation = [];
+    //家事リスト
     let taskList = [];
+    //上記の配列に現在のタスクを割り当てる
     for (let category of allTasks){
         for (let task of category.children){
             if (task.checked){
@@ -389,7 +399,6 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
                 const partnerTask1 = currentTaskRepartition['partnerTasks'][task.name];
                 bobUtility.push(calculateBurden(partnerTask1.effort, partnerTask1.duration, partnerTask1.participates));
                 taskList.push(task.name);
-                //console.log(myTask1);
                 if (myTask1 && myTask1.participates){
                     aliceAllocation.push(task.name);
                 }
@@ -400,9 +409,12 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
         }
     }
 
+    //理想的な家事分担のタスクリストを作成
     let adjustedWinnerTaskRepartition = improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition);
-
+    
+    //少し理想的な家事分担のタスクリストを作成
     let leastChangeAllocationTaskRepartition = leastChangeAllocation(aliceUtility,bobUtility,aliceAllocation, bobAllocation,taskList,currentTaskRepartition);
+
 
     return [adjustedWinnerTaskRepartition, leastChangeAllocationTaskRepartition];
 }

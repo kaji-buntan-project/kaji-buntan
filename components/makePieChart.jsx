@@ -21,6 +21,7 @@ const partnerBackColor = constants.partnerBackColor
 const myBackColorBorder = constants.myBackColorBorder
 const partnerBackColorBorder = constants.partnerBackColorBorder
 
+// 私の円グラフ
 function makeMyPieData(props){
     const myData = {};
     let a = 0;
@@ -28,6 +29,7 @@ function makeMyPieData(props){
     const data = [];
     const backgroundColor = [];
     const hoverBackgroundColor = [];
+    //私の負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
@@ -61,7 +63,7 @@ function makeMyPieData(props){
 }
 
 
-
+// パートナーの円グラフ
 function makePartnerPieData(props){
     const partnerData = {};
     let a = 0;
@@ -69,6 +71,7 @@ function makePartnerPieData(props){
     const data = [];
     const backgroundColor = [];
     const hoverBackgroundColor = [];
+    //パートナーの負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
