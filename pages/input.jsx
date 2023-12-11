@@ -145,7 +145,7 @@ export default React.memo(function InputPage() {
     // if (person == "partner") {
     //   currentTaskRepartition["myTasks"][taskName].participates = !taskRepartitionItem.participates;
     // }
-    console.log(currentTaskRepartition);
+    setAllTaskRepartition(currentTaskRepartition)
   }
 
   const handleChangeTasks = (event) => {
