@@ -1,11 +1,13 @@
 import styles from '../styles/input.module.css';
 
-import React from 'react';
+import React, { useEffect } from "react";
 import TaskCategoryList from "../components/taskCategoryList";
 import ResultTabComponent from '../components/resultTabComponent';
 import InputItem from '../components/inputItem';
 import  Tab from '@mui/material/Tab';
 import  Tabs from '@mui/material/Tabs';
+import NewInputItem from "../components/newInputItem";
+import InputBox from "../components/InputBox";
 import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -79,18 +81,32 @@ export default function InputPage() {
     const [ currentTab, setCurrentTab ] = useState(0);
     const [ currentTaskRepartition, setAllTaskRepartition ] = useAtom(currentTaskRepartitionAtom);
 
-    const getAllInputComponents = (taskArray, personKey) => {
-
-        const returnArray = [];
+    const [myTaskTimes, setMyTaskTimes] = useState(3)
+    const [partnerTaskTimes, setPartnerTaskTimes] = useState(4)
+    const [ourTaskTimes, setOurTaskTimes] = useState()
+    
+    //toDo:別ファイルに分割
+    const getAllInputComponents = (taskArray) => {
+      const returnArray = [];
+      const person = ['me','partner']
+      const calculateTotal = ()=>{
+        setOurTaskTimes(myTaskTimes + partnerTaskTimes)
+      }
 
         for (let category of taskArray) {
             let activeTasks = category.children.filter(task => task.checked).map((taskObject, index) => 
-                <InputItem label={taskObject.name} key={ `${taskObject.name}${index}` } person={personKey}
-                    onTaskChange={setTaskRepartition} initialValue={ getTaskRepartition(personKey, taskObject.name) }/>
+            <InputBox key={`${taskObject.name}${index}`} taskObject={taskObject} index={index} setTaskRepartition={setTaskRepartition} getTaskRepartition={getTaskRepartition}>
+            {/* {taskObject.name}
+            <NewInputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={'me'} calculateTotal={calculateTotal} myTaskTimes={myTaskTimes} setTaskTimes={setMyTaskTimes} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(person[0], taskObject.name)} />
+            {ourTaskTimes}回
+            <NewInputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={'partner'} calculateTotal={calculateTotal} partnerTaskTimes={partnerTaskTimes} setTaskTimes={setPartnerTaskTimes} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(person[1], taskObject.name)} />
+            {taskObject.name}
+            <br /> */}
+            </InputBox>
             );
             if (activeTasks.length > 0) {
                 returnArray.push(
-                    <div className={ styles.categorySection } key={personKey[0] + category.name}>
+                    <div className={styles.categorySection} key={person[0] + category.name}>
                         <h2 className={ styles.categoryHeader } style={{ color: 'white' }}>{ category.name }</h2>
                         { activeTasks }
                     </div>
@@ -161,25 +177,22 @@ export default function InputPage() {
             scrollButtons="auto"
             >
                 <Tab label="家事選択" sx={{ backgroundColor: 'white'}} />
-                <Tab label="私の評価" sx={{ backgroundColor: 'white'}}/>
-                <Tab label="パートナーの評価" sx={{ backgroundColor: 'white'}}/>
+                <Tab label="私とパートナーの評価" sx={{ backgroundColor: "white" }} />
+                {/* <Tab label="私の評価" sx={{ backgroundColor: "white" }} /> */}
+                {/* <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} /> */}
                 {/* <Tab label="コンシェルジュの提案" sx={{ backgroundColor: 'white'}}/> */}
             </Tabs>
-            
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
                 <br/>
                 <GuideTalk tabnumber={0}></GuideTalk>
                 <TaskCategoryList taskTree={allTasks} onChange={handleChangeTasks}></TaskCategoryList>
             </TabPanel>
             <TabPanel value={ currentTab } index={1} sx={{ width: 1}} >
-                <br/>
+                <br />
                 <GuideTalk tabnumber={1}></GuideTalk>
-                { getAllInputComponents(allTasks, 'me') }
+                {getAllInputComponents(allTasks)}
             </TabPanel>
-            <TabPanel value={ currentTab } index={2} sx={{ width: 1}}>
-                <br/>
-                <GuideTalk tabnumber={2}></GuideTalk>
-                { getAllInputComponents(allTasks, 'partner') }
+        {/* <TabPanel value={currentTab} index={1} sx={{ width: 1 }}>
             </TabPanel>
             {/* <TabPanel value={ currentTab } index={3} sx={{ width: 1}}>
               <ResultTabComponent
@@ -197,7 +210,7 @@ export default function InputPage() {
                         setCurrentTab(currentTab + 1);
                         scrollToTop();
                     }}>次へ</Button>
-                {currentTab === 2 ? (
+                {currentTab === 1 ? (
                 <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/result" onClick={() => cookieCheck()}>
                 この内容で診断する
                 </NextLink>
