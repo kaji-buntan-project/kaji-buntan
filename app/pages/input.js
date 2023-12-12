@@ -8,6 +8,7 @@ import  Tab from '@mui/material/Tab';
 import  Tabs from '@mui/material/Tabs';
 import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 import { DateTime } from 'luxon';
 
@@ -45,6 +46,28 @@ const allTasks = constants.allTasks
 
 
 export default function InputPage() {
+
+       //cookieの処理
+       const [cookies, setCookies] = useCookies(['cookieId']);
+
+       //cookieによる初回か2回目以降かの判定
+       const cookieCheck = () => {
+           switch (cookies.cookieId) {
+             //初回のユーザー
+             default:
+                 setCookies("cookieId", 10000);
+                 break
+   
+             //2回目のユーザー
+             case 10000:
+                 setCookies("cookieId", 20000);
+                 break;
+   
+             //3回目以降のユーザー
+             case 20000:
+               break;
+           }
+         };
 
     const [ currentTab, setCurrentTab ] = useState(0);
     const [ currentTaskRepartition, setAllTaskRepartition ] = useState(getInitialTaskRepartition());
@@ -194,6 +217,11 @@ export default function InputPage() {
                         setCurrentTab(currentTab + 1);
                         scrollToTop();
                     }}>次へ</Button>
+                {currentTab === 2 ? 
+                <Button href='/result' color="primary" variant="contained" onClick={()=>cookieCheck()} disabled={currentTab === 1}>
+                    この内容で診断する
+                </Button> 
+                : ''}
                 </Grid>
             </Grid>
         </div>
