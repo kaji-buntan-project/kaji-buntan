@@ -63,7 +63,7 @@ export default function ResultTabComponent(props) {
     setAdjustedBobAllocation(adjustedWinnerBobAllocation);
     setLeastAliceAllocation(leastChangeAliceAllocation);
     setLeastBobAllocation(leastChangeBobAllocation);
-  }, [adjustedRepartition, leastRepartition, hoge]);
+  }, [adjustedRepartition, leastRepartition, hoge,,allTasks]);
 
   
 

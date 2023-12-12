@@ -9,6 +9,7 @@ import  Tabs from '@mui/material/Tabs';
 import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { useRouter } from "next/router";
 
 import { DateTime } from 'luxon';
 
@@ -18,6 +19,9 @@ import makeAliceBobUtility from "../src/mainAlgorithm";
 import AllocationList from 'components/allocationList';
 
 import GuideTalk from 'components/guideTalk';
+import { useAtom } from "jotai";
+import NextLink from "next/link";
+import { currentTaskRepartitionAtom, allTasksAtom } from "../lib/atoms.js";
 
 // TabPanel -> https://mui.com/material-ui/react-tabs/
 function TabPanel(props) {
@@ -46,6 +50,9 @@ const allTasks = constants.allTasks
 
 
 export default function InputPage() {
+    
+    const router = useRouter();
+    const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
        //cookieの処理
        const [cookies, setCookies] = useCookies(['cookieId']);
@@ -70,7 +77,7 @@ export default function InputPage() {
          };
 
     const [ currentTab, setCurrentTab ] = useState(0);
-    const [ currentTaskRepartition, setAllTaskRepartition ] = useState(getInitialTaskRepartition());
+    const [ currentTaskRepartition, setAllTaskRepartition ] = useAtom(currentTaskRepartitionAtom);
 
     const getAllInputComponents = (taskArray, personKey) => {
 
@@ -92,34 +99,6 @@ export default function InputPage() {
         }
 
         return returnArray;
-    }
-
-    // Functions regarding the task repartition state -=-=-=-=-=-=-=-
-    // Creating the initial value
-    function getInitialTaskRepartition() {
-        const myTasks = {};
-        const partnerTasks = {};
-
-        for (let categoryObject of allTasks) {
-            for (let taskObject of categoryObject.children) {
-                myTasks[taskObject.name] = {
-                    participates: false,
-                    effort: 0,
-                    duration : 10,
-                    category : categoryObject.name,
-                    userModified: false,
-                };
-                partnerTasks[taskObject.name] = {
-                    participates: false,
-                    effort: 0,
-                    duration : 10,
-                    category : categoryObject.name,
-                    userModified: false,
-                }
-            }
-        }
-
-        return { myTasks: myTasks, partnerTasks: partnerTasks};
     }
 
     function getTaskRepartition(person, taskName) {
@@ -144,12 +123,13 @@ export default function InputPage() {
             currentTaskRepartition['myTasks'][taskName].participates = !taskRepartitionItem.participates;
         }
 
-        setAllTaskRepartition(currentTaskRepartition);
+        // setAllTaskRepartition(currentTaskRepartition);
 
     }
     
     const handleChangeTasks = (event) => {
         allTasks[event.index].children[event.child.index].checked = event.child.checked;
+        setAllTasks(allTasks);
     }
 
     
@@ -217,11 +197,11 @@ export default function InputPage() {
                         setCurrentTab(currentTab + 1);
                         scrollToTop();
                     }}>次へ</Button>
-                {currentTab === 2 ? 
-                <Button href='/result' color="primary" variant="contained" onClick={()=>cookieCheck()} disabled={currentTab === 1}>
-                    この内容で診断する
-                </Button> 
-                : ''}
+                {currentTab === 2 ? (
+                <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/result" onClick={() => cookieCheck()}>
+                この内容で診断する
+                </NextLink>
+                ): ''}
                 </Grid>
             </Grid>
         </div>
