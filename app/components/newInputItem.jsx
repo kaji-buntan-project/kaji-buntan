@@ -42,7 +42,7 @@ export default function InputItem(props) {
     useEffect(() => {
         if (onTaskChange && onTaskChange instanceof Function) {
             onTaskChange(person, label, {
-                participates: taskCount,
+                participates: Number(taskCount),
                 effort: happyLevel,
                 duration: taskTime,
                 category: initialValue.category
