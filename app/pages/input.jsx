@@ -181,13 +181,13 @@ export default function InputPage() {
                 <GuideTalk tabnumber={2}></GuideTalk>
                 { getAllInputComponents(allTasks, 'partner') }
             </TabPanel>
-            <TabPanel value={ currentTab } index={3} sx={{ width: 1}}>
+            {/* <TabPanel value={ currentTab } index={3} sx={{ width: 1}}>
               <ResultTabComponent
                 currentTaskRepartition={ currentTaskRepartition }
                 allTasks={ allTasks }
               >
               </ResultTabComponent>
-            </TabPanel>
+            </TabPanel> */}
             <Grid container spacing={3} justifyContent="center">
                 <Grid container item xs={6} justifyContent="flex-end">
                     <Link href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
