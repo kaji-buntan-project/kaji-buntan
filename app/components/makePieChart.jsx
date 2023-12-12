@@ -21,6 +21,7 @@ const partnerBackColor = constants.partnerBackColor
 const myBackColorBorder = constants.myBackColorBorder
 const partnerBackColorBorder = constants.partnerBackColorBorder
 
+// 私の円グラフ
 function makeMyPieData(props){
     const myData = {};
     let a = 0;
@@ -28,6 +29,7 @@ function makeMyPieData(props){
     const data = [];
     const backgroundColor = [];
     const hoverBackgroundColor = [];
+    //私の負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
@@ -35,7 +37,7 @@ function makeMyPieData(props){
                 if (props.value.myTasks[t.name]){
                     if (props.value.myTasks[t.name].participates){
                         labels.push(t.name);
-                        data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration));
+                        data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration ,props.value.myTasks[t.name].participates));
                         backgroundColor.push(myBackColorBorder);
                         hoverBackgroundColor.push(myBackColorBorder);
                     }
@@ -49,7 +51,7 @@ function makeMyPieData(props){
                 let category = c.name;
                 if (props.value.myTasks[t.name] && props.value.myTasks[t.name].participates==false){
                     labels.push(t.name);
-                    data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration));
+                    data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration ,props.value.myTasks[t.name].participates));
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
                 }
@@ -60,7 +62,7 @@ function makeMyPieData(props){
 }
 
 
-
+// パートナーの円グラフ
 function makePartnerPieData(props){
     const partnerData = {};
     let a = 0;
@@ -68,6 +70,7 @@ function makePartnerPieData(props){
     const data = [];
     const backgroundColor = [];
     const hoverBackgroundColor = [];
+    //パートナーの負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
@@ -75,7 +78,7 @@ function makePartnerPieData(props){
                 if (props.value.partnerTasks[t.name]){
                     if (props.value.partnerTasks[t.name].participates){
                         labels.push(t.name);
-                        data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration));
+                        data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration ,props.value.partnerTasks[t.name].participates));
                         backgroundColor.push(partnerBackColorBorder);
                         hoverBackgroundColor.push(partnerBackColorBorder);
                     }
@@ -83,13 +86,14 @@ function makePartnerPieData(props){
             }
         })
     });
+      //私の負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
                 let category = c.name;
                 if (props.value.partnerTasks[t.name] && props.value.partnerTasks[t.name].participates==false){
                     labels.push(t.name);
-                    data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration));
+                    data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration, props.value.partnerTasks[t.name].participates));
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
                 }
