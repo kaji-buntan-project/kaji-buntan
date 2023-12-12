@@ -132,7 +132,7 @@ export default function InputPage() {
         //     currentTaskRepartition['myTasks'][taskName].participates = !taskRepartitionItem.participates;
         // }
 
-        // setAllTaskRepartition(currentTaskRepartition);
+        setAllTaskRepartition(currentTaskRepartition);
 
     }
     
