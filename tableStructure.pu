@@ -50,15 +50,15 @@ entity now_division_and_ratings as "now_division_and_ratings\n(今の家事分�
 entity little_ideal_divisions as "little_ideal_divisions\n(少し理想的な家事分担)" {
     * id <<PK>>
     --
-    * now_division_and_ratings_id : 今の家事分担と評価ID
+    * now_division_and_rating_id : 今の家事分担と評価ID
     * users_times : 少し理想的な私の行う回数
     * partners_times : 少し理想的なパートナーの行う回数
 }
 
-entity ideal_divisions as "little_ideal_divisions\n(理想的な家事分担)" {
+entity ideal_divisions as "ideal_divisions\n(理想的な家事分担)" {
     * id <<PK>>
     --
-    * now_division_and_ratings_id : 今の家事分担と評価ID
+    * now_division_and_rating_id : 今の家事分担と評価ID
     * users_times : 理想的な私の行う回数
     * partners_times : 理想的なパートナーの行う回数
 }
