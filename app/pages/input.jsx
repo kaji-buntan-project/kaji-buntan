@@ -10,7 +10,6 @@ import NewInputItem from "../components/newInputItem";
 import InputBox from "../components/InputBox";
 import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { useRouter } from "next/router";
 
 import { DateTime } from 'luxon';
@@ -55,28 +54,6 @@ export default function InputPage() {
     
     const router = useRouter();
     const [allTasks, setAllTasks] = useAtom(allTasksAtom);
-
-       //cookieの処理
-       const [cookies, setCookies] = useCookies(['cookieId']);
-
-       //cookieによる初回か2回目以降かの判定
-       const cookieCheck = () => {
-           switch (cookies.cookieId) {
-             //初回のユーザー
-             default:
-                 setCookies("cookieId", 10000);
-                 break
-   
-             //2回目のユーザー
-             case 10000:
-                 setCookies("cookieId", 20000);
-                 break;
-   
-             //3回目以降のユーザー
-             case 20000:
-               break;
-           }
-         };
 
     const [ currentTab, setCurrentTab ] = useState(0);
     const [ currentTaskRepartition, setAllTaskRepartition ] = useAtom(currentTaskRepartitionAtom);
@@ -204,7 +181,7 @@ export default function InputPage() {
                         scrollToTop();
                     }}>次へ</Button>
                 {currentTab === 1 ? (
-                <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/result" onClick={() => cookieCheck()}>
+                <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/result">
                 この内容で診断する
                 </NextLink>
                 ): ''}
