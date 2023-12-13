@@ -16,12 +16,12 @@ PCがIntelチップかM1チップかは、左上のりんごマークをクリ�
 
 インストールしたdockerを起動します。
 
-#### 3. コンテナの起動
+#### 3. コンテナの起動 ~ フロントエンドの環境構築
 
 プロジェクトのルートディレクトリで以下のコマンドを実行します
 
 ```bash
-# .envファイルを作成する
+# .env.exampleの内容をコピーし、.envファイルを作成する
 cp .env.example .env
 # docker imageをbuildする
 docker compose build
@@ -38,3 +38,23 @@ npm run start
 ```
 
 http://localhost:3000 にアクセスし、ページが表示されたら環境構築成功です。
+
+#### 4. バックエンドの環境構築
+
+dockerコンテナが起動した状態で、プロジェクトのルートディレクトリで以下のコマンドを実行します
+```bash
+# apiコンテナに入る(以降のコマンドはコンテナ内で実行します)
+docker compose exec api bash
+# apiコンテナ内で.env.exampleの内容をコピーし、.envファイルを作成する
+cp .env.example .env
+# apiコンテナ内で必要なライブラリをインストールする
+composer install
+# apiコンテナ内で .env にAPP_KEYを生成する
+php artisan key:generate
+# apiコンテナ内でテーブルを作成するコマンドを実行する
+php artisan migrate
+```
+
+http://localhost:8080/api にアクセスし、hello worldと表示されたら環境構築成功です。
+
+また、http://localhost:8081 にアクセスすることで、DBの内容を確認できます。
