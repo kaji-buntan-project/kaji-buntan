@@ -1,0 +1,74 @@
+@startuml houseWorkSharing
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity users as "users\n(ユーザー)" {
+    * id <<PK>>
+    --
+    * user_id <<UNI>> 
+}
+
+entity mst_houseworks as "mst_houseworks\n(家事マスタ)" {
+    * id <<PK>>
+    --
+    * mst_housework_category_id <<FK>>
+    * name <<UNI>>
+}
+
+entity mst_housework_categories as "mst_housework_categories\n(家事カテゴリマスタ)" {
+    * id <<PK>>
+    --
+    * name <<UNI>>
+}
+
+entity diagnosis_histories as "diagnosis_histories\n(診断履歴)" {
+    * id <<PK>>
+    --
+    * user_id <<FK>>
+    * diagnosis_times : 何回目の診断か
+    * created_at : 作成日
+}
+
+entity now_division_and_ratings as "now_division_and_ratings\n(今の家事分担と評価)" {
+    * id <<PK>>
+    --
+    * diagnosis_history_id <<FK>> : 診断履歴ID
+    * user_id <<FK>> : ユーザーID
+    * mst_housework_id <<FK>> : 家事マスタID
+    * mst_housework_category_id <<FK>> : 家事カテゴリID
+    * users_times : 現状の私の行う回数
+    * users_rate : 私の評価(1,2,3)
+    * users_minitues : 私の家事にかかる時間
+    * partners_times : 現状のパートナーの行う回数
+    * partners_rate : パートナーの評価(1,2,3)
+    * partners_minitues : パートナーの家事にかかる時間
+}
+
+entity little_ideal_divisions as "little_ideal_divisions\n(少し理想的な家事分担)" {
+    * id <<PK>>
+    --
+    * now_division_and_ratings_id : 今の家事分担と評価ID
+    * users_times : 少し理想的な私の行う回数
+    * partners_times : 少し理想的なパートナーの行う回数
+}
+
+entity ideal_divisions as "little_ideal_divisions\n(理想的な家事分担)" {
+    * id <<PK>>
+    --
+    * now_division_and_ratings_id : 今の家事分担と評価ID
+    * users_times : 理想的な私の行う回数
+    * partners_times : 理想的なパートナーの行う回数
+}
+
+users ||--|{ diagnosis_histories
+diagnosis_histories ||--|{ now_division_and_ratings
+now_division_and_ratings ||--|| little_ideal_divisions
+now_division_and_ratings ||--|| ideal_divisions
+mst_houseworks }|--|| mst_housework_categories
+now_division_and_ratings }|-l-|| mst_houseworks
+now_division_and_ratings }|-l-|| mst_housework_categories
+
+@enduml
