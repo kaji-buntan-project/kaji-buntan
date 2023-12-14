@@ -67,7 +67,7 @@ export default function InputItem(props) {
             onChange={e => setTaskCount(e.target.value)}
             type="number"
             min={0}
-            max={7}
+            max={200}
             defaultValue={taskCount}
             />
         </label>
