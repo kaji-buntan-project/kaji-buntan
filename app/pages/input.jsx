@@ -65,7 +65,7 @@ export default function InputPage() {
 
         for (let category of taskArray) {
             let activeTasks = category.children.filter(task => task.checked).map((taskObject, index) => 
-            <InputBox key={`${taskObject.name}${index}`} taskObject={taskObject} index={index} setTaskRepartition={setTaskRepartition} getTaskRepartition={getTaskRepartition}>
+            <InputBox key={`${taskObject.name}${index}`} taskObject={taskObject} index={index} setTaskRepartition={setTaskRepartition} getTaskRepartition={getTaskRepartition} currentTaskRepartition={currentTaskRepartition}>
             {/* {taskObject.name}
             <NewInputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={'me'} calculateTotal={calculateTotal} myTaskTimes={myTaskTimes} setTaskTimes={setMyTaskTimes} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(person[0], taskObject.name)} />
             {ourTaskTimes}回

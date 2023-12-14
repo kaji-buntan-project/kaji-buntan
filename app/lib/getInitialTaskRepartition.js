@@ -10,14 +10,14 @@ const partnerTasks = {};
 for (let categoryObject of constants.allTasks) {
     for (let taskObject of categoryObject.children) {
         myTasks[taskObject.name] = {
-            participates: 3,
+            participates: taskObject.myDefault,
             effort: 0,
             duration : 10,
             category : categoryObject.name,
             userModified: false,
         };
         partnerTasks[taskObject.name] = {
-            participates: 4,
+            participates: taskObject.partnerDefault,
             effort: 0,
             duration : 10,
             category : categoryObject.name,
@@ -25,6 +25,8 @@ for (let categoryObject of constants.allTasks) {
         }
     }
 }
+console.log(myTasks);
+console.log(partnerTasks);
 
 return { myTasks: myTasks, partnerTasks: partnerTasks};
 }

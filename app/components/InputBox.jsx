@@ -2,16 +2,19 @@ import NewInputItem from "../components/newInputItem";
 import { useState } from "react";
 
 export default function InputBox(props) {
-  const { taskObject, index, getTaskRepartition, setTaskRepartition } = props;
+  const { taskObject, index, getTaskRepartition, setTaskRepartition , currentTaskRepartition } = props;
+
+  const myTask = currentTaskRepartition.myTasks[taskObject.name]
+  const partnerTask = currentTaskRepartition.partnerTasks[taskObject.name]
 
   // 家事分担の合計値（初期値：7）
-  const [ourTaskCount, setOurTaskCount] = useState(7);
+  const [ourTaskCount, setOurTaskCount] = useState();
 
-  // 「私」の家事回数（初期値：3）
-  const [myTaskCount, setMyTaskCount] = useState(3);
+  // 「私」の家事回数
+  const [myTaskCount, setMyTaskCount] = useState(myTask.participates);
 
-  // 「パートナー」の家事回数（初期値：4）
-  const [partnerTaskCount, setPartnerTaskCount] = useState(4);
+  // 「パートナー」の家事回数
+  const [partnerTaskCount, setPartnerTaskCount] = useState(partnerTask.participates);
 
   //  合計値を計算する
   const countOurTask = () => {
