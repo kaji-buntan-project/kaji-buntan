@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function() {
     return response()->json('hello world');
 });
+
+Route::post('diagnosis', [App\Http\Controllers\Api\DiagnosisDataController::class, 'store']);
