@@ -3,6 +3,7 @@ import styles from '../styles/input.module.css';
 import React, { useEffect } from "react";
 import TaskCategoryList from "../components/taskCategoryList";
 import ResultTabComponent from '../components/resultTabComponent';
+import makeBothAllocation from '../components/resultTabComponent';
 import InputItem from '../components/inputItem';
 import  Tab from '@mui/material/Tab';
 import  Tabs from '@mui/material/Tabs';
@@ -11,6 +12,9 @@ import InputBox from "../components/InputBox";
 import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
 import { useRouter } from "next/router";
+
+// import {leastChangeAllocationTaskRepartition,adjustedWinnerTaskRepartition} from '../lib/init.js'
+import {setDataToDB} from '../lib/setDataToDB'
 
 import { DateTime } from 'luxon';
 
@@ -22,7 +26,7 @@ import AllocationList from 'components/allocationList';
 import GuideTalk from 'components/guideTalk';
 import { useAtom } from "jotai";
 import NextLink from "next/link";
-import { currentTaskRepartitionAtom, allTasksAtom } from "../lib/atoms.js";
+import { currentTaskRepartitionAtom, leastRepartitionAtom, adjustedRepartitionAtom, allTasksAtom } from "../lib/atoms.js";
 
 // TabPanel -> https://mui.com/material-ui/react-tabs/
 function TabPanel(props) {
@@ -56,7 +60,18 @@ export default function InputPage() {
     const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
     const [ currentTab, setCurrentTab ] = useState(0);
+    
+    //現在の家事分担データ
     const [ currentTaskRepartition, setAllTaskRepartition ] = useAtom(currentTaskRepartitionAtom);
+
+    //少し理想的な分担の家事データ
+    // const [ leastRepartition, setLeastRepartition ] = useAtom(leastRepartitionAtom);
+
+    //理想的な分担の家事データ
+    // const [ adjustedRepartition, setAdjustedRepartition ] = useAtom(adjustedRepartitionAtom);
+
+    //家事データを送信する
+    // sendDataToDB(currentTaskRepartition,leastRepartition,adjustedRepartition,allTasks)
 
     //toDo:別ファイルに分割
     const getAllInputComponents = (taskArray) => {
@@ -92,6 +107,7 @@ export default function InputPage() {
         return currentTaskRepartition[personKey][taskName];
     }
     
+    //todo:useEffect
     function setTaskRepartition(person, taskName, taskRepartitionItem) {
         const personKey = (person == 'me' ? 'myTasks' : 'partnerTasks');           
         
@@ -181,7 +197,8 @@ export default function InputPage() {
                         scrollToTop();
                     }}>次へ</Button>
                 {currentTab === 1 ? (
-                <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/result">
+                // <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom ,leastRepartitionAtom: leastRepartitionAtom, adjustedRepartitionAtom:adjustedRepartitionAtom, setAdjustedRepartition:setAdjustedRepartition }} as="/result">
+                <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom}} as="/result">
                 この内容で診断する
                 </NextLink>
                 ): ''}

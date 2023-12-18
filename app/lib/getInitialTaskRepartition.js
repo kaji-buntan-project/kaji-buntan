@@ -25,8 +25,5 @@ for (let categoryObject of constants.allTasks) {
         }
     }
 }
-console.log(myTasks);
-console.log(partnerTasks);
-
 return { myTasks: myTasks, partnerTasks: partnerTasks};
 }
