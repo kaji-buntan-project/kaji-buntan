@@ -11,6 +11,8 @@ import Image from 'next/image';
 
 import detectAllocationChange from "src/detectAllocationChange";
 import makeAliceBobUtility from "/src/mainAlgorithm";
+import { setDataToDB } from "/lib/setDataToDB";
+import { sendDataToDB } from "/lib/sendDataToDB";
 
 
 function makeBothAllocation(TaskRepartition, allTasks){
@@ -33,6 +35,10 @@ function makeBothAllocation(TaskRepartition, allTasks){
 }
 
 export default function ResultDashboard(props) {
+  if(props.tag){
+    setDataToDB()
+    // sendDataToDB(setDataToDB())
+  }
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
   return (
     <Box>

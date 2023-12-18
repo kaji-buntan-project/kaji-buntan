@@ -48,9 +48,17 @@ export default function ResultTabComponent(props) {
   const [adjustedWinnerAliceAllocation, adjustedWinnerBobAllocation] = makeBothAllocation(adjustedWinnerTaskRepartition, allTasks);
   const [leastChangeAliceAllocation, leastChangeBobAllocation] = makeBothAllocation(leastChangeAllocationTaskRepartition, allTasks);
 
+  const [adjustedRepartition, setAdjustedRepartition] = useAtom(adjustedRepartitionAtom);
+  const [leastRepartition, setLeastRepartition] = useAtom(leastRepartitionAtom);
+  const [tag, setTag] = useState(false);
 
   const [adjustedRepartition, setAdjustedRepartition] = useState(adjustedWinnerTaskRepartition);
   const [leastRepartition, setLeastRepartition] = useState(leastChangeAllocationTaskRepartition);
+  useEffect(() => {
+    setAdjustedRepartition(adjustedWinnerTaskRepartition);
+    setLeastRepartition(leastChangeAllocationTaskRepartition);
+    setTag(true);
+  }, []);
 
   
   const [adjustedAliceAllocation, setAdjustedAliceAllocation] = useState(adjustedWinnerAliceAllocation);
@@ -119,8 +127,9 @@ export default function ResultTabComponent(props) {
           current={"current"}
           tabtabnumber={"0"}
           repartition={changeRepartition}
-          currentTaskRepartition = {currentTaskRepartition} 
-          allTasks = {allTasks}
+          currentTaskRepartition={currentTaskRepartition}
+          allTasks={allTasks}
+          tag={tag}
         ></ResultDashboard>
         <h1></h1>
         <br></br>
