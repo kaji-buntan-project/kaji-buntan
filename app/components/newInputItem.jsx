@@ -1,4 +1,5 @@
 import styles from 'styles/input.module.css';
+import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup, Slider } from '@mui/material';
@@ -11,10 +12,12 @@ import happy from '../public/images/happy.svg';
 import unhappy from '../public/images/unhappy.svg';
 
 import Image from 'next/image';
+import { validateCount } from 'lib/validateCount';
 
 export default function InputItem(props) {
 
-    const { person, label, onTaskChange, initialValue ,setTaskCount ,taskCount, countOurTask  } = props;
+    const {person, label, onTaskChange, initialValue ,setTaskCount ,taskCount, countOurTask  } = props;
+    const errorMessage = useRef(null);
 
     const [ isDoingTask, setDoingTask ] = useState(initialValue.participates);
     const [ happyLevel, setHappyLevel ] = useState(initialValue.effort ? initialValue.effort : 0); // Neutral: 0, Unhappy: -1, Happy: +1
@@ -62,6 +65,7 @@ export default function InputItem(props) {
                     }}
             aria-label="タスク担当かどうか">
         <label>
+        {/*　家事分担回数の入力項目追加 */}
             <input
             value={taskCount}
             onChange={e => setTaskCount(e.target.value)}
@@ -69,7 +73,10 @@ export default function InputItem(props) {
             min={0}
             max={200}
             defaultValue={taskCount}
+            //フォーカスアウトした時にバリデーションチェック
+            onBlur={()=>validateCount(errorMessage,taskCount)}
             />
+            <span ref={errorMessage}></span>
         </label>
             {/* <ToggleButton value={true} aria-label="する"><font size="1.5">する</font></ToggleButton>
             <ToggleButton value={false} aria-label="しない"><font size="1.5">しない</font></ToggleButton> */}
