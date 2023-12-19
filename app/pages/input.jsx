@@ -18,6 +18,7 @@ import constants from "../src/constants";
 
 import makeAliceBobUtility from "../src/mainAlgorithm";
 import AllocationList from 'components/allocationList';
+import { improved_adjusted_winner } from 'wasm_rust_project/pkg';
 
 import GuideTalk from 'components/guideTalk';
 import { useAtom } from "jotai";
@@ -51,6 +52,15 @@ const allTasks = constants.allTasks
 
 
 export default function InputPage() {
+
+    ////// テスト. 後で消す
+    useEffect(() => {
+        // ここで wasm モジュールの関数を呼び出す
+        let alliceAllocation, bobAllocation = improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
+        console.log(alliceAllocation);
+        console.log(bobAllocation);
+    }, []);
+    //////
     
     const router = useRouter();
     const [allTasks, setAllTasks] = useAtom(allTasksAtom);

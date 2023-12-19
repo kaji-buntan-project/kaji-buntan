@@ -7,7 +7,7 @@
 // import leastChangeAllocation from "../src/leastChangeAllocation";
 
 import React, { useState, useEffect } from 'react';
-import { improved_adjusted_winner } from './wasm_rust_project';
+import { improved_adjusted_winner } from 'wasm_rust_project/pkg';
 
 export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
 
@@ -29,8 +29,8 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
         for (let task of category.children){
             if (task.checked){
                 task_total_num_list.push(task.myDefault + task.partnerDefault);
-                alice_burden_list.push(calculateBurden(myTask1.effort, myTask1.duration));
-                bob_burden_list.push(calculateBurden(partnerTask1.effort, partnerTask1.duration));
+                alice_burden_list.push(calculateBurden(currentTaskRepartition.myTasks[task.name].effort, currentTaskRepartition.myTasks[task.name].duration));
+                bob_burden_list.push(calculateBurden(currentTaskRepartition.partnerTask1[task.name].effort, currentTaskRepartition.partnerTask1[task.name].duration));
             }
         }
     }
