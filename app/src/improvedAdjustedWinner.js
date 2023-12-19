@@ -2,47 +2,55 @@ import makeTaskRepartiton from "../src/makeTaskRepartiton";
 import {SumArray, DeleteFromArray, AddIntoArray, MaxArray, nonReduceDiff, isEFone} from "../src/util";
 
 // 現在利用していない
-function adjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition){
-    let AliceAllocation = Array.from(Array(aliceUtility.length), (v, k) => k);
-    let BobAllocation = [];
-    let alist = [];
-    for (let i=0; i < AliceAllocation.length; i++){
-        //console.log(isString(key));
-        alist.push([AliceAllocation[i], bobUtility[AliceAllocation[i]]/aliceUtility[AliceAllocation[i]]]);
-    }
-    alist.sort((a, b) => (a[1]-b[1]));
-    let t = 0;
-    for (let i=0; i < alist.length; i++){
-        if(isEFone(aliceUtility,bobUtility,AliceAllocation,BobAllocation)==true){
-            break;
-        }
-        if(t < alist.length){
-            AliceAllocation = DeleteFromArray(AliceAllocation, alist[t][0]);
-            BobAllocation.push(alist[t][0]);
-            //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-            t++;
-        }
-    }
+// function adjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition){
+//     let AliceAllocation = Array.from(Array(aliceUtility.length), (v, k) => k);
+//     let BobAllocation = [];
+//     let alist = [];
+//     for (let i=0; i < AliceAllocation.length; i++){
+//         //console.log(isString(key));
+//         alist.push([AliceAllocation[i], bobUtility[AliceAllocation[i]]/aliceUtility[AliceAllocation[i]]]);
+//     }
+//     alist.sort((a, b) => (a[1]-b[1]));
+//     let t = 0;
+//     for (let i=0; i < alist.length; i++){
+//         if(isEFone(aliceUtility,bobUtility,AliceAllocation,BobAllocation)==true){
+//             break;
+//         }
+//         if(t < alist.length){
+//             AliceAllocation = DeleteFromArray(AliceAllocation, alist[t][0]);
+//             BobAllocation.push(alist[t][0]);
+//             //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
+//             t++;
+//         }
+//     }
 
-    const aliceTask = [];
-    for (let i of AliceAllocation) {
-        aliceTask.push(taskList[i]);
-    }
-    const bobTask = [];
-    for (let i of BobAllocation) {
-        bobTask.push(taskList[i]);
-    }
+//     const aliceTask = [];
+//     for (let i of AliceAllocation) {
+//         aliceTask.push(taskList[i]);
+//     }
+//     const bobTask = [];
+//     for (let i of BobAllocation) {
+//         bobTask.push(taskList[i]);
+//     }
 
-    let myTasks = {};
-    let partnerTasks = {};
-    [myTasks, partnerTasks] = makeTaskRepartiton(aliceTask, bobTask, currentTaskRepartition)
-    //console.log("Output of the AW algorithm",{ myTasks: myTasks, partnerTasks: partnerTasks})
-    return { myTasks: myTasks, partnerTasks: partnerTasks};
-}
+//     let myTasks = {};
+//     let partnerTasks = {};
+//     [myTasks, partnerTasks] = makeTaskRepartiton(aliceTask, bobTask, currentTaskRepartition)
+//     //console.log("Output of the AW algorithm",{ myTasks: myTasks, partnerTasks: partnerTasks})
+//     return { myTasks: myTasks, partnerTasks: partnerTasks};
+// }
 
 
 
-export default function improvedAdjustedWinner(aliceBurdenDict,bobBurdenDict,taskList,currentTaskRepartition) {
+export default function improvedAdjustedWinner(aliceBurdenDict, bobBurdenDict, taskDict, currentTaskRepartition) {
+    // currentTaskRepartition: {'me': {participates: number, effort: number, duration: number, category: categoryObject.name, userModified: boolean}, 'partner':{participates: boolean, effort: number, duration: number, category: categoryObject.name, userModified: boolean}}
+    
+    // aliceBurdenDict = {}; // dict {'task.name': number} 各家事に対する負担度(1単位)
+    // bobBurdenDict = {}; // dict {'task.name': number} 各家事に対する負担度(1単位)
+    // let aliceAllocationDict = {}; // dict {'task.name': number} 各家事の回数
+    // let bobAllocationDict = {}; // dict {'task.name': number} 各家事の回数
+    // let taskDict = {}; // dict {'task.name': number}  task.checked==true になっている家事の総回数
+
     let ranNum = Math.random();
     let AliceAllocation = [];
     let BobAllocation = [];

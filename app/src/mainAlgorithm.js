@@ -1,40 +1,49 @@
 
-import constants from "../src/constants";
-const allTasks = constants.allTasks
+// import constants from "../src/constants";
+//const allTasks = constants.allTasks
 
-import calculateBurden from "../src/calculateBurden";
-import improvedAdjustedWinner from "../src/improvedAdjustedWinner";
-import leastChangeAllocation from "../src/leastChangeAllocation";
+// import calculateBurden from "../src/calculateBurden";
+// import improvedAdjustedWinner from "../src/improvedAdjustedWinner";
+// import leastChangeAllocation from "../src/leastChangeAllocation";
 
+import React, { useState, useEffect } from 'react';
+import { improved_adjusted_winner } from './wasm_rust_project';
 
 export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
-    let aliceBurdenDict = {}; // dict {'task.name': number} 各家事に対する負担度(1単位)
-    let bobBurdenDict = {}; // dict {'task.name': number} 各家事に対する負担度(1単位)
-    let aliceAllocationDict = {}; // dict {'task.name': number} 各家事の回数
-    let bobAllocationDict = {}; // dict {'task.name': number} 各家事の回数
-    let taskList = []; // string[] // task.checked==true の家事リスト
+
+    // currentTaskRepartition: {'me': {participates: number, effort: number, duration: number, category: categoryObject.name, userModified: boolean}, 'partner':{participates: boolean, effort: number, duration: number, category: categoryObject.name, userModified: boolean}}
+    
+    // let aliceBurdenDict = {}; // dict {'task.name': number} 各家事に対する負担度(1単位)
+    // let bobBurdenDict = {}; // dict {'task.name': number} 各家事に対する負担度(1単位)
+    // let aliceAllocationDict = {}; // dict {'task.name': number} 各家事の回数
+    // let bobAllocationDict = {}; // dict {'task.name': number} 各家事の回数
+    // let taskDict = {}; // dict {'task.name': number}  task.checked==true になっている家事の総回数
+
+    // task_total_num_list: Vec<i32>, alice_burden_list: Vec<i32>, bob_burden_list: Vec<i32>, を作成
+
+    let task_total_num_list = [];
+    let alice_burden_list = [];
+    let bob_burden_list = [];
 
     for (let category of allTasks){
         for (let task of category.children){
             if (task.checked){
-                const myTask1 = currentTaskRepartition['myTasks'][task.name];
-                aliceBurdenDict[task.name] = calculateBurden(myTask1.effort, myTask1.duration);
-                aliceAllocationDict[task.name] = myTask1.participates;
-                // 0回も辞書に加える.
-
-                const partnerTask1 = currentTaskRepartition['partnerTasks'][task.name];
-                bobBurdenDict[task.name] = calculateBurden(partnerTask1.effort, partnerTask1.duration);
-                bobAllocationDict[task.name] = partnerTask1.participates;
-                // 0回も辞書に加える.
-
-                taskList.push(task.name);
+                task_total_num_list.push(task.myDefault + task.partnerDefault);
+                alice_burden_list.push(calculateBurden(myTask1.effort, myTask1.duration));
+                bob_burden_list.push(calculateBurden(partnerTask1.effort, partnerTask1.duration));
             }
         }
     }
+    useEffect(() => {
+        // ここで wasm モジュールの関数を呼び出す
+        let alliceAllocation, bobAllocation = improved_adjusted_winner(task_total_num_list, alice_burden_list, bob_burden_list);
+        console.log(alliceAllocation);
+        console.log(bobAllocation);
+    }, []);
 
-    let adjustedWinnerTaskRepartition = improvedAdjustedWinner(aliceBurdenDict,bobBurdenDict,taskList,currentTaskRepartition);
-    let leastChangeAllocationTaskRepartition = leastChangeAllocation(aliceBurdenDict, bobBurdenDict, aliceAllocationDict, bobAllocationDict, taskList, currentTaskRepartition);
+    // let adjustedWinnerTaskRepartition = improvedAdjustedWinner(aliceBurdenDict, bobBurdenDict, taskDict, currentTaskRepartition);
+    // let leastChangeAllocationTaskRepartition = leastChangeAllocation(aliceBurdenDict, bobBurdenDict, aliceAllocationDict, bobAllocationDict, taskDict, currentTaskRepartition);
     
-    return [adjustedWinnerTaskRepartition, leastChangeAllocationTaskRepartition];
+    return (alliceAllocation, bobAllocation);
 }
 
