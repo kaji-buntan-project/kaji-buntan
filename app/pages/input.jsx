@@ -56,9 +56,9 @@ export default function InputPage() {
     ////// テスト. 後で消す
     useEffect(() => {
         // ここで wasm モジュールの関数を呼び出す
-        let alliceAllocation, bobAllocation = improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
-        console.log(alliceAllocation);
-        console.log(bobAllocation);
+        let Allocation = improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
+        console.log("alliceAllocation: ", Allocation[0]);
+        console.log("bobAllocation: ", Allocation[1]);
     }, []);
     //////
     
