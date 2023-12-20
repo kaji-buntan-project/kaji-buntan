@@ -192,16 +192,18 @@ export default function InputPage() {
                     <Link href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
                 </Grid>
                 <Grid container item xs={6} justifyContent="flex-start">
-                    <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
-                        setCurrentTab(currentTab + 1);
-                        scrollToTop();
-                    }}>次へ</Button>
                 {currentTab === 1 ? (
-                // <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom ,leastRepartitionAtom: leastRepartitionAtom, adjustedRepartitionAtom:adjustedRepartitionAtom, setAdjustedRepartition:setAdjustedRepartition }} as="/result">
+                // 「私とパートナーの評価」タブでは
                 <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom}} as="/result">
-                この内容で診断する
+                    <a className={styles.toResultLink}>この内容で診断する</a>
                 </NextLink>
-                ): ''}
+                ): 
+                // 「家事選択」タブでは
+                <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
+                    setCurrentTab(currentTab + 1);
+                    scrollToTop();
+                }}>次へ</Button>
+                }
                 </Grid>
             </Grid>
         </div>
