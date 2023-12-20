@@ -1,4 +1,4 @@
-import styles from 'styles/input.module.css';
+import styles from 'styles/newInputItem.module.css';
 import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
