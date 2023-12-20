@@ -35,8 +35,8 @@
     border-radius: 5px;
     margin-bottom: 30px;
     padding: 0.5em;
+    max-width: 1800px;
     width: 100%;
-    max-width: 800px;
 }
 
 h2.categoryHeader {

@@ -3,14 +3,6 @@
     max-width: 100%;
     width: 80%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    /*border: 3px solid var(--main-color);
-    border-radius: 20px; */
-
     padding: 1em;
 
 }
@@ -36,7 +28,7 @@
     margin-bottom: 30px;
     padding: 0.5em;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1500px;
 }
 
 h2.categoryHeader {
@@ -68,18 +60,32 @@ h2.categoryHeader {
 
 /* Input Element -> flexbox for several components */
 
-.inputRow {
+/* 私の入力フォーム */
+.inputRowMe {
 
-    max-width: 95%;
+    max-width: 500px;
+    width: 100%;
     display: grid;
+    grid-gap: 5px;
+    justify-content: space-between;
     
-    grid-template-columns: 3fr 130px 130px 2fr;
-    grid-template-areas: "label action effort duration";
-
+    grid-template-columns: 130px 200px 80px;
+    grid-template-areas: "effort duration participates";
     align-items: center;
-
-    margin-bottom: 1.5em;
-
+    
+    
+}
+/* パートナーの入力フォーム */
+.inputRowPartner {
+    
+    max-width: 500px;
+    width: 100%;
+    display: grid;
+    grid-gap: 15px;
+    
+    grid-template-columns: 80px 130px 200px;
+    grid-template-areas: "participates effort duration";
+    align-items: center;
 }
 
 @media (max-width: 700px) and (min-width: 500px) {
@@ -106,3 +112,49 @@ h2.categoryHeader {
     grid-area: label;
 }
 
+.input{
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    width: 80px;
+    height: 36px;
+    border: var(--main-color) 2px solid;
+    padding: 4px 14px 4px 4px;
+    text-align: center;
+    z-index: 10;
+
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    -moz-appearance:textfield;
+}
+
+
+.inputLabel{
+    position: relative;
+}
+
+.inputLabel::after{
+    position: absolute;
+    top: 6px;
+    right: 16px;
+    content: '回';
+    width: 15px;
+    height: 15px;
+}
+
+/* エラーメッセージ */
+.errorMessage{
+    font-size: 10px;
+    color: red;
+    line-height: 1;
+
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+}
+
+.slider{
+    min-width: 200px;
+    width: 100%;
+}

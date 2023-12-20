@@ -39,14 +39,8 @@ a {
 main {
   flex-grow: 1;
   flex-shrink: 1;
-  height: 85vh;
-  max-height: 85vh;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-
+  height: auto;
+  padding: 1rem;
 }
 
 header {
