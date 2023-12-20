@@ -58,29 +58,26 @@ export default function InputItem(props) {
         countOurTask()
     },[taskCount])
 
-    return (<div className={ styles.inputRow }>
-        <ToggleButtonGroup value={isDoingTask} sx={{ gridArea: 'action' }} color="secondary" exclusive
-            onChange={ (_, newValue) => {
-                        if (newValue !== null) setDoingTask(newValue);
-                    }}
-            aria-label="タスク担当かどうか">
-        <label>
+    return (
+        <div className={(person === "me" ? styles.inputRowMe : styles.inputRowPartner)}>
         {/*　家事分担回数の入力項目追加 */}
-            <input
-            value={taskCount}
-            onChange={e => setTaskCount(e.target.value)}
-            type="number"
-            min={0}
-            max={200}
-            defaultValue={taskCount}
-            //フォーカスアウトした時にバリデーションチェック
-            onBlur={()=>validateCount(errorMessage,taskCount)}
-            />
-            <span ref={errorMessage}></span>
-        </label>
-            {/* <ToggleButton value={true} aria-label="する"><font size="1.5">する</font></ToggleButton>
-            <ToggleButton value={false} aria-label="しない"><font size="1.5">しない</font></ToggleButton> */}
-        </ToggleButtonGroup>
+        <div className={ styles.inputLabel } sx={{ gridArea: 'participates', marginLeft: '1em' }}>
+            <label >
+                <input
+                className={ styles.input }
+                value={taskCount}
+                data-format="$1回"
+                onChange={e => setTaskCount(e.target.value)}
+                type="number"
+                min={0}
+                max={200}
+                defaultValue={taskCount}
+                //フォーカスアウトした時にバリデーションチェック
+                onBlur={()=>validateCount(errorMessage,taskCount)}
+                />
+                <span className={ styles.errorMessage } ref={errorMessage}></span>
+            </label>
+        </div>
 
         <ToggleButtonGroup value={happyLevel} sx={{ gridArea: 'effort' }} color="secondary" exclusive
             onChange={ (_, newValue) => {
@@ -95,6 +92,7 @@ export default function InputItem(props) {
         </ToggleButtonGroup>
 
         <Slider
+            className={ styles.slider }
             value={ taskTime }
             sx={{ gridArea: 'duration', marginLeft: '1em' }}
             step={10}
@@ -103,6 +101,6 @@ export default function InputItem(props) {
             max={90}
             onChange={ (_, newValue) => setTaskTime(newValue) }
             />
-
-    </div>);
+        </div>
+);
 };

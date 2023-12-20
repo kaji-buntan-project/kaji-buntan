@@ -1,5 +1,6 @@
 import NewInputItem from "../components/newInputItem";
 import { useState } from "react";
+import styles from 'styles/InputBox.module.css';
 
 export default function InputBox(props) {
   const { taskObject, index, getTaskRepartition, setTaskRepartition , currentTaskRepartition } = props;
@@ -24,12 +25,12 @@ export default function InputBox(props) {
 
   return (
     <>
-      {taskObject.name}
+      <div className={styles.inputBox_wrapper}>
+      <p className={styles.inputBox_taskName}>{taskObject.name}</p>
       <NewInputItem label={taskObject.name} key={`my_${taskObject.name}${index}`} person={"me"} taskCount={myTaskCount} setTaskCount={setMyTaskCount} countOurTask={countOurTask} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition("me", taskObject.name)} />
-      {ourTaskCount}回
+      <p className={styles.inputBox_count}>{ourTaskCount}回</p>
       <NewInputItem label={taskObject.name} key={`partner_${taskObject.name}${index}`} person={"partner"} taskCount={partnerTaskCount} setTaskCount={setPartnerTaskCount} countOurTask={countOurTask} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition("partner", taskObject.name)} />
-      {taskObject.name}
-      <br />
+      </div>
     </>
   );
 }

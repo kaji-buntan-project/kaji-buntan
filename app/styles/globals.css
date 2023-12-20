@@ -65,3 +65,11 @@ button {
 .text {
   white-space: pre-wrap;
 }
+
+/* hover時のスピンボタン（上下の矢印ボタン）削除 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}

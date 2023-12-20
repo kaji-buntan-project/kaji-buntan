@@ -1,12 +1,11 @@
 .inputPanel {
     flex-grow: 1;
     max-width: 100%;
-    width: 80%;
 
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: center; */
 
     /*border: 3px solid var(--main-color);
     border-radius: 20px; */
@@ -105,5 +104,22 @@ h2.categoryHeader {
 
 .taskLabel {
     grid-area: label;
+}
+
+.toResultLink{
+    display: flex;
+    align-items: center;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    min-width: 64px;
+    padding: 6px 16px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #9c27b0;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
 }
 

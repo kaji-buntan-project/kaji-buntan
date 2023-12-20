@@ -1,0 +1,19 @@
+.inputBox_wrapper {
+  padding: 10px 0px;  
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  grid-template-columns: 1fr 500px 80px 500px;
+}
+
+.inputBox_taskName {
+  min-width: 215px;
+}
+
+.inputBox_count{
+  width: 80px;
+  border: var(--main-color) 2px solid;
+  padding: 4px;
+  text-align: center;
+  font-weight: 700;
+}
