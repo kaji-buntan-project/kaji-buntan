@@ -170,6 +170,93 @@ pub fn compute_new_alice_bob_allocation_using_aw(alice_burden_list: Vec<i32>, bo
 }
 
 
+fn compute_new_alice_bob_allocation_using_leact_change(task_total_num_list: Vec<i32>, alice_burden_list: Vec<i32>, bob_burden_list: Vec<i32>, current_alice_allocation: Vec<i32>, current_bob_allocation: Vec<i32>) -> (Vec<i32>, Vec<i32>) {
+    // 既にEF1なら何もしない.
+    if is_efone(&alice_burden_list, &bob_burden_list, &current_alice_allocation, &current_bob_allocation) {
+        (current_alice_allocation, current_bob_allocation)
+    } else {
+
+        let mut new_alice_allocation: Vec<i32> = current_alice_allocation.clone();
+        let mut new_bob_allocation: Vec<i32> = current_bob_allocation.clone();
+
+
+        // EF1ではないとき
+
+        // let mut alice_utility_for_alice_bundle: i32 = dot_product(&new_alice_allocation, &alice_burden_list);
+        let bob_utility_for_bob_bundle: i32 = dot_product(&new_bob_allocation, &bob_burden_list);
+        // let mut alice_utility_for_bob_bundle: i32 = dot_product(&new_bob_allocation, &alice_burden_list);
+        let bob_utility_for_alice_bundle: i32 = dot_product(&new_alice_allocation, &bob_burden_list);
+
+
+        // new_bob_allocation が全て0のとき, bob_max_burdenは0
+        let bob_max_burden = find_max_burden_among_nonzero(&bob_burden_list, &new_bob_allocation);
+
+        if bob_utility_for_bob_bundle - bob_max_burden > bob_utility_for_alice_bundle {
+            let mut fractional_list: Vec<(usize, f32)> = Vec::new();
+            for i in 0..task_total_num_list.len() {
+                let index = i as usize; // i32型からusize型へのキャスト
+                // println!("{}",index);
+                if new_bob_allocation[index] > 0 {
+                    fractional_list.push((index, alice_burden_list[index] as f32 / bob_burden_list[index] as f32));
+                }
+            }
+
+            // 2番目の要素が最小となるもの探す. 評価値0があった場合, NaNが発生.
+            // example: [(0, 3.0), (1, 1.0), (2, 4.0)] -> (1, 1.0)
+            let min_entry = fractional_list.iter().min_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
+            match min_entry {
+                Some(min) => {
+                    new_bob_allocation[min.0] -= 1;
+                    new_alice_allocation[min.0] += 1;
+                }
+                None => {
+                    // Noneの場合の処理
+                    //println!("リストが空です");
+                    ()
+                }
+            }
+        }
+
+        // もう一度計算
+        let alice_utility_for_alice_bundle = dot_product(&new_alice_allocation, &alice_burden_list);
+        // bob_utility_for_bob_bundle = dot_product(&new_bob_allocation, &bob_burden_list);
+        let alice_utility_for_bob_bundle = dot_product(&new_bob_allocation, &alice_burden_list);
+        // bob_utility_for_alice_bundle = dot_product(&new_alice_allocation, &bob_burden_list);
+
+        // new_alice_allocation が全て0のとき, alice_max_burdenは0にする
+        let alice_max_burden = find_max_burden_among_nonzero(&alice_burden_list, &new_alice_allocation);
+
+        
+        if alice_utility_for_alice_bundle - alice_max_burden > alice_utility_for_bob_bundle {
+            let mut fractional_list: Vec<(usize, f32)> = Vec::new();
+            for i in 0..task_total_num_list.len() {
+                let index = i as usize; // i32型からusize型へのキャスト
+                // println!("{}",index);
+                if new_alice_allocation[index] > 0 {
+                    fractional_list.push((index, bob_burden_list[index] as f32 / alice_burden_list[index] as f32));
+                }
+            }
+
+            // 2番目の要素が最小となるもの探す. 評価値0があった場合, NaNが発生.
+            // example: [(0, 3.0), (1, 1.0), (2, 4.0)] -> (1, 1.0)
+            let min_entry = fractional_list.iter().min_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
+            match min_entry {
+                Some(min) => {
+                    new_alice_allocation[min.0] -= 1;
+                    new_bob_allocation[min.0] += 1;
+                }
+                None => {
+                    // Noneの場合の処理
+                    //println!("リストが空です");
+                    ()
+                }
+            }
+        }
+
+        (new_alice_allocation, new_bob_allocation)
+    }
+}
+
 // task_total_num_array = [7,7,7,7] 
 // alice_burden_array = [10,30,40]
 // bob_burden_array = [10,30,40]
@@ -196,6 +283,13 @@ pub fn improved_adjusted_winner(task_total_num_list: Vec<i32>, alice_burden_list
 }
 
 
+#[wasm_bindgen]
+pub fn least_change_allocation(task_total_num_list: Vec<i32>, alice_burden_list: Vec<i32>, bob_burden_list: Vec<i32>, current_alice_allocation: Vec<i32>, current_bob_allocation: Vec<i32>) -> JsValue {
+
+    let (new_alice_allocation, new_bob_allocation) = compute_new_alice_bob_allocation_using_leact_change(task_total_num_list, alice_burden_list, bob_burden_list, current_alice_allocation, current_bob_allocation);
+    JsValue::from_serde(&(new_alice_allocation, new_bob_allocation)).unwrap()
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -207,6 +301,24 @@ mod tests {
         let alice_burden_list = vec![5,10,5,10,15];
         let bob_burden_list = vec![1,2,3,4,5];
         let (alice_allocation, bob_allocation) = compute_new_alice_bob_allocation_using_aw(alice_burden_list, bob_burden_list, task_total_num_list);
+        println!("alice_allocation : {:?}, bob_allocation : {:?}", alice_allocation, bob_allocation);
         assert_eq!((alice_allocation, bob_allocation),(vec![0, 0, 7, 7, 4], vec![7, 7, 0, 0, 3]));
+    }
+    // #[test]
+    // fn test_improved_adjusted_winner() {
+    //     let allocation = improved_adjusted_winner(vec![7,7,7,7,7], vec![5,10,5,10,15], vec![1,2,3,4,5]);
+    //     println!("allocation : {:?}", allocation);
+    // }
+    #[test]
+    fn test_least_change_allocation() {
+        let task_total_num_list = vec![7,7,7,7,7];
+        let alice_burden_list = vec![5,10,5,10,15];
+        let bob_burden_list = vec![1,2,3,4,5];
+        let current_alice_allocation = vec![3,3,3,3,3];
+        let current_bob_allocation = vec![4,4,4,4,4];
+
+        let (alice_allocation, bob_allocation) = compute_new_alice_bob_allocation_using_leact_change(task_total_num_list, alice_burden_list, bob_burden_list, current_alice_allocation, current_bob_allocation);
+        println!("alice_allocation : {:?}, bob_allocation : {:?}", alice_allocation, bob_allocation);
+        assert_eq!((alice_allocation, bob_allocation),(vec![3, 3, 4, 3, 3], vec![4, 4, 3, 4, 4]));
     }
 }
