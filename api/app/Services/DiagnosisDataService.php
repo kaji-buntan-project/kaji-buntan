@@ -80,9 +80,15 @@ class DiagnosisDataService
     private function storeHouseworkData(array $houseworkData, User $user, DiagnosisHistory $diagnosisHistory)
     {
         // Get or create housework and category records
-        $category = MstHouseworkCategory::firstOrCreate(['name' => $houseworkData['category']]);
-        $housework = MstHousework::firstOrCreate(['mst_housework_category_id' => $category->id, 'name' => $houseworkData['name']]);
+        $category = MstHouseworkCategory::where(['name' => $houseworkData['category']])->first();
+        if (!$category) {
+            throw new \Exception("Housework Category is not exist");
+        }
         
+        $housework = MstHousework::where(['mst_housework_category_id' => $category->id, 'name' => $houseworkData['name']])->first();
+        if (!$housework) {
+            throw new \Exception("Housework is not exist");
+        }
         // Save the current division and rating
         $nowDivisionAndRating = NowDivisionAndRating::create([
             'diagnosis_history_id' => $diagnosisHistory->id,
