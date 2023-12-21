@@ -23,41 +23,44 @@ class PostDiagnosisDataRequestBodySchema extends SchemaFactory implements Reusab
     {
         return Schema::object()
             ->properties(
-                Schema::string('houseworkName')
+                Schema::string('name')
                     ->description('家事の名前')
-                    ->example('洗濯'),
-                Schema::integer('nowUsersTimes')
-                    ->description('現状の私の行う回数')
+                    ->example('朝ごはん用意'),
+                Schema::string('category')
+                    ->description('家事の分類')
+                    ->example('朝の準備'),
+                Schema::integer('myEffort')
+                    ->description('私のその家事の評価')
+                    ->enum(1, 2, 3)
                     ->example(3),
-                Schema::integer('nowPartnersTimes')
-                    ->description('現状のパートナーの行う回数')
-                    ->example(4),
-                Schema::integer('usersRate')
-                    ->description('私の評価')
-                    ->enum(1,2,3)
-                    ->example(1),
-                Schema::integer('partnersRate')
-                    ->description('パートナーの評価')
-                    ->enum(1,2,3)
-                    ->example(1),
-                Schema::integer('usersMinutes')
-                    ->description('私の家事にかかる時間')
+                Schema::integer('myDuration')
+                    ->description('私のその家事にかかる時間')
                     ->example(30),
-                Schema::integer('partnersMinutes')
-                    ->description('パートナーの家事にかかる時間')
-                    ->example(30),
-                Schema::integer('usersLittleIdealDivisionTimes')
-                    ->description('私の少し理想的な家事を行う回数')
+                Schema::integer('partnerEffort')
+                    ->description('パートナーのその家事の評価')
+                    ->enum(1, 2, 3)
+                    ->example(1),
+                Schema::integer('partnerDuration')
+                    ->description('パートナーがその家事にかかる時間')
+                    ->example(20),
+                Schema::integer('myNowParticipates')
+                    ->description('今の私の分担回数')
                     ->example(4),
-                Schema::integer('partnersLittleIdealDivisionTimes')
-                    ->description('パートナーの少し理想的な家事を行う回数')
-                    ->example(4),
-                Schema::integer('usersIdealDivisionTimes')
-                    ->description('私の理想的な家事を行う回数')
-                    ->example(4),
-                Schema::integer('partnersIdealDivisionTimes')
-                    ->description('パートナーの理想的な家事を行う回数')
-                    ->example(4),
+                Schema::integer('partnerNowParticipates')
+                    ->description('今のパートナーの分担回数')
+                    ->example(2),
+                Schema::integer('myLeastRepartitionParticipates')
+                    ->description('私の少し理想的な分担回数')
+                    ->example(3),
+                Schema::integer('partnerLeastRepartitionParticipates')
+                    ->description('パートナーの少し理想的な分担回数')
+                    ->example(3),
+                Schema::integer('myAdjustedRepartitionParticipates')
+                    ->description('私の理想的な分担回数')
+                    ->example(3),
+                Schema::integer('partnerAdjustedRepartitionParticipates')
+                    ->description('パートナーの理想的な分担回数')
+                    ->example(3),
             );
     }
 }
