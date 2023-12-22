@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ApiException;
 use App\OpenApi\RequestBodies\PostDiagnosisDataRequestBody;
 use App\Http\Controllers\Controller;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
@@ -60,7 +61,12 @@ class DiagnosisDataController extends Controller
                 DB::rollBack();
                 return response()->json(['error' => 'Error saving diagnosis'], 500);
             }
-        } catch (\Exception $e) {
+        }
+        catch (ApiException $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
             // Handle the exception, log or respond with an error message

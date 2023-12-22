@@ -4,6 +4,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\ApiException;
 use App\Models\DiagnosisHistory;
 use App\Models\NowDivisionAndRating;
 use App\Models\MstHousework;
@@ -24,23 +25,17 @@ class DiagnosisDataService
      */
     public function storeDiagnosisData(array $data, string $appId)
     {
-        try {
-            // Get or create the user based on the app ID
-            $user = $this->getUser($appId);
+        // Get or create the user based on the app ID
+        $user = $this->getUser($appId);
 
-            // Create a new diagnosis history record
-            $diagnosisHistory = $this->createDiagnosisHistory($user);
+        // Create a new diagnosis history record
+        $diagnosisHistory = $this->createDiagnosisHistory($user);
 
-            // Store housework data for each entry in the 'houseworks' array
-            foreach ($data['houseworks'] as $houseworkData) {
-                $this->storeHouseworkData($houseworkData, $user, $diagnosisHistory);
-            }
-
-            return true;
-        } catch (\Exception $e) {
-            Log::error($e);
-            return false;
+        // Store housework data for each entry in the 'houseworks' array
+        foreach ($data['houseworks'] as $houseworkData) {
+            $this->storeHouseworkData($houseworkData, $user, $diagnosisHistory);
         }
+        return true;
     }
 
     /**
@@ -81,14 +76,16 @@ class DiagnosisDataService
     {
         // Get or create housework and category records
         $category = MstHouseworkCategory::where(['name' => $houseworkData['category']])->first();
+  
         if (!$category) {
-            throw new \Exception("Housework Category is not exist");
+            throw new ApiException("The houseworks.category ({$houseworkData['category']}) is invalid.", 400);
         }
-        
+     
         $housework = MstHousework::where(['mst_housework_category_id' => $category->id, 'name' => $houseworkData['name']])->first();
         if (!$housework) {
-            throw new \Exception("Housework is not exist");
+            throw new ApiException("The houseworks.name ({$houseworkData['name']}) is invalid.", 400);
         }
+
         // Save the current division and rating
         $nowDivisionAndRating = NowDivisionAndRating::create([
             'diagnosis_history_id' => $diagnosisHistory->id,
