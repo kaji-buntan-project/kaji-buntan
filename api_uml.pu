@@ -1,0 +1,58 @@
+@startuml api
+
+class DiagnosisDataService {
+  +storeDiagnosisData(data: array, appId: string): bool
+  -getUser(appId: string): User
+  -createDiagnosisHistory(user: User): DiagnosisHistory
+  -storeHouseworkData(houseworkData: array, user: User, diagnosisHistory: DiagnosisHistory): void
+  -getNextDiagnosisTimes(userId: int): int
+}
+
+class DiagnosisDataController {
+  +store(request: Request): JsonResponse
+  -getNextDiagnosisTimes(userId: int): int
+}
+
+class Request {
+  +houseworks: array
+}
+
+class Housework {
+  +name: string
+  +category: string
+  +myEffort: int
+  +myDuration: int
+  +partnerEffort: int
+  +partnerDuration: int
+  +myNowParticipates: int
+  +partnerNowParticipates: int
+  +myLeastRepartitionParticipates: int
+  +partnerLeastRepartitionParticipates: int
+  +myAdjustedRepartitionParticipates: int
+  +partnerAdjustedRepartitionParticipates: int
+}
+
+class JsonResponse {
+  +message: string
+}
+
+class User {
+  +app_id: string
+}
+
+class DiagnosisHistory {
+  +user_id: string
+  +diagnosis_times: int
+
+}
+
+DiagnosisDataService --|> User
+DiagnosisDataService --|> DiagnosisHistory
+
+DiagnosisDataController --|> DiagnosisDataService
+DiagnosisDataController --|> Request
+DiagnosisDataController --|> JsonResponse
+
+Request--|> Housework
+
+@enduml

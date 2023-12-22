@@ -1,0 +1,29 @@
+@startuml api_sequence
+
+actor Client
+participant Controller as "DiagnosisDataController"
+participant Service as "DiagnosisDataService"
+database Database
+participant Request as "HouseworkRequest"
+participant Validation as "ValidationService"
+participant User
+participant DiagnosisHistory
+participant JsonResponse
+
+Client -> Controller: send store request
+Controller -> Controller: validate request
+alt Validation Success
+    Controller -> Service: call storeDiagnosisData
+    Service -> Service: getUser
+    Service -> Service: createDiagnosisHistory
+    Service -> Service: storeHouseworkData
+    Service -> Service: getNextDiagnosisTimes
+    Service -> JsonResponse: create response
+    Service -> Database: save data
+    Service --> Controller: return JsonResponse
+else Validation Failure
+    Controller -> Controller: handle validation error
+    Controller --> Client: return error response
+end
+
+@enduml

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('ユーザーID');
             $table->unsignedInteger('diagnosis_times')->comment('診断回数');
-            $table->timestamp('created_at')->comment('作成日');
+            $table->timestamps();
 
             // foreign key 制約
             $table->foreign('user_id')->references('id')->on('users');

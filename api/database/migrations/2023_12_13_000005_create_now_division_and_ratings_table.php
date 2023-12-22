@@ -29,6 +29,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('mst_housework_id')->references('id')->on('mst_houseworks');
             $table->foreign('mst_housework_category_id')->references('id')->on('mst_housework_categories');
+            $table->timestamps();
         });
     }
 
