@@ -153,7 +153,7 @@ export default function InputPage() {
     return (
         <div className={styles.inputPanel} id="input-panel">
             <Tabs value={currentTab} 
-            sx={{ position: 'sticky', top: '10px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
+            sx={{margin:"0 auto", maxWidth:'500px', position: 'sticky', top: '10px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
             onChange={ (_, newValue) => {
                 setCurrentTab(newValue);
                 scrollToTop();
@@ -168,12 +168,12 @@ export default function InputPage() {
                 {/* <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} /> */}
                 {/* <Tab label="コンシェルジュの提案" sx={{ backgroundColor: 'white'}}/> */}
             </Tabs>
-            <TabPanel value={ currentTab } index={0} sx={{ width: 1}}>
+            <TabPanel value={ currentTab } index={0} sx={{ width: 1}} className={styles.taskWrapper}>
                 <br/>
                 <GuideTalk tabnumber={0}></GuideTalk>
                 <TaskCategoryList taskTree={allTasks} onChange={handleChangeTasks}></TaskCategoryList>
             </TabPanel>
-            <TabPanel value={ currentTab } index={1} sx={{ width: 1}} >
+            <TabPanel value={ currentTab } index={1} sx={{ width: 1 }} >
                 <br />
                 <GuideTalk tabnumber={1}></GuideTalk>
                 {getAllInputComponents(allTasks)}

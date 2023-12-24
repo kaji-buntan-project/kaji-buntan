@@ -36,7 +36,7 @@ export default function IntroImageStepper() {
       setActiveStep(step);
     };
     return (
-    <Box sx={{ maxWidth: 800, mt: 2 }}>
+    <Box sx={{ margin:"0 auto", maxWidth: 800, mt: 2 }}>
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}

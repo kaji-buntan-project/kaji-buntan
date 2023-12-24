@@ -113,6 +113,7 @@ export default function ResultTabComponent(props) {
         centered
         variant="fullWidth"
         scrollButtons="auto"
+        sx={{margin:"0 auto", maxWidth:'750px',}}
       >
         <Tab label="今の家事分担" value="1" />
         <Tab label="少し理想的な分担" value="2" />

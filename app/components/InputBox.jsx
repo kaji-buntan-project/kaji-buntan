@@ -26,10 +26,14 @@ export default function InputBox(props) {
   return (
     <>
       <div className={styles.inputBox_wrapper}>
-      <p className={styles.inputBox_taskName}>{taskObject.name}</p>
-      <NewInputItem label={taskObject.name} key={`my_${taskObject.name}${index}`} person={"me"} taskCount={myTaskCount} setTaskCount={setMyTaskCount} countOurTask={countOurTask} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition("me", taskObject.name)} />
-      <p className={styles.inputBox_count}>{ourTaskCount}回</p>
-      <NewInputItem label={taskObject.name} key={`partner_${taskObject.name}${index}`} person={"partner"} taskCount={partnerTaskCount} setTaskCount={setPartnerTaskCount} countOurTask={countOurTask} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition("partner", taskObject.name)} />
+        <p className={styles.inputBox_taskName}>{taskObject.name}</p>
+        <div className={styles.inputBox_tasks}>
+          <NewInputItem label={taskObject.name} key={`my_${taskObject.name}${index}`} person={"me"} taskCount={myTaskCount} setTaskCount={setMyTaskCount} countOurTask={countOurTask} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition("me", taskObject.name)} />
+          <div className={styles.inputBox_inputCountWrapper}>
+          <p className={styles.inputBox_count}>{ourTaskCount}回</p>
+          </div>
+          <NewInputItem label={taskObject.name} key={`partner_${taskObject.name}${index}`} person={"partner"} taskCount={partnerTaskCount} setTaskCount={setPartnerTaskCount} countOurTask={countOurTask} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition("partner", taskObject.name)} />
+        </div>
       </div>
     </>
   );

@@ -6,12 +6,13 @@
 import Link from 'next/link';
 import { Button, Typography } from '@mui/material';
 import IntroImageStepper from './introImageStepper';
+import { text } from 'd3';
 
 
 export default function LandingPage() {
     
     return (
-        <main>
+        <main style={{textAlign: "center"}}>
             <IntroImageStepper></IntroImageStepper>
             <Link href="/input" passHref={true} ><Button variant="contained" color="secondary" sx={{m: 2, px: 6, py:2}}><Typography variant="h3">使ってみる</Typography></Button></Link>
         </main>

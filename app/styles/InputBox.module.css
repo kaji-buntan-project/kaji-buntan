@@ -1,19 +1,77 @@
 .inputBox_wrapper {
-  padding: 10px 0px;  
-  display: grid;
+  padding: 20px 10px;  
+  display: flex;
   align-items: center;
+  justify-content: none;
   gap: 10px;
-  grid-template-columns: 1fr 500px 80px 500px;
+}
+.inputBox_wrapper:not(:last-child) {
+  border-bottom: 1px solid var(--main-color);;
+}
+
+.inputBox_tasks{
+  min-width: 1070px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1250px) {
+  .inputBox_tasks{
+    display: grid;
+    min-width: 100px;
+    
+  }
 }
 
 .inputBox_taskName {
-  min-width: 215px;
+  min-width: 150px;
+  flex: 1;
+}
+
+@media only screen and (max-width: 1250px) {
+  .inputBox_taskName{
+    min-width: 100px;
+    width: 100px;
+    flex: none;
+  }
+}
+
+.inputBox_inputCountWrapper{
+  padding: 2px 0px;
+}
+
+@media only screen and (max-width: 1250px) {
+  .inputBox_inputCountWrapper{
+    background-color: #EFDFF3;
+  }
 }
 
 .inputBox_count{
-  width: 80px;
+  min-width: 60px;
   border: var(--main-color) 2px solid;
   padding: 4px;
   text-align: center;
   font-weight: 700;
+  margin-left: 80px;
+  position: relative;
+
+}
+
+.inputBox_count::before{
+  position: absolute;
+  top: -20px;
+  right: -5px;
+  content: '合計';
+  font-size: 13px;
+  width: 70px;
+  height: 6px;
+}
+
+
+@media only screen and (max-width: 1250px) {
+  .inputBox_count{
+    width: 60px;
+    margin-left: 0px;
+  }
 }

@@ -61,10 +61,11 @@ export default function InputItem(props) {
     return (
         <div className={(person === "me" ? styles.inputRowMe : styles.inputRowPartner)}>
         {/*　家事分担回数の入力項目追加 */}
-        <div className={ styles.inputLabel } sx={{ gridArea: 'participates', marginLeft: '1em' }}>
+        <div className={(person === "me" ? styles.myInputLabel : styles.partnerInputLabel)} sx={{ gridArea: 'participates' }}>
             <label >
                 <input
-                className={ styles.input }
+                // className={ styles.input }
+                className={(person === "me" ? styles.myInput : styles.partnerInput)}
                 value={taskCount}
                 data-format="$1回"
                 onChange={e => setTaskCount(e.target.value)}
@@ -79,7 +80,7 @@ export default function InputItem(props) {
             </label>
         </div>
 
-        <ToggleButtonGroup value={happyLevel} sx={{ gridArea: 'effort' }} color="secondary" exclusive
+        <ToggleButtonGroup value={happyLevel} sx={{ gridArea: 'effort' }} color="secondary" exclusive className={ styles.effort }
             onChange={ (_, newValue) => {
                 if (newValue !== null) setHappyLevel(newValue);
             }}>

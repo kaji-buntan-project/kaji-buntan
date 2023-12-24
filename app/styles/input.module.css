@@ -28,6 +28,12 @@
     border-radius: 10px;
 }
 
+.taskWrapper{
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+
 
 .categorySection {
     border: 1px solid var(--second-color);
