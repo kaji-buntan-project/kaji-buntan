@@ -2,7 +2,9 @@ version: '3'
 services:
   app:
     container_name: housework-share-app
-    image: node:20-bullseye-slim
+    build: 
+      context: ./app
+      dockerfile: docker/Dockerfile
     ports:
       - 3000:3000
     volumes:
