@@ -188,7 +188,7 @@ h2.categoryHeader {
 .myInputLabel::before{
     position: absolute;
     top: -20px;
-    right: -28px;
+    right: -10px;
     content: '私';
     font-size: 13px;
     width: 5px;
@@ -197,7 +197,7 @@ h2.categoryHeader {
 
 @media (max-width: 1250px) {
     .myInputLabel::before{
-        right: 52px;
+        right: 55px;
     }
 }
 @media (max-width: 1250px) {
@@ -221,7 +221,7 @@ h2.categoryHeader {
 .partnerInputLabel::before{
     position: absolute;
     top: -20px;
-    right: -5px;
+    right: -4px;
     content: 'パートナー';
     font-size: 13px;
     width: 70px;

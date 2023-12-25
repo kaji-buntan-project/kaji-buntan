@@ -38,7 +38,6 @@
 }
 
 .inputBox_inputCountWrapper{
-  padding: 2px 0px;
   padding: 5px;
 }
 
@@ -62,8 +61,8 @@
 
 .inputBox_count::before{
   position: absolute;
-  top: -20px;
-  right: -5px;
+  top: -21px;
+  right: 7px;
   content: '合計';
   font-size: 13px;
   width: 70px;
