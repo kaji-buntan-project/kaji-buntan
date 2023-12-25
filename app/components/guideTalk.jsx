@@ -70,7 +70,7 @@ export default function GuideTalk(props) {
     }
     let textsize=5;
     if(isMobile){
-        textsize=4;
+        textsize=3;
     }
     return (
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}} className={styles.guide}>

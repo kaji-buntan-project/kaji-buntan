@@ -67,6 +67,7 @@ h2.categoryHeader {
     display: grid;
     grid-gap: 5px;
     justify-content: space-between;
+    padding: 5px;
     
     grid-template-columns: 130px 150px 65px;
     grid-template-areas: "effort duration participates";
@@ -90,6 +91,7 @@ h2.categoryHeader {
     
     max-width: 500px;
     display: grid;
+    padding: 5px;
     grid-gap: 15px;
     grid-template-columns: 65px 130px 150px;
     grid-template-areas: "participates effort duration";
