@@ -6,6 +6,7 @@ import Image from 'next/image';
 import constants from "../src/constants";
 const allTasks = constants.allTasks
 import { isMobile } from "react-device-detect"
+import styles from '../styles/input.module.css';
 
 function categoryShow(task){
     let category;
@@ -72,7 +73,7 @@ export default function GuideTalk(props) {
         textsize=4;
     }
     return (
-        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}}>
+        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}} className={styles.guide}>
             <Image alt="introduction" src={sensei} width={102} height={102}></Image>
             <Box sx={{
                 backgroundColor: 'rgba(211,211,211,0.5)',

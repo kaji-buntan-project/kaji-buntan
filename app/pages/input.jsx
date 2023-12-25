@@ -170,12 +170,12 @@ export default function InputPage() {
             </Tabs>
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}} className={styles.taskWrapper}>
                 <br/>
-                <GuideTalk tabnumber={0}></GuideTalk>
+                <GuideTalk tabnumber={0} ></GuideTalk>
                 <TaskCategoryList taskTree={allTasks} onChange={handleChangeTasks}></TaskCategoryList>
             </TabPanel>
             <TabPanel value={ currentTab } index={1} sx={{ width: 1 }} >
                 <br />
-                <GuideTalk tabnumber={1}></GuideTalk>
+                <GuideTalk tabnumber={1} ></GuideTalk>
                 {getAllInputComponents(allTasks)}
             </TabPanel>
         {/* <TabPanel value={currentTab} index={1} sx={{ width: 1 }}>
