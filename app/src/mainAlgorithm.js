@@ -1,409 +1,112 @@
 
-import constants from "../src/constants";
-const allTasks = constants.allTasks
+// import constants from "../src/constants";
+//const allTasks = constants.allTasks
 
-import calculateBurden from "../src/calculateBurden";
+// import calculateBurden from "../src/calculateBurden";
+// import improvedAdjustedWinner from "../src/improvedAdjustedWinner";
+// import leastChangeAllocation from "../src/leastChangeAllocation";
 
-function DeleteFromArray(Array1,item){
-    const Array2 = []
-    for (let i=0; i < Array1.length; i++){
-      if(Array1[i] !== item){
-        Array2.push(Array1[i]);
-        //console.log(Array1[i]);
-      }
-    }
-    return Array2;
+import React, { useState, useEffect } from 'react';
+import { improved_adjusted_winner, least_change_allocation } from 'wasm_rust_project/pkg';
+
+function getIndex(taskName, taskList) {
+    return taskList[taskName]
 }
-
-function AddIntoArray(Array1,item){
-    const Array2 = []
-    for (let i=0; i < Array1.length; i++){
-        Array2.push(Array1[i]);
-    }
-    Array2.push(item);
-    return Array2;
-}
-  
-function SumArray(Array1){
-    return Array1.reduce((prev, cur) => cur + prev, 0);
-}
-  
-function MaxArray(Array1){
-    return Array1.reduce((prev, cur) => Math.max(prev, cur),0);
-}
-  
-  
-function isEFone(AliceUtility,BobUtility,AliceAllocation,BobAllocation){
-    const AAU=[];
-    const BAU=[];
-    const ABU=[];
-    const BBU=[];
-    for (let i=0; i < AliceAllocation.length; i++){
-      AAU.push(AliceUtility[AliceAllocation[i]]);
-      BAU.push(BobUtility[AliceAllocation[i]]);
-    }
-    for (let i=0; i < BobAllocation.length; i++){
-      ABU.push(AliceUtility[BobAllocation[i]]);
-      BBU.push(BobUtility[BobAllocation[i]]);
-    }
-    return (SumArray(AAU) - MaxArray(AAU) <= SumArray(ABU) && SumArray(BBU) - MaxArray(BBU) <= SumArray(BAU));
-
-}
-
-function isEF(AliceUtility,BobUtility,AliceAllocation,BobAllocation){
-    const AAU=[];
-    const BAU=[];
-    const ABU=[];
-    const BBU=[];
-    for (let i=0; i < AliceAllocation.length; i++){
-      AAU.push(AliceUtility[AliceAllocation[i]]);
-      BAU.push(BobUtility[AliceAllocation[i]]);
-    }
-    for (let i=0; i < BobAllocation.length; i++){
-      ABU.push(AliceUtility[BobAllocation[i]]);
-      BBU.push(BobUtility[BobAllocation[i]]);
-    }
-    return (SumArray(AAU) <= SumArray(ABU) && SumArray(BBU) <= SumArray(BAU));
-}
-
-
-function nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility){
-    const BBUChanged=[];
-    for (let k=0; k < bAllocation.length; k++){
-        BBUChanged.push(bobUtility[bAllocation[k]]);
-    }
-    const AAUChanged=[];
-    for (let k=0; k < aAllocation.length; k++){
-        AAUChanged.push(aliceUtility[aAllocation[k]]);
-    }
-    const BBU=[];
-    for (let k=0; k < BobAllocation.length; k++){
-        BBU.push(bobUtility[BobAllocation[k]]);
-    }
-    const AAU=[];
-    for (let k=0; k < AliceAllocation.length; k++){
-        AAU.push(aliceUtility[AliceAllocation[k]]);
-    }
-    const sumAliceUtility = SumArray(aliceUtility);
-    const sumBobUtility = SumArray(bobUtility);
-    return Math.abs(SumArray(BBUChanged)/sumBobUtility - SumArray(AAUChanged)/sumAliceUtility) >= Math.abs(SumArray(BBU)/sumBobUtility - SumArray(AAU)/sumAliceUtility);
-}
-
-
-function categoryShow(task){
-    let category;
-    for (let categoryObject of allTasks) {
-        for (let taskObject of categoryObject.children) {
-            if (taskObject.name == task){
-                category = categoryObject.name;
-            }
-        }
-    }
-    return category;
-}
-
-
-function makeTaskRepartiton(aliceTask, bobTask, currentTaskRepartition){
-    let myTasks = {};
-    let partnerTasks = {};
-
-    for (let c of allTasks){
-        for (let task of c.children){
-            //アリス役のタスクを「私」へ
-            if (aliceTask.includes(task.name)){
-                myTasks[task.name] = {
-                    // 割り振られた家事については２人分の回数を１人で担当する（私：2回、パートナー3回の場合、私5回になる）
-                    participates:  Number(currentTaskRepartition.myTasks[task.name].participates + currentTaskRepartition.partnerTasks[task.name].participates),
-                    effort: currentTaskRepartition.myTasks[task.name].effort,
-                    duration : currentTaskRepartition.myTasks[task.name].duration,
-                    category : currentTaskRepartition.myTasks[task.name].category,
-                    userModified:currentTaskRepartition.myTasks[task.name].userModified,
-                };
-            }
-            else{
-                myTasks[task.name] = {
-                    participates: 0,
-                    effort: currentTaskRepartition.myTasks[task.name].effort,
-                    duration : currentTaskRepartition.myTasks[task.name].duration,
-                    category : currentTaskRepartition.myTasks[task.name].category,
-                    userModified:currentTaskRepartition.myTasks[task.name].userModified,
-                };
-            }
-        }
-    }
-    for (let c of allTasks){
-        for (let task of c.children){
-            //ボブ役のタスクを「パートナー」へ
-            if (bobTask.includes(task.name)){
-                partnerTasks[task.name] = {
-                    // 割り振られた１つの家事については、２人分の回数を１人で担当する（私：2回、パートナー3回の場合、私5回）
-                    participates: Number(currentTaskRepartition.partnerTasks[task.name].participates + currentTaskRepartition.myTasks[task.name].participates),
-                    effort: currentTaskRepartition.partnerTasks[task.name].effort,
-                    duration : currentTaskRepartition.partnerTasks[task.name].duration,
-                    category : currentTaskRepartition.partnerTasks[task.name].category,
-                    userModified:currentTaskRepartition.partnerTasks[task.name].userModified,
-                };
-            }
-            else{
-                partnerTasks[task.name] = {
-                    participates: 0,
-                    effort: currentTaskRepartition.partnerTasks[task.name].effort,
-                    duration : currentTaskRepartition.partnerTasks[task.name].duration,
-                    category : currentTaskRepartition.partnerTasks[task.name].category,
-                    userModified:currentTaskRepartition.partnerTasks[task.name].userModified,
-                };
-            }
-        }
-    }
-    return [myTasks, partnerTasks]
-}
-
-
-function adjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition){
-    let AliceAllocation = Array.from(Array(aliceUtility.length), (v, k) => k);
-    let BobAllocation = [];
-    let alist = [];
-    for (let i=0; i < AliceAllocation.length; i++){
-        //console.log(isString(key));
-        alist.push([AliceAllocation[i], bobUtility[AliceAllocation[i]]/aliceUtility[AliceAllocation[i]]]);
-    }
-    alist.sort((a, b) => (a[1]-b[1]));
-    let t = 0;
-    for (let i=0; i < alist.length; i++){
-        if(isEFone(aliceUtility,bobUtility,AliceAllocation,BobAllocation)==true){
-            break;
-        }
-        if(t < alist.length){
-            AliceAllocation = DeleteFromArray(AliceAllocation, alist[t][0]);
-            BobAllocation.push(alist[t][0]);
-            //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-            t++;
-        }
-    }
-
-    const aliceTask = [];
-    for (let i of AliceAllocation) {
-        aliceTask.push(taskList[i]);
-    }
-    const bobTask = [];
-    for (let i of BobAllocation) {
-        bobTask.push(taskList[i]);
-    }
-
-    let myTasks = {};
-    let partnerTasks = {};
-    [myTasks, partnerTasks] = makeTaskRepartiton(aliceTask, bobTask, currentTaskRepartition)
-    //console.log("Output of the AW algorithm",{ myTasks: myTasks, partnerTasks: partnerTasks})
-    return { myTasks: myTasks, partnerTasks: partnerTasks};
-}
-
-
-function improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition){
-    let ranNum = Math.random();
-    let AliceAllocation = [];
-    let BobAllocation = [];
-    if (ranNum >= 0.5){
-        AliceAllocation = Array.from(Array(aliceUtility.length), (v, k) => k);
-        BobAllocation = [];
-        let alist = [];
-        for (let i=0; i < AliceAllocation.length; i++){
-            //console.log(isString(key));
-            alist.push([AliceAllocation[i], bobUtility[AliceAllocation[i]]/aliceUtility[AliceAllocation[i]]]);
-        }
-        alist.sort((a, b) => (a[1]-b[1]));
-        let t = 0;
-        for (let i=0; i < alist.length; i++){
-            if(isEFone(aliceUtility,bobUtility,AliceAllocation,BobAllocation)==true){
-                break;
-            }
-            if(t < alist.length){
-                AliceAllocation = DeleteFromArray(AliceAllocation, alist[t][0]);
-                BobAllocation.push(alist[t][0]);
-                //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-                t++;
-            }
-        }
-        for (let i = t+1; i < alist.length; i++){
-            const BAU=[];
-            const BBU=[];
-            let aAllocation = DeleteFromArray(AliceAllocation, alist[i][0]);
-            let bAllocation = AddIntoArray(BobAllocation, alist[i][0]);
-            for (let j=0; j < aAllocation.length; j++){
-                BAU.push(bobUtility[aAllocation[j]]);
-            }
-            for (let k=0; k < bAllocation.length; k++){
-                BBU.push(bobUtility[bAllocation[k]]);
-            }
-            if(SumArray(BBU) > SumArray(BAU) || nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility)){
-                break;
-            }
-            
-            AliceAllocation = DeleteFromArray(AliceAllocation, alist[i][0]);
-            BobAllocation.push(alist[i][0]);
-            //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-        }
-    }else{
-        AliceAllocation = [];
-        BobAllocation = Array.from(Array(bobUtility.length), (v, k) => k);
-        let blist = [];
-        for (let i=0; i < BobAllocation.length; i++){
-            //console.log(isString(key));
-            blist.push([BobAllocation[i], aliceUtility[BobAllocation[i]]/bobUtility[BobAllocation[i]]]);
-        }
-        blist.sort((a, b) => (a[1]-b[1]));
-        let t = 0;
-        for (let i=0; i < blist.length; i++){
-            if(isEFone(aliceUtility,bobUtility,AliceAllocation,BobAllocation)==true){
-                break;
-            }
-            if(t < blist.length){
-                BobAllocation = DeleteFromArray(BobAllocation, blist[t][0]);
-                AliceAllocation.push(blist[t][0]);
-                //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-                t++;
-            }
-        }
-        for (let i = t+1; i < blist.length; i++){
-            const ABU=[];
-            const AAU=[];
-            let aAllocation = AddIntoArray(AliceAllocation, blist[i][0]);
-            let bAllocation = DeleteFromArray(BobAllocation, blist[i][0]);
-            for (let j=0; j < bAllocation.length; j++){
-                ABU.push(aliceUtility[bAllocation[j]]);
-            }
-            for (let k=0; k < aAllocation.length; k++){
-                AAU.push(aliceUtility[aAllocation[k]]);
-            }
-            if(SumArray(AAU) > SumArray(ABU) || nonReduceDiff(aAllocation,bAllocation,AliceAllocation,BobAllocation,aliceUtility,bobUtility)){
-                break;
-            }
-            BobAllocation = DeleteFromArray(BobAllocation, blist[i][0]);
-            AliceAllocation.push(blist[i][0]);
-            //console.log(`AliceAllocation: ${AliceAllocation}, BobAllocation: ${BobAllocation}`);
-        }
-    }
-    const aliceTask = [];
-    for (let i of AliceAllocation) {
-        aliceTask.push(taskList[i]);
-    }
-    const bobTask = [];
-    for (let i of BobAllocation) {
-        bobTask.push(taskList[i]);
-    }
-    let myTasks = {};
-    let partnerTasks = {};
-    [myTasks, partnerTasks] = makeTaskRepartiton(aliceTask, bobTask, currentTaskRepartition)
-    //console.log("Output of the AW algorithm",{ myTasks: myTasks, partnerTasks: partnerTasks})
-    return { myTasks: myTasks, partnerTasks: partnerTasks};
-}
-
-
-
-function leastChangeAllocation(aliceUtility,bobUtility,aliceAllocation, bobAllocation,taskList,currentTaskRepartition){
-    let aliceAllocationIndex = [];
-    let bobAllocationIndex = [];
-    for (let i=0; i < aliceAllocation.length; i++){
-        let indexa = taskList.indexOf(aliceAllocation[i]);
-        aliceAllocationIndex.push(indexa);
-    }
-    for (let i=0; i < bobAllocation.length; i++){
-        let indexb = taskList.indexOf(bobAllocation[i]);
-        bobAllocationIndex.push(indexb);
-    }
-    if(isEFone(aliceUtility,bobUtility,aliceAllocationIndex,bobAllocationIndex)){
-        return currentTaskRepartition;
-    }
-    else{
-        let AAU=[];
-        let BAU=[];
-        let ABU=[];
-        let BBU=[];
-        //console.log(aliceAllocation);
-        for (let i=0; i < aliceAllocation.length; i++){
-            let indexa = taskList.indexOf(aliceAllocation[i]);
-            AAU.push(aliceUtility[indexa]);
-            BAU.push(bobUtility[indexa]);
-        }
-        for (let i=0; i < bobAllocation.length; i++){
-            let indexb = taskList.indexOf(bobAllocation[i]);
-            ABU.push(aliceUtility[indexb]);
-            BBU.push(bobUtility[indexb]);
-        }
-        if(SumArray(BBU)- MaxArray(BBU) > SumArray(BAU)){
-            let alist = [];
-            for (let i=0; i < bobAllocation.length; i++){
-                let indexb = taskList.indexOf(bobAllocation[i]);
-                alist.push([indexb, aliceUtility[indexb]/bobUtility[indexb]]);
-            }
-            alist.sort((a, b) => (a[1]-b[1]));
-            bobAllocation = DeleteFromArray(bobAllocation, taskList[alist[0][0]]);
-            aliceAllocation.push(taskList[alist[0][0]]);
-        }
-        AAU=[];
-        BAU=[];
-        ABU=[];
-        BBU=[];
-        for (let i=0; i < aliceAllocation.length; i++){
-            let indexa = taskList.indexOf(aliceAllocation[i]);
-            AAU.push(aliceUtility[indexa]);
-            BAU.push(bobUtility[indexa]);
-        }
-        for (let i=0; i < bobAllocation.length; i++){
-            let indexb = taskList.indexOf(bobAllocation[i]);
-            ABU.push(aliceUtility[indexb]);
-            BBU.push(bobUtility[indexb]);
-        }
-        if(SumArray(AAU) - MaxArray(AAU) > SumArray(ABU)){
-            let alist = [];
-            for (let i=0; i < aliceAllocation.length; i++){
-                let indexa = taskList.indexOf(aliceAllocation[i]);
-                alist.push([indexa, bobUtility[indexa]/aliceUtility[indexa]]);
-            }
-            alist.sort((a, b) => (a[1]-b[1]));
-            aliceAllocation = DeleteFromArray(aliceAllocation, taskList[alist[0][0]]);
-            bobAllocation.push(taskList[alist[0][0]]);
-        }
-        //console.log(`AliceAllocation: ${aliceAllocation}, BobAllocation: ${bobAllocation}`);
-        let myTasks = {};
-        let partnerTasks = {};
-        [myTasks, partnerTasks] = makeTaskRepartiton(aliceAllocation, bobAllocation, currentTaskRepartition)
-        //console.log("Output of the least exchange algorithm", { myTasks: myTasks, partnerTasks: partnerTasks})
-      
-      return { myTasks: myTasks, partnerTasks: partnerTasks};
-    }
-}
-  
 
 
 export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
-    let aliceUtility = [];
-    let bobUtility = [];
-    let aliceAllocation = [];
-    let bobAllocation = [];
-    let taskList = [];
+
+    // currentTaskRepartition: {'me': {participates: number, effort: number, duration: number, category: categoryObject.name, userModified: boolean}, 'partner':{participates: boolean, effort: number, duration: number, category: categoryObject.name, userModified: boolean}}
+
+
+    // task_total_num_list: Vec<i32>, alice_burden_list: Vec<i32>, bob_burden_list: Vec<i32>, current_alice_allocation: Vec<i32>, current_bob_allocation:Vec<i32> を作成
+
+    let task_total_num_list = [];
+    let alice_burden_list = [];
+    let bob_burden_list = [];
+    let current_alice_allocation = [];
+    let current_bob_allocation = [];
+
+    let taskList = {};
+    let counter0 = 0
+
     for (let category of allTasks){
         for (let task of category.children){
             if (task.checked){
-                const myTask1 = currentTaskRepartition['myTasks'][task.name];
-                aliceUtility.push(calculateBurden(myTask1.effort, myTask1.duration, myTask1.participates));
-                const partnerTask1 = currentTaskRepartition['partnerTasks'][task.name];
-                bobUtility.push(calculateBurden(partnerTask1.effort, partnerTask1.duration, partnerTask1.participates));
-                taskList.push(task.name);
-                //console.log(myTask1);
-                if (myTask1 && myTask1.participates){
-                    aliceAllocation.push(task.name);
-                }
-                if (partnerTask1 && partnerTask1.participates){
-                    bobAllocation.push(task.name);
-                }
+                task_total_num_list.push(task.myDefault + task.partnerDefault);
+                alice_burden_list.push(calculateBurden(currentTaskRepartition.myTasks[task.name].effort, currentTaskRepartition.myTasks[task.name].duration));
+                bob_burden_list.push(calculateBurden(currentTaskRepartition.partnerTask1[task.name].effort, currentTaskRepartition.partnerTask1[task.name].duration));
+                current_alice_allocation.push(currentTaskRepartition.myTasks[task.name].participates);
+                current_bob_allocation.push(currentTaskRepartition.myTasks[task.name].participates);
+
+                taskList[task.name] = counter0;
+                counter0 += 1;
             }
         }
     }
 
-    let adjustedWinnerTaskRepartition = improvedAdjustedWinner(aliceUtility,bobUtility,taskList,currentTaskRepartition);
+    ////// wasm improved_adjusted_winner 
+    useEffect(() => {
+        // ここで wasm モジュールの関数を呼び出す
+        // let adjustedWinnerAllocation = improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
+        let adjustedWinnerAllocation = improved_adjusted_winner(task_total_num_list, alice_burden_list, bob_burden_list); 
+        console.log("adjustedWinner_alliceAllocation: ", adjustedWinnerAllocation[0]);
+        console.log("adjustedWinner_bobAllocation: ", adjustedWinnerAllocation[1]);
+    }, []);
+    //////
+    ////// wasm least_change_allocation
+    useEffect(() => {
+        // ここで wasm モジュールの関数を呼び出す
+        // let leastChangeAllocation = least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
+        let leastChangeAllocation = least_change_allocation(task_total_num_list, alice_burden_list, bob_burden_list, current_alice_allocation, current_bob_allocation);
+        console.log("leastChange_alliceAllocation: ", leastChangeAllocation[0]);
+        console.log("leastChange_bobAllocation: ", leastChangeAllocation[1]);
+    }, []);
+    //////
 
-    let leastChangeAllocationTaskRepartition = leastChangeAllocation(aliceUtility,bobUtility,aliceAllocation, bobAllocation,taskList,currentTaskRepartition);
+    // adjustedWinnerAllocationやleastChangeAllocationを，currentTaskRepartitionの形に戻す必要がある.
 
-    return [adjustedWinnerTaskRepartition, leastChangeAllocationTaskRepartition];
+    let awCurrentTaskRepartition = {};
+    let lcCurrentTaskRepartition = {};
+
+    for (let category of allTasks){
+        for (let task of category.children){
+            if (task.checked){
+                let i = getIndex(task.name, taskList);
+                
+                awCurrentTaskRepartition['myTasks'] = {
+                    participates: adjustedWinnerAllocation[0][i],
+                    effort: currentTaskRepartition.myTasks[task.name].effort,
+                    duration : currentTaskRepartition.myTasks[task.name].duration,
+                    category : currentTaskRepartition.myTasks[task.name].category,
+                    userModified:currentTaskRepartition.myTasks[task.name].userModified,
+                };
+                awCurrentTaskRepartition['partnerTasks'] = {
+                    participates: adjustedWinnerAllocation[1][i],
+                    effort: currentTaskRepartition.partnerTasks[task.name].effort,
+                    duration : currentTaskRepartition.partnerTasks[task.name].duration,
+                    category : currentTaskRepartition.partnerTasks[task.name].category,
+                    userModified:currentTaskRepartition.partnerTasks[task.name].userModified,
+                };
+
+                lcCurrentTaskRepartition['myTasks'] = {
+                    participates: leastChangeAllocation[0][i],
+                    effort: currentTaskRepartition.myTasks[task.name].effort,
+                    duration : currentTaskRepartition.myTasks[task.name].duration,
+                    category : currentTaskRepartition.myTasks[task.name].category,
+                    userModified:currentTaskRepartition.myTasks[task.name].userModified,
+                };
+                lcCurrentTaskRepartition['partnerTasks'] = {
+                    participates: leastChangeAllocation[1][i],
+                    effort: currentTaskRepartition.partnerTasks[task.name].effort,
+                    duration : currentTaskRepartition.partnerTasks[task.name].duration,
+                    category : currentTaskRepartition.partnerTasks[task.name].category,
+                    userModified:currentTaskRepartition.partnerTasks[task.name].userModified,
+                };
+            }
+        }
+    }
+
+    return (awCurrentTaskRepartition, lcCurrentTaskRepartition);
 }
 
