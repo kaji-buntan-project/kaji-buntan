@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique()->comment('app側で生成したユーザーID');
+            $table->string('app_id')->unique()->comment('app側で生成したApp ID');
+            $table->timestamps();
         });
     }
 

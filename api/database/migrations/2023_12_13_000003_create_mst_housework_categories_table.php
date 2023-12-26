@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mst_housework_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('家事カテゴリ名');
+            $table->timestamps();
         });
     }
 

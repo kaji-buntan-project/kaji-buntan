@@ -19,6 +19,7 @@ return new class extends Migration
 
             // foreign key 制約
             $table->foreign('now_division_and_rating_id')->references('id')->on('now_division_and_ratings');
+            $table->timestamps();
         });
     }
 

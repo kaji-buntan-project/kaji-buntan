@@ -18,6 +18,7 @@ return new class extends Migration
 
             // foreign key 制約
             $table->foreign('mst_housework_category_id')->references('id')->on('mst_housework_categories');
+            $table->timestamps();
         });
     }
 

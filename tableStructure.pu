@@ -8,7 +8,7 @@ skinparam linetype ortho
 entity users as "users\n(ユーザー)" {
     * id <<PK>>
     --
-    * user_id <<UNI>> 
+    * app_id <<UNI>> 
 }
 
 entity mst_houseworks as "mst_houseworks\n(家事マスタ)" {

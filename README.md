@@ -53,6 +53,8 @@ composer install
 php artisan key:generate
 # apiコンテナ内でテーブルを作成するコマンドを実行する
 php artisan migrate
+# apiコンテナ内でopenapiを作成するコマンドを実行する
+php artisan openapi:generate > housework_sharing_openapi.json
 ```
 
 http://localhost:8080/api にアクセスし、hello worldと表示されたら環境構築成功です。
