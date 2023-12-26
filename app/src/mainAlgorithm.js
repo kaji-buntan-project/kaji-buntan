@@ -83,10 +83,10 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
                 };
                 awCurrentTaskRepartition['partnerTasks'] = {
                     participates: adjustedWinnerAllocation[1][i],
-                    effort: currentTaskRepartition.myTasks[task.name].effort,
-                    duration : currentTaskRepartition.myTasks[task.name].duration,
-                    category : currentTaskRepartition.myTasks[task.name].category,
-                    userModified:currentTaskRepartition.myTasks[task.name].userModified,
+                    effort: currentTaskRepartition.partnerTasks[task.name].effort,
+                    duration : currentTaskRepartition.partnerTasks[task.name].duration,
+                    category : currentTaskRepartition.partnerTasks[task.name].category,
+                    userModified:currentTaskRepartition.partnerTasks[task.name].userModified,
                 };
 
                 lcCurrentTaskRepartition['myTasks'] = {
@@ -98,10 +98,10 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
                 };
                 lcCurrentTaskRepartition['partnerTasks'] = {
                     participates: leastChangeAllocation[1][i],
-                    effort: currentTaskRepartition.myTasks[task.name].effort,
-                    duration : currentTaskRepartition.myTasks[task.name].duration,
-                    category : currentTaskRepartition.myTasks[task.name].category,
-                    userModified:currentTaskRepartition.myTasks[task.name].userModified,
+                    effort: currentTaskRepartition.partnerTasks[task.name].effort,
+                    duration : currentTaskRepartition.partnerTasks[task.name].duration,
+                    category : currentTaskRepartition.partnerTasks[task.name].category,
+                    userModified:currentTaskRepartition.partnerTasks[task.name].userModified,
                 };
             }
         }
