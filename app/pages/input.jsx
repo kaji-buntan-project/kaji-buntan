@@ -26,7 +26,7 @@ import AllocationList from 'components/allocationList';
 import GuideTalk from 'components/guideTalk';
 import { useAtom } from "jotai";
 import NextLink from "next/link";
-import { currentTaskRepartitionAtom, leastRepartitionAtom, adjustedRepartitionAtom, allTasksAtom } from "../lib/atoms.js";
+import { currentTaskRepartitionAtom, leastRepartitionAtom, adjustedRepartitionAtom, allTasksAtom,validateErrorAtom } from "../lib/atoms.js";
 
 // TabPanel -> https://mui.com/material-ui/react-tabs/
 function TabPanel(props) {
@@ -60,18 +60,31 @@ export default function InputPage() {
     const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
     const [ currentTab, setCurrentTab ] = useState(0);
+
+    //バリデーションのエラーがあるか
+    const [ validateError, setValidateError] = useAtom(validateErrorAtom)
     
     //現在の家事分担データ
     const [ currentTaskRepartition, setAllTaskRepartition ] = useAtom(currentTaskRepartitionAtom);
 
-    //少し理想的な分担の家事データ
-    // const [ leastRepartition, setLeastRepartition ] = useAtom(leastRepartitionAtom);
+    const handleValidateError = (errorMessage)=>{
+        // errorMessageが指定されたref
+        const spanElement = errorMessage.current;
 
-    //理想的な分担の家事データ
-    // const [ adjustedRepartition, setAdjustedRepartition ] = useAtom(adjustedRepartitionAtom);
+        // spanの中のテキストコンテンツを取得
+        const textContent = spanElement.innerText || spanElement.textContent;
 
-    //家事データを送信する
-    // sendDataToDB(currentTaskRepartition,leastRepartition,adjustedRepartition,allTasks)
+        // 文字列が空でないかを判定
+        if (textContent.trim() !== '') {
+        // 文字列がある場合の処理
+        setValidateError((prevErrors)=> [...prevErrors,errorMessage])
+        return
+    } else {
+        // 文字列がない場合の処理
+        setValidateError(validateError.filter((prevErrors) => prevErrors !== errorMessage))
+        return
+    }
+    }
 
     //toDo:別ファイルに分割
     const getAllInputComponents = (taskArray) => {
@@ -80,7 +93,7 @@ export default function InputPage() {
 
         for (let category of taskArray) {
             let activeTasks = category.children.filter(task => task.checked).map((taskObject, index) => 
-            <InputBox key={`${taskObject.name}${index}`} taskObject={taskObject} index={index} setTaskRepartition={setTaskRepartition} getTaskRepartition={getTaskRepartition} currentTaskRepartition={currentTaskRepartition}>
+            <InputBox key={`${taskObject.name}${index}`} taskObject={taskObject} index={index} setTaskRepartition={setTaskRepartition} getTaskRepartition={getTaskRepartition} currentTaskRepartition={currentTaskRepartition} setValidateError={setValidateError} validateError={validateError} handleValidateError={handleValidateError}>
             {/* {taskObject.name}
             <NewInputItem label={taskObject.name} key={`${taskObject.name}${index}`} person={'me'} calculateTotal={calculateTotal} myTaskTimes={myTaskTimes} setTaskTimes={setMyTaskTimes} onTaskChange={setTaskRepartition} initialValue={getTaskRepartition(person[0], taskObject.name)} />
             {ourTaskTimes}回
@@ -195,7 +208,7 @@ export default function InputPage() {
                 {currentTab === 1 ? (
                 // 「私とパートナーの評価」タブでは
                 <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom}} as="/result">
-                    <a className={styles.toResultLink}>この内容で診断する</a>
+                    <a className={validateError.length === 0 ?  styles.toResultLink : styles.disAbleLink}>この内容で診断する</a>
                 </NextLink>
                 ): 
                 // 「家事選択」タブでは

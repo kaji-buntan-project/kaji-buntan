@@ -16,13 +16,13 @@ import { validateCount } from 'lib/validateCount';
 
 export default function InputItem(props) {
 
-    const {person, label, onTaskChange, initialValue ,setTaskCount ,taskCount, countOurTask  } = props;
+    const {person, label, onTaskChange, initialValue ,setTaskCount ,taskCount, countOurTask , handleValidateError  } = props;
     const errorMessage = useRef(null);
 
     const [ isDoingTask, setDoingTask ] = useState(initialValue.participates);
     const [ happyLevel, setHappyLevel ] = useState(initialValue.effort ? initialValue.effort : 0); // Neutral: 0, Unhappy: -1, Happy: +1
     const [ taskTime, setTaskTime ] = useState(initialValue.duration ? initialValue.duration : 30);
-
+    
     const sliderMarks = [
         {
             value: 10,
@@ -74,7 +74,7 @@ export default function InputItem(props) {
                 max={200}
                 defaultValue={taskCount}
                 //フォーカスアウトした時にバリデーションチェック
-                onBlur={()=>validateCount(errorMessage,taskCount)}
+                onBlur={()=>{validateCount(errorMessage,taskCount),handleValidateError(errorMessage)}}
                 />
                 <span className={ styles.errorMessage } ref={errorMessage}></span>
             </label>

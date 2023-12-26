@@ -9,3 +9,5 @@ export const allTasksAtom = atom(constants.allTasks);
 export const leastRepartitionAtom = atom(getInitialTaskRepartition());
 
 export const adjustedRepartitionAtom = atom(getInitialTaskRepartition());
+
+export const validateErrorAtom = atom([]);
