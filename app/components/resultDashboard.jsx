@@ -35,9 +35,11 @@ function makeBothAllocation(TaskRepartition, allTasks){
 }
 
 export default function ResultDashboard(props) {
+
+  // todo:1回のみ実行するように（tagを更新）
   if(props.tag){
     setDataToDB()
-    // sendDataToDB(setDataToDB())
+    sendDataToDB(setDataToDB())
   }
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
   return (
