@@ -2,7 +2,7 @@
 // import constants from "../src/constants";
 //const allTasks = constants.allTasks
 
-// import calculateBurden from "../src/calculateBurden";
+import calculateBurden from "../src/calculateBurden";
 // import improvedAdjustedWinner from "../src/improvedAdjustedWinner";
 // import leastChangeAllocation from "../src/leastChangeAllocation";
 
@@ -30,12 +30,14 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
     let taskList = {};
     let counter0 = 0
 
+    console.log(currentTaskRepartition);
+
     for (let category of allTasks){
         for (let task of category.children){
             if (task.checked){
                 task_total_num_list.push(task.myDefault + task.partnerDefault);
                 alice_burden_list.push(calculateBurden(currentTaskRepartition.myTasks[task.name].effort, currentTaskRepartition.myTasks[task.name].duration));
-                bob_burden_list.push(calculateBurden(currentTaskRepartition.partnerTask1[task.name].effort, currentTaskRepartition.partnerTask1[task.name].duration));
+                bob_burden_list.push(calculateBurden(currentTaskRepartition.partnerTasks[task.name].effort, currentTaskRepartition.partnerTasks[task.name].duration));
                 current_alice_allocation.push(currentTaskRepartition.myTasks[task.name].participates);
                 current_bob_allocation.push(currentTaskRepartition.myTasks[task.name].participates);
 
@@ -46,23 +48,21 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
     }
 
     ////// wasm improved_adjusted_winner 
-    useEffect(() => {
+    //useEffect(() => {
         // ここで wasm モジュールの関数を呼び出す
         // let adjustedWinnerAllocation = improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
-        let adjustedWinnerAllocation = improved_adjusted_winner(task_total_num_list, alice_burden_list, bob_burden_list); 
-        console.log("adjustedWinner_alliceAllocation: ", adjustedWinnerAllocation[0]);
-        console.log("adjustedWinner_bobAllocation: ", adjustedWinnerAllocation[1]);
-    }, []);
+    let adjustedWinnerAllocation = improved_adjusted_winner(task_total_num_list, alice_burden_list, bob_burden_list); 
+    console.log("adjustedWinner_alliceAllocation: ", adjustedWinnerAllocation[0]);
+    console.log("adjustedWinner_bobAllocation: ", adjustedWinnerAllocation[1]);
     //////
     ////// wasm least_change_allocation
-    useEffect(() => {
+
         // ここで wasm モジュールの関数を呼び出す
         // let leastChangeAllocation = least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
-        let leastChangeAllocation = least_change_allocation(task_total_num_list, alice_burden_list, bob_burden_list, current_alice_allocation, current_bob_allocation);
-        console.log("leastChange_alliceAllocation: ", leastChangeAllocation[0]);
-        console.log("leastChange_bobAllocation: ", leastChangeAllocation[1]);
-    }, []);
-    //////
+    let leastChangeAllocation = least_change_allocation(task_total_num_list, alice_burden_list, bob_burden_list, current_alice_allocation, current_bob_allocation);
+    console.log("leastChange_alliceAllocation: ", leastChangeAllocation[0]);
+    console.log("leastChange_bobAllocation: ", leastChangeAllocation[1]);
+
 
     // adjustedWinnerAllocationやleastChangeAllocationを，currentTaskRepartitionの形に戻す必要がある.
 
@@ -107,6 +107,8 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
         }
     }
 
-    return (awCurrentTaskRepartition, lcCurrentTaskRepartition);
+    return [awCurrentTaskRepartition, lcCurrentTaskRepartition];
+    //}, []);
+    //////
 }
 
