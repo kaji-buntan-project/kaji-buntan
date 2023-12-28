@@ -36,8 +36,7 @@ npm run build
 # appコンテナ内でnextサーバーを起動する
 npm run start
 ```
-
-http://localhost:3000 にアクセスし、ページが表示されたら環境構築成功です。
+http://localhost:8000/  にアクセスし、ページが表示されたら環境構築成功です。
 
 #### 4. バックエンドの環境構築
 
@@ -57,6 +56,6 @@ php artisan migrate
 php artisan openapi:generate > housework_sharing_openapi.json
 ```
 
-http://localhost:8080/api にアクセスし、hello worldと表示されたら環境構築成功です。
+http://localhost:8000/api にアクセスし、hello worldと表示されたら環境構築成功です。
 
 また、http://localhost:8081 にアクセスすることで、DBの内容を確認できます。
