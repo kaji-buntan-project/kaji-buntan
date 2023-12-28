@@ -20,9 +20,10 @@ import { DateTime } from 'luxon';
 
 import constants from "../src/constants";
 
-import makeAliceBobUtility from "../src/mainAlgorithm";
-import AllocationList from 'components/allocationList';
-import { improved_adjusted_winner, least_change_allocation } from 'wasm_rust_project/pkg';
+//import makeAliceBobUtility from "../src/mainAlgorithm";
+//import AllocationList from 'components/allocationList';
+//import { improved_adjusted_winner, least_change_allocation } from 'wasm_rust_project/pkg';
+import * as wasm from "wasm_rust_project/pkg";
 
 import GuideTalk from 'components/guideTalk';
 import { useAtom } from "jotai";
@@ -57,22 +58,34 @@ const allTasks = constants.allTasks
 
 export default function InputPage() {
 
+    async function initWasm() {
+        await wasm.default();
+        // その後、WebAssemblyの機能を利用する
+        let awAllocation = wasm.improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
+        console.log("aw_alliceAllocation: ", awAllocation[0]);
+        console.log("aw_bobAllocation: ", awAllocation[1]);
+        let lcAllocation =  wasm.least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
+        console.log("lc_alliceAllocation: ", lcAllocation[0]);
+        console.log("lc_bobAllocation: ", lcAllocation[1]);
+    }
+    
+    initWasm();
     ////// wasm improved_adjusted_winner のテスト. 後で消す
     useEffect(() => {
         // ここで wasm モジュールの関数を呼び出す
-        let Allocation = improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
+        let Allocation = wasm.improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
         console.log("alliceAllocation: ", Allocation[0]);
         console.log("bobAllocation: ", Allocation[1]);
     }, []);
-    //////
-    ////// wasm least_change_allocation のテスト. 後で消す
+    // //////
+    // ////// wasm least_change_allocation のテスト. 後で消す
     useEffect(() => {
         // ここで wasm モジュールの関数を呼び出す
-        let Allocation = least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
+        let Allocation =  wasm.least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
         console.log("alliceAllocation: ", Allocation[0]);
         console.log("bobAllocation: ", Allocation[1]);
     }, []);
-    //////
+    // //////
     
     const router = useRouter();
     const [allTasks, setAllTasks] = useAtom(allTasksAtom);
