@@ -59,33 +59,34 @@ const allTasks = constants.allTasks
 export default function InputPage() {
 
     async function initWasm() {
-        await wasm.default();
-        // その後、WebAssemblyの機能を利用する
         let awAllocation = wasm.improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
-        console.log("aw_alliceAllocation: ", awAllocation[0]);
-        console.log("aw_bobAllocation: ", awAllocation[1]);
         let lcAllocation =  wasm.least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
-        console.log("lc_alliceAllocation: ", lcAllocation[0]);
-        console.log("lc_bobAllocation: ", lcAllocation[1]);
+        return [awAllocation, lcAllocation]
     }
+    initWasm().then(result => {
+        console.log("aw_alliceAllocation: ", result[0][0]);
+        console.log("aw_bobAllocation: ", result[0][1]);
+        console.log("lc_alliceAllocation: ", result[1][0]);
+        console.log("lc_bobAllocation: ", result[1][1]);
+    });
     
-    initWasm();
+ 
     ////// wasm improved_adjusted_winner のテスト. 後で消す
-    useEffect(() => {
-        // ここで wasm モジュールの関数を呼び出す
-        let Allocation = wasm.improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
-        console.log("alliceAllocation: ", Allocation[0]);
-        console.log("bobAllocation: ", Allocation[1]);
-    }, []);
-    // //////
-    // ////// wasm least_change_allocation のテスト. 後で消す
-    useEffect(() => {
-        // ここで wasm モジュールの関数を呼び出す
-        let Allocation =  wasm.least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
-        console.log("alliceAllocation: ", Allocation[0]);
-        console.log("bobAllocation: ", Allocation[1]);
-    }, []);
-    // //////
+    // useEffect(() => {
+    //     // ここで wasm モジュールの関数を呼び出す
+    //     let Allocation = wasm.improved_adjusted_winner([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5]);
+    //     console.log("alliceAllocation: ", Allocation[0]);
+    //     console.log("bobAllocation: ", Allocation[1]);
+    // }, []);
+    // // //////
+    // // ////// wasm least_change_allocation のテスト. 後で消す
+    // useEffect(() => {
+    //     // ここで wasm モジュールの関数を呼び出す
+    //     let Allocation =  wasm.least_change_allocation([7,7,7,7,7], [5,10,5,10,15], [1,2,3,4,5], [3,3,3,3,3], [4,4,4,4,4]);
+    //     console.log("alliceAllocation: ", Allocation[0]);
+    //     console.log("bobAllocation: ", Allocation[1]);
+    // }, []);
+    // // //////
     
     const router = useRouter();
     const [allTasks, setAllTasks] = useAtom(allTasksAtom);
