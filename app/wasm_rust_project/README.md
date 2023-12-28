@@ -17,8 +17,9 @@ cargo test
 または，wasm_rust_project/src/lib.rsの中で，上記の拡張機能を入れた状況でRun Testを押す．
 
 #### ビルド
-ウェブアセンブリ(wasm)としてReactで利用可能にするには，ビルドする必要がある．そのコマンドは
+ウェブアセンブリ(wasm)としてReactで利用可能にするには，wasm_rust_project内で，ビルドする必要がある．そのコマンドは
 ```bash
-wasm-pack build
+cd /var/www/html/wasm_rust_project
+wasm-pack build --target web
 ```
 である．
