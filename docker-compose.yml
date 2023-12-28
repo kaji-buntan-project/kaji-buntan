@@ -50,6 +50,13 @@ services:
       - PMA_PASSWORD=${DB_PASSWORD}
     ports:
       - 8081:80 
+  
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8000:8000"
 
 volumes:
   housework_sharing_mysql_data: {}
