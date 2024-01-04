@@ -5,11 +5,11 @@ const allTasks = constants.allTasks
 
 export default function detectAllocationChange(currentTaskRepartition, changedTaskRepartition){
   let changedTaskList = [];
-  for (let c of allTasks){
-    for (let task of c.children){
-      if(currentTaskRepartition.myTasks[task.name].participates != changedTaskRepartition.myTasks[task.name].participates){
-        changedTaskList.push(task.name);
-      }
+  let taskList = Object.keys(changedTaskRepartition.myTasks);
+
+  for(let task of taskList){
+    if(currentTaskRepartition.myTasks[task].userModified === true && currentTaskRepartition.myTasks[task].participates != changedTaskRepartition.myTasks[task].participates){
+      changedTaskList.push(task);
     }
   }
   if (changedTaskList.length == 0){
