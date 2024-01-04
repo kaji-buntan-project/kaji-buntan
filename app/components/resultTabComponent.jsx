@@ -44,8 +44,14 @@ export default function ResultTabComponent(props) {
   const { currentTaskRepartition, allTasks } = props;
   const [currentAliceAllocation, currentBobAllocation] = makeBothAllocation(currentTaskRepartition, allTasks);
 
-  // // calculate initial state
-  const [adjustedWinnerTaskRepartition, leastChangeAllocationTaskRepartition] = makeAliceBobUtility(allTasks, currentTaskRepartition);
+  // ALGORITHM
+  let result = makeAliceBobUtility(allTasks, currentTaskRepartition);
+  let adjustedWinnerTaskRepartition = result[0];
+  let leastChangeAllocationTaskRepartition = result[1];
+  console.log("aw_Allocation: ", adjustedWinnerTaskRepartition);
+  console.log("lc_Allocation: ", leastChangeAllocationTaskRepartition);
+
+
   const [adjustedWinnerAliceAllocation, adjustedWinnerBobAllocation] = makeBothAllocation(adjustedWinnerTaskRepartition, allTasks);
   const [leastChangeAliceAllocation, leastChangeBobAllocation] = makeBothAllocation(leastChangeAllocationTaskRepartition, allTasks);
 

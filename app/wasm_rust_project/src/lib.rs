@@ -320,5 +320,15 @@ mod tests {
         let (alice_allocation, bob_allocation) = compute_new_alice_bob_allocation_using_leact_change(task_total_num_list, alice_burden_list, bob_burden_list, current_alice_allocation, current_bob_allocation);
         println!("alice_allocation : {:?}, bob_allocation : {:?}", alice_allocation, bob_allocation);
         assert_eq!((alice_allocation, bob_allocation),(vec![3, 3, 4, 3, 3], vec![4, 4, 3, 4, 4]));
+
+        let task_total_num_list_2 = vec![7,7,7];
+        let alice_burden_list_2 = vec![20,20,20];
+        let bob_burden_list_2 = vec![20,20,20];
+        let current_alice_allocation_2 = vec![3,4,3];
+        let current_bob_allocation_2 = vec![4,3,4];
+
+        let (alice_allocation_2, bob_allocation_2) = compute_new_alice_bob_allocation_using_leact_change(task_total_num_list_2, alice_burden_list_2, bob_burden_list_2, current_alice_allocation_2, current_bob_allocation_2);
+        println!("alice_allocation_2 : {:?}, bob_allocation_2 : {:?}", alice_allocation_2, bob_allocation_2);
+        assert_eq!((alice_allocation_2, bob_allocation_2),(vec![3,4,3], vec![4,3,4]));
     }
 }
