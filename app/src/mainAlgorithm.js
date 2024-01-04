@@ -37,7 +37,7 @@ export default function makeAliceBobUtility(allTasks, currentTaskRepartition){
     for (let category of allTasks){
         for (let task of category.children){
             if (task.checked){
-                task_total_num_list.push(task.myDefault + task.partnerDefault);
+                task_total_num_list.push(currentTaskRepartition.myTasks[task.name].participates + currentTaskRepartition.partnerTasks[task.name].participates);
                 alice_burden_list.push(calculateBurden(currentTaskRepartition.myTasks[task.name].effort, currentTaskRepartition.myTasks[task.name].duration));
                 bob_burden_list.push(calculateBurden(currentTaskRepartition.partnerTasks[task.name].effort, currentTaskRepartition.partnerTasks[task.name].duration));
                 current_alice_allocation.push(currentTaskRepartition.myTasks[task.name].participates);
