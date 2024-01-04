@@ -59,3 +59,4 @@ php artisan openapi:generate > housework_sharing_openapi.json
 http://localhost:8000/api にアクセスし、hello worldと表示されたら環境構築成功です。
 
 また、http://localhost:8081 にアクセスすることで、DBの内容を確認できます。
+テスト
