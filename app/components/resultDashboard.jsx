@@ -35,10 +35,12 @@ function makeBothAllocation(TaskRepartition, allTasks){
 }
 
 export default function ResultDashboard(props) {
-  if(props.tag){
-    setDataToDB()
-    // sendDataToDB(setDataToDB())
-  }
+    if(props.tag){
+      setDataToDB()
+      sendDataToDB(setDataToDB())
+      props.setTag(false)
+    }
+
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
   return (
     <Box>
