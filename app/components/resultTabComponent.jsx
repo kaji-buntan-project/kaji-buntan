@@ -137,6 +137,7 @@ export default function ResultTabComponent(props) {
           currentTaskRepartition={currentTaskRepartition}
           allTasks={allTasks}
           tag={tag}
+          setTag={setTag}
         ></ResultDashboard>
         <h1></h1>
         <br></br>
