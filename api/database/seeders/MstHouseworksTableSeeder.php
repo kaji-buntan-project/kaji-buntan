@@ -29,7 +29,8 @@ class MstHouseworksTableSeeder extends Seeder
             ['name' => '食器片付ける', 'mst_housework_category_id' => 2],
             ['name' => '食器用洗剤の購入', 'mst_housework_category_id' => 2],
             ['name' => 'まな板除菌・漂白', 'mst_housework_category_id' => 2],
-        
+            ['name' => '包丁研ぐ', 'mst_housework_category_id' => 2],
+            
             // 洗濯 (Laundry)
             ['name' => 'フィルターのホコリを取る', 'mst_housework_category_id' => 3],
             ['name' => '洗濯洗剤の購入', 'mst_housework_category_id' => 3],
