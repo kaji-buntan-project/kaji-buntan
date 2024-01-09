@@ -42,6 +42,15 @@ export default function ResultDashboard(props) {
     }
 
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
+
+    //入力した「私」のデータを抽出
+    const myData = props.value.myTasks
+    const myInputData = Object.fromEntries(Object.entries(myData).filter(([key, value]) => value.userModified === true));
+    
+    //入力した「パートナー」のデータを抽出
+    const partnerData = props.value.partnerTasks
+    const partnerInputData = Object.fromEntries(Object.entries(partnerData).filter(([key, value]) => value.userModified === true));;
+
   return (
     <Box>
       <Grid container spacing={0.5} alignItems="flex-start" >
@@ -60,6 +69,7 @@ export default function ResultDashboard(props) {
         current={props.current}
         tabtabnumber={props.tabtabnumber}
         repartition={props.repartition}
+        taskData={myInputData}
       ></AllocationList>
       </Grid>
     <Grid container item xs={6} justifyContent="center">
@@ -71,6 +81,7 @@ export default function ResultDashboard(props) {
           current={props.current}
           tabtabnumber={props.tabtabnumber}
           repartition={props.repartition}
+          taskData={partnerInputData}
         ></AllocationList>
       </Grid>
     </Grid>
