@@ -24,7 +24,7 @@ export default function AllocationChip(props) {
   }
   let changedList = props.changedList;
   if (props.current != "current"){
-    if (changedList.includes(props.label)){
+    if (changedList.includes(props.label) && props.tabtabnumber == 2){
       //理想的な分担
       return (<ListItem sx={{maxWidth:"100%"}}>
         <Chip 
@@ -47,7 +47,7 @@ export default function AllocationChip(props) {
         }} 
         avatar={<Avatar src = { avatar }></Avatar>}
         label={`${props.label}　${props.participates}`}
-        onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
+        // onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
         >
         </Chip>
         </ListItem>
@@ -63,7 +63,7 @@ export default function AllocationChip(props) {
       avatar={<Avatar src = { avatar }></Avatar>}
       label={`${props.label}　${props.participates}`}
       // style={styles.chip}
-      onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
+      // onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
       >
       </Chip>
       </ListItem>
