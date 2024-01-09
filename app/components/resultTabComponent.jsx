@@ -103,8 +103,11 @@ export default function ResultTabComponent(props) {
     const anotherPerson = person != "私" ? "myTasks" : "partnerTasks";
     // exchange task participate
     let selectedParticipate = TaskRepartition[selectedPerson][taskName]["participates"];
-    TaskRepartition[selectedPerson][taskName]["participates"] = TaskRepartition[anotherPerson][taskName]["participates"];
-    TaskRepartition[anotherPerson][taskName]["participates"] = selectedParticipate;
+    let anotherPersonParticipate = TaskRepartition[anotherPerson][taskName]["participates"];
+    
+    TaskRepartition[selectedPerson][taskName]["participates"] = selectedParticipate - 1
+    TaskRepartition[anotherPerson][taskName]["participates"] =  anotherPersonParticipate + 1;  
+   
     setRepartition(TaskRepartition);
     setHoge(hoge + 1);
   };
