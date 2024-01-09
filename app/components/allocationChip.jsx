@@ -1,6 +1,7 @@
 import { Chip, Avatar } from "@mui/material"
 import { styled } from "@mui/system"
 import constants from "../src/constants";
+import styles from 'styles/allocationChip.module.css';
 
 const ListItem = styled("li")(({theme}) => ({margin: theme.spacing(0.5)}))
 
@@ -23,42 +24,46 @@ export default function AllocationChip(props) {
   }
   let changedList = props.changedList;
   if (props.current != "current"){
-    if (changedList.includes(props.label)){
+    if (changedList.includes(props.label) && props.tabtabnumber == 2){
+      //理想的な分担
       return (<ListItem sx={{maxWidth:"100%"}}>
         <Chip 
         sx = {{
           backgroundColor: backColor,
         }} 
         avatar={<Avatar src = { avatar }></Avatar>}
-        label={props.label}
+        label={`${props.label}　${props.participates}`}
         onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
         >
         </Chip><div><b style={{color: "rgba(100,185,50)"}}>変更</b></div>
         </ListItem>
         )
     }else{
+      //少し理想的な分担
       return (<ListItem sx={{maxWidth:"100%"}}>
         <Chip 
         sx = {{
           backgroundColor: backColor,
         }} 
         avatar={<Avatar src = { avatar }></Avatar>}
-        label={props.label}
-        onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
+        label={`${props.label}　${props.participates}`}
+        // onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
         >
         </Chip>
         </ListItem>
         )
-    }
-  }else{
+      }
+    }else{
+    //今の家事分担
     return (<ListItem sx={{maxWidth:"100%"}}>
       <Chip 
       sx = {{
         backgroundColor: backColor,
       }} 
       avatar={<Avatar src = { avatar }></Avatar>}
-      label={props.label}
-      onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
+      label={`${props.label}　${props.participates}`}
+      // style={styles.chip}
+      // onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
       >
       </Chip>
       </ListItem>

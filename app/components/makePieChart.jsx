@@ -7,7 +7,9 @@ import calculateBurden from "../src/calculateBurden";
 // if(registerables){
 // ChartJS.register(...registerables);
 // }
-import { Chart as ChartJS } from 'chart.js/auto';
+// import { Chart as ChartJS } from 'chart.js/auto';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const allTasks = constants.allTasks
@@ -36,7 +38,7 @@ function makeMyPieData(props){
                 let category = c.name;
                 if (props.value.myTasks[t.name]){
                     if (props.value.myTasks[t.name].participates){
-                        labels.push(t.name);
+                        labels.push(`${t.name}\n負担度${calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration)}×${props.value.myTasks[t.name].participates}回`);
                         data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration) * props.value.myTasks[t.name].participates);
                         backgroundColor.push(myBackColorBorder);
                         hoverBackgroundColor.push(myBackColorBorder);
@@ -45,12 +47,13 @@ function makeMyPieData(props){
             }
         })
     });
+    //パートナーの負担度
     allTasks.map(c => {
         c.children.map(t => {
             if (t.checked){
                 let category = c.name;
                 if (props.value.partnerTasks[t.name].userModified==true){
-                    labels.push(t.name);
+                    labels.push(`${t.name}\n負担度${calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration)}×${props.value.partnerTasks[t.name].participates}回`);
                     data.push(calculateBurden(props.value.myTasks[t.name].effort, props.value.myTasks[t.name].duration) * props.value.partnerTasks[t.name].participates);
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
@@ -58,7 +61,7 @@ function makeMyPieData(props){
             }
         });
     });
-    return {labels: labels, datasets: [{data: data, label: "私", backgroundColor: backgroundColor, hoverBackgroundColor: hoverBackgroundColor,},]};
+    return {labels: labels, datasets: [{data: data, label: '', backgroundColor: backgroundColor, hoverBackgroundColor: hoverBackgroundColor,},]};
 }
 
 
@@ -77,7 +80,7 @@ function makePartnerPieData(props){
                 let category = c.name;
                 if (props.value.partnerTasks[t.name]){
                     if (props.value.partnerTasks[t.name].participates){
-                        labels.push(t.name);
+                        labels.push(`${t.name}\n負担度${calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration)}×${props.value.partnerTasks[t.name].participates}回`);
                         data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration) * props.value.partnerTasks[t.name].participates);
                         backgroundColor.push(partnerBackColorBorder);
                         hoverBackgroundColor.push(partnerBackColorBorder);
@@ -92,7 +95,7 @@ function makePartnerPieData(props){
             if (t.checked){
                 let category = c.name;
                 if (props.value.myTasks[t.name].userModified==true){
-                    labels.push(t.name);
+                    labels.push(`${t.name}\n負担度${calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration)}×${props.value.myTasks[t.name].participates}回`);
                     data.push(calculateBurden(props.value.partnerTasks[t.name].effort, props.value.partnerTasks[t.name].duration) * props.value.myTasks[t.name].participates);
                     backgroundColor.push('rgba(0,0,0,0.05)');
                     hoverBackgroundColor.push('rgba(0,0,0,0.05)');
@@ -100,7 +103,7 @@ function makePartnerPieData(props){
             }
         });
     });
-    return {labels: labels, datasets: [{data: data, label: "パートナー", backgroundColor: backgroundColor, hoverBackgroundColor: hoverBackgroundColor, }]};
+    return {labels: labels, datasets: [{data: data, label: "", backgroundColor: backgroundColor, hoverBackgroundColor: hoverBackgroundColor, }]};
 }
 
 

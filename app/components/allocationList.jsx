@@ -28,6 +28,7 @@ export default function AllocationList(props) {
               current={props.current}
               tabtabnumber={props.tabtabnumber}
               repartition={props.repartition}
+              participates={props.taskData[d].participates}
             ></AllocationChip>)
         }
       </Box>
