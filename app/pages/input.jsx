@@ -157,7 +157,6 @@ export default function InputPage() {
         const personKey = (person == 'me' ? 'myTasks' : 'partnerTasks');           
         
         currentTaskRepartition[personKey][taskName] = taskRepartitionItem;
-        currentTaskRepartition[personKey][taskName].userModified = true;
 
         // "私の評価”を変更すれば、パートナーの評価も自動的に設定します（ユーザーから変更がなかった場合のみ）
         // if (person == 'me' && !currentTaskRepartition['partnerTasks'][taskName].userModified) {
@@ -169,9 +168,17 @@ export default function InputPage() {
         // if (person == 'partner') {
         //     currentTaskRepartition['myTasks'][taskName].participates = !taskRepartitionItem.participates;
         // }
-
+        allTasks.map(c => {
+            c.children.map(t => {
+                //家事選択でチェックを入れた家事を抽出
+                if (t.checked){
+                    currentTaskRepartition[personKey][t.name].userModified = true;
+                } else {
+                    currentTaskRepartition[personKey][t.name].userModified = false;
+                }
+            });
+        });
         setAllTaskRepartition(currentTaskRepartition);
-
     }
     
     const handleChangeTasks = (event) => {
