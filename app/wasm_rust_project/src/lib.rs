@@ -74,11 +74,11 @@ pub fn is_ef_for_bob(alice_burden_list: &Vec<i32>, bob_burden_list: &Vec<i32>, n
     // update後と前とで，どれだけ差が生まれかも，判定する
 
     let mut updated_new_alice_allocation: Vec<i32> = new_alice_allocation.clone();
-    let mut updated_new_bob_allocation: Vec<i32> = new_alice_allocation.clone();
+    let mut updated_new_bob_allocation: Vec<i32> = new_bob_allocation.clone();
 
     updated_new_alice_allocation[index] -= 1;
     updated_new_bob_allocation[index] += 1;
-
+    println!("---------updated_new_alice_allocation:{:?}--------,---------updated_new_bob_allocation:{:?}--------", updated_new_alice_allocation, updated_new_bob_allocation);
 
     // update後の効用
     let updated_alice_utility_for_alice_bundle: i32 = dot_product(&updated_new_alice_allocation, &alice_burden_list);
@@ -92,6 +92,18 @@ pub fn is_ef_for_bob(alice_burden_list: &Vec<i32>, bob_burden_list: &Vec<i32>, n
     // 負担度の合計
     let sum_alice_burden: f32 = alice_burden_list.iter().map(|&x| x as f32).sum();
     let sum_bob_burden: f32 = bob_burden_list.iter().map(|&x| x as f32).sum();
+
+    println!("updated_bob_utility_for_bob_bundle:{:?}", updated_bob_utility_for_bob_bundle);
+    println!("updated_bob_utility_for_alice_bundle:{:?}", updated_bob_utility_for_alice_bundle);
+
+    println!("sum_alice_burden:{:?}", sum_alice_burden);
+    println!("sum_bob_burden:{:?}", sum_bob_burden);
+
+    println!("updated_alice_utility_for_alice_bundle:{}", updated_alice_utility_for_alice_bundle);
+
+
+    println!("alice_utility_for_alice_bundle:{}", alice_utility_for_alice_bundle);
+    println!("bob_utility_for_bob_bundle:{}", bob_utility_for_bob_bundle);
 
     (updated_bob_utility_for_bob_bundle > updated_bob_utility_for_alice_bundle) || ((updated_bob_utility_for_bob_bundle as f32 / sum_bob_burden - updated_alice_utility_for_alice_bundle as f32 / sum_alice_burden).abs() >= (bob_utility_for_bob_bundle as f32 / sum_bob_burden - alice_utility_for_alice_bundle as f32 / sum_alice_burden).abs())
 }
@@ -135,9 +147,9 @@ pub fn compute_new_alice_bob_allocation_using_aw(alice_burden_list: Vec<i32>, bo
     for i in 0..fractional_list.len() {
         let index:usize = fractional_list[i].0;
         while new_alice_allocation[index] > 0 {
-            println!("{:?}, {:?}", new_alice_allocation, new_bob_allocation);
-            println!("{:?}",fractional_list);
-            println!("{}",is_efone(&alice_burden_list, &bob_burden_list, &new_alice_allocation, &new_bob_allocation));
+            println!("---------new_alice_allocation:{:?}--------,---------new_bob_allocation:{:?}--------", new_alice_allocation, new_bob_allocation);
+            //println!("{:?}",fractional_list);
+            //println!("{}",is_efone(&alice_burden_list, &bob_burden_list, &new_alice_allocation, &new_bob_allocation));
             if is_efone(&alice_burden_list, &bob_burden_list, &new_alice_allocation, &new_bob_allocation) {
                 break_outer_loop = true;
                 break;
@@ -153,8 +165,10 @@ pub fn compute_new_alice_bob_allocation_using_aw(alice_burden_list: Vec<i32>, bo
 
     let mut break_outer_loop_2 = false;
     for i in t..fractional_list.len() {
+        println!("---------{}--------",i);
         let index:usize = fractional_list[i].0;
         while new_alice_allocation[index] > 0 {
+            println!("---------new_alice_allocation:{:?}--------,---------new_bob_allocation:{:?}--------", new_alice_allocation, new_bob_allocation);
             if is_ef_for_bob(&alice_burden_list, &bob_burden_list, &new_alice_allocation, &new_bob_allocation, index.clone()) {
                 break_outer_loop_2 = true;
                 break;
@@ -302,13 +316,17 @@ mod tests {
         let bob_burden_list = vec![1,2,3,4,5];
         let (alice_allocation, bob_allocation) = compute_new_alice_bob_allocation_using_aw(alice_burden_list, bob_burden_list, task_total_num_list);
         println!("alice_allocation : {:?}, bob_allocation : {:?}", alice_allocation, bob_allocation);
-        assert_eq!((alice_allocation, bob_allocation),(vec![0, 0, 7, 7, 4], vec![7, 7, 0, 0, 3]));
+        assert_eq!((alice_allocation, bob_allocation),(vec![0, 0, 7, 7, 2], vec![7, 7, 0, 0, 5]));
     }
-    // #[test]
-    // fn test_improved_adjusted_winner() {
-    //     let allocation = improved_adjusted_winner(vec![7,7,7,7,7], vec![5,10,5,10,15], vec![1,2,3,4,5]);
-    //     println!("allocation : {:?}", allocation);
-    // }
+    #[test]
+    fn test_compute_new_alice_bob_allocation_using_aw_2() {
+        let task_total_num_list = vec![7,7,7,7,7];
+        let alice_burden_list = vec![5,4,1,1,1];
+        let bob_burden_list = vec![5,4,1,1,1];
+        let (alice_allocation, bob_allocation) = compute_new_alice_bob_allocation_using_aw(alice_burden_list, bob_burden_list, task_total_num_list);
+        println!("alice_allocation : {:?}, bob_allocation : {:?}", alice_allocation, bob_allocation);
+        //assert_eq!((alice_allocation, bob_allocation),(vec![0, 0, 7, 7, 4], vec![7, 7, 0, 0, 3]));
+    }
     #[test]
     fn test_least_change_allocation() {
         let task_total_num_list = vec![7,7,7,7,7];
