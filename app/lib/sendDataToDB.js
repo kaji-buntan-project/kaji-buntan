@@ -1,6 +1,11 @@
 import axios from "axios";
 export const sendDataToDB = (data) => {
-  console.log(data);
+
+  //データがない時は送信しない
+  if(data.houseworks.length === 0){
+    return
+  }
+
   //apiエンドポイント
   const apiUrl = "/api/diagnosis";
 
