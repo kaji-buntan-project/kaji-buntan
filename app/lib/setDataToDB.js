@@ -1,10 +1,6 @@
-import { useAtom } from "jotai";
-import { currentTaskRepartitionAtom, leastRepartitionAtom, adjustedRepartitionAtom } from "../lib/atoms.js";
 
-export const setDataToDB = () => {
+export const setDataToDB = (currentTaskRepartition,leastRepartition,adjustedRepartition) => {
   //現在の家事分担
-  const [currentTaskRepartition] = useAtom(currentTaskRepartitionAtom);
-
   const myTask = currentTaskRepartition.myTasks;
   const myData = Object.fromEntries(Object.entries(myTask).filter(([key, value]) => value.userModified === true));
 
@@ -12,8 +8,6 @@ export const setDataToDB = () => {
   const partnerData = Object.fromEntries(Object.entries(partnerTask).filter(([key, value]) => value.userModified === true));
 
   //少し理想的な分担
-  const [leastRepartition] = useAtom(leastRepartitionAtom);
-
   const leastRepartitionMyTask = leastRepartition.myTasks;
   const leastRepartitionMyData = Object.fromEntries(Object.entries(leastRepartitionMyTask).filter(([key, value]) => value.userModified === true));
 
@@ -21,8 +15,6 @@ export const setDataToDB = () => {
   const leastRepartitionPartnerData = Object.fromEntries(Object.entries(leastRepartitionPartnerTask).filter(([key, value]) => value.userModified === true));
 
   //理想的な分担
-  const [adjustedRepartition] = useAtom(adjustedRepartitionAtom);
-
   const adjustedRepartitionMyTask = adjustedRepartition.myTasks;
   const adjustedRepartitionMyData = Object.fromEntries(Object.entries(adjustedRepartitionMyTask).filter(([key, value]) => value.userModified === true));
 

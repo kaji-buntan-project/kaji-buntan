@@ -13,6 +13,8 @@ import detectAllocationChange from "src/detectAllocationChange";
 import makeAliceBobUtility from "/src/mainAlgorithm";
 import { setDataToDB } from "/lib/setDataToDB";
 import { sendDataToDB } from "/lib/sendDataToDB";
+import { useAtom } from "jotai";
+import { currentTaskRepartitionAtom, leastRepartitionAtom, adjustedRepartitionAtom ,isAxiosErrorAtom } from "../lib/atoms.js";
 
 
 function makeBothAllocation(TaskRepartition, allTasks){
@@ -35,9 +37,12 @@ function makeBothAllocation(TaskRepartition, allTasks){
 }
 
 export default function ResultDashboard(props) {
+  const [currentTaskRepartition] = useAtom(currentTaskRepartitionAtom);
+  const [adjustedRepartition] = useAtom(adjustedRepartitionAtom);
+  const [leastRepartition] = useAtom(leastRepartitionAtom);
     if(props.tag){
-      setDataToDB()
       sendDataToDB(setDataToDB())
+      setDataToDB(currentTaskRepartition,leastRepartition,adjustedRepartition)
       props.setTag(false)
     }
 
