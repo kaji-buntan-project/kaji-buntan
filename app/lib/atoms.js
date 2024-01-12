@@ -11,3 +11,5 @@ export const leastRepartitionAtom = atom(getInitialTaskRepartition());
 export const adjustedRepartitionAtom = atom(getInitialTaskRepartition());
 
 export const validateErrorAtom = atom([]);
+
+export const isAxiosErrorAtom = atom(false);

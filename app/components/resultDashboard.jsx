@@ -40,11 +40,15 @@ export default function ResultDashboard(props) {
   const [currentTaskRepartition] = useAtom(currentTaskRepartitionAtom);
   const [adjustedRepartition] = useAtom(adjustedRepartitionAtom);
   const [leastRepartition] = useAtom(leastRepartitionAtom);
+  
+   //API送信のエラー（初期値はfalse）
+  const [isAxiosError, setIsAxiosError] = useAtom(isAxiosErrorAtom)
+
     if(props.tag){
-      sendDataToDB(setDataToDB())
       setDataToDB(currentTaskRepartition,leastRepartition,adjustedRepartition)
+      sendDataToDB(setDataToDB(currentTaskRepartition,leastRepartition,adjustedRepartition),setIsAxiosError,isAxiosError)
       props.setTag(false)
-    }
+    } 
 
   let [changeOrUnchage, changedList] = detectAllocationChange(props.currentTaskRepartition, props.value);
 
@@ -56,9 +60,40 @@ export default function ResultDashboard(props) {
     const partnerData = props.value.partnerTasks
     const partnerInputData = Object.fromEntries(Object.entries(partnerData).filter(([key, value]) => value.userModified === true));;
 
+
+    let noInput = false
+    
+    //「私」・「パートナー」の入力データがない場合
+    if(Object.keys(myInputData).length === 0 && Object.keys(partnerInputData).length === 0){
+      noInput = true;
+    } else {
+      noInput = false
+    }
+    
+    //エラー通知（API）
+    if(isAxiosError){
+      console.log('API送信が正常ではありません');
+    }else{
+      console.log('API送信でエラーは発生してません');
+    }
+
+    //エラー通知（入力項目）
+    if(noInput){
+      console.log('入力項目がないです');
+    }else{
+      console.log('入力は正常です');
+    }
+
   return (
     <Box>
       <Grid container spacing={0.5} alignItems="flex-start" >
+
+      {/* 下記どちらかのエラーがあった場合はエラー画面表示 */}
+      {/* リロードしてデータが空の状態で結果を表示した場合(noInput = true) */}
+      {/* APIがエラーになり、データがDBに送信できなかった場合(isAxiosError = true) */}
+      {(noInput || isAxiosError) ? (<h1>エラーです</h1>): ''}
+
+
       <Grid container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
       </Grid>
