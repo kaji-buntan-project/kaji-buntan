@@ -5,8 +5,6 @@ import axios from "axios";
     //データがない時は送信しない
     if(data.houseworks.length === 0){
       console.log('データがないので送信しません');
-      //isAxiosErrorをtrueにする(異常あり)
-      setIsAxiosError(true)
       return
     }
   //apiエンドポイント
