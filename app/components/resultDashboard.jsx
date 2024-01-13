@@ -2,7 +2,9 @@ import ScatterPlotComponent from "./scatterPlotComponent";
 import ResultTableComponent from "./resultTableComponent";
 import MakeBarGraph from "./makeBarGraph";
 import MakePieChart from "./makePieChart";
+import ErrorDialog from "./errorDialog";
 import { Box, Grid } from "@mui/material";
+
 import AllocationList from "./allocationList";
 
 import myillust from '../public/images/myillust.png';
@@ -86,13 +88,9 @@ export default function ResultDashboard(props) {
 
   return (
     <Box>
-      <Grid container spacing={0.5} alignItems="flex-start" >
+      <Grid container spacing={0.5} alignItems="flex-start" justifyContent='center' >
 
-      {/* 下記どちらかのエラーがあった場合はエラー画面表示 */}
-      {/* リロードしてデータが空の状態で結果を表示した場合(noInput = true) */}
-      {/* APIがエラーになり、データがDBに送信できなかった場合(isAxiosError = true) */}
-      {(noInput || isAxiosError) ? (<h1>エラーです</h1>): ''}
-
+      <ErrorDialog noInput={noInput} isAxiosError={isAxiosError} />  
 
       <Grid container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
