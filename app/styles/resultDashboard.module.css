@@ -1,0 +1,18 @@
+.backToInput {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  /* muiの<Link>での下線取り消し */
+  text-decoration: none;
+}
+
+.pieLabel {
+  flex-direction: column-reverse;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.nextLink{
+  text-decoration: none;
+}
