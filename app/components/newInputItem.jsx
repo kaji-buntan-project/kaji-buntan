@@ -96,7 +96,8 @@ export default function InputItem(props) {
             className={ styles.slider }
             value={ taskTime }
             sx={{ gridArea: 'duration', marginLeft: '1em' }}
-            step={10}
+            // step={10}
+            step={7}
             marks= { sliderMarks }
             min={10}
             max={90}
