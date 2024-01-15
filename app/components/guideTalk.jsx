@@ -68,13 +68,13 @@ export default function GuideTalk(props) {
             }
         }
     }
-    let textsize=5;
+    let textsize=3;
     if(isMobile){
-        textsize=3;
+        textsize=2;
     }
     return (
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'start', marginBottom: '1.5em'}} className={styles.guide}>
-            <Image alt="introduction" src={sensei} width={102} height={102}></Image>
+            <Image alt="introduction" src={sensei} width={102} height={102} className={styles.faceImage}></Image>
             <Box sx={{
                 backgroundColor: 'rgba(211,211,211,0.5)',
                 borderRadius: '5px',
@@ -82,6 +82,7 @@ export default function GuideTalk(props) {
                 paddingY: '0.5em',
                 paddingX: '1em',
                 position: 'relative',
+                flex:'1'
             }}>
                 <b className='text'><font size={textsize}>{ getSaying() }</font></b>
                 <Box sx={{

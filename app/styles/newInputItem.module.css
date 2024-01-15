@@ -139,8 +139,8 @@ h2.categoryHeader {
     border: none;
     font-size: 16px;
     width: 100%;
-    width: 60px;
-    height: 36px;
+    width: 65px;
+    height: 38px;
     border: var(--main-color) 2px solid;
     padding: 4px 14px 4px 4px;
     text-align: center;
@@ -155,8 +155,8 @@ h2.categoryHeader {
     border: none;
     font-size: 16px;
     width: 100%;
-    width: 60px;
-    height: 36px;
+    width: 65px;
+    height: 38px;
     border: var(--main-color) 2px solid;
     padding: 4px 14px 4px 4px;
     text-align: center;
@@ -181,8 +181,8 @@ h2.categoryHeader {
 
 .myInputLabel::after{
     position: absolute;
-    top: 6px;
-    right: -48px;
+    top: 6.5px;
+    right: -57px;
     content: '回';
     width: 15px;
     height: 15px;
@@ -202,9 +202,10 @@ h2.categoryHeader {
         right: 55px;
     }
 }
+/* 私の「回」の位置 */
 @media (max-width: 1250px) {
     .myInputLabel::after{
-        right: 16px;
+        right: 8px;
     }
 }
 
@@ -214,8 +215,8 @@ h2.categoryHeader {
 
 .partnerInputLabel::after{
     position: absolute;
-    top: 6px;
-    right: 16px;
+    top: 6.5px;
+    right: 8px;
     content: '回';
     width: 15px;
     height: 15px;
@@ -253,10 +254,14 @@ h2.categoryHeader {
 width: 130px!important;
 }
 
-/* 家事の時間 */
+/* 家事の時間(スライダー) */
 .slider{
     min-width: 200px;
     width: 100%;
+    padding: 12px 0px;
+}
+.slider .MuiSlider-markLabel{
+    top: 20px;
 }
 
 @media (max-width: 1250px) {

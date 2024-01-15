@@ -49,6 +49,8 @@
 
 .inputBox_count{
   min-width: 60px;
+  width: 65px;
+  height: 38px;
   border: var(--main-color) 2px solid;
   padding: 4px;
   text-align: center;
@@ -72,7 +74,7 @@
 
 @media only screen and (max-width: 1250px) {
   .inputBox_count{
-    width: 60px;
+    width: 65px;
     margin-left: 0px;
   }
 }

@@ -147,6 +147,12 @@ export default function InputPage() {
         return returnArray;
     }
 
+    const handleChangeTab = (_, newValue) => {
+        setCurrentTab(newValue);
+        // 単純なTopは固定されているので、内部をスクロールさせる。
+        document.getElementById("input-panel").scrollIntoView();
+      };
+
     function getTaskRepartition(person, taskName) {
         const personKey = (person == 'me' ? 'myTasks' : 'partnerTasks');
         return currentTaskRepartition[personKey][taskName];
@@ -217,12 +223,14 @@ export default function InputPage() {
 
     return (
         <div className={styles.inputPanel} id="input-panel">
+            <div className={styles.tabs_wrapper}>
             <Tabs value={currentTab} 
-            sx={{margin:"0 auto", maxWidth:'500px', position: 'sticky', top: '10px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
-            onChange={ (_, newValue) => {
-                setCurrentTab(newValue);
-                scrollToTop();
-             }}
+            sx={{margin:"0 auto", maxWidth:'500px', position: 'sticky', top: '0px', backgroundColor: 'whitesmoke', zIndex: 50000, borderRadius: '5px' }} 
+            onChange={handleChangeTab}
+            // onChange={ (_, newValue) => {
+            //     setCurrentTab(newValue);
+            //     scrollToTop();
+            //  }}
             centered
             variant="fullWidth"
             scrollButtons="auto"
@@ -233,6 +241,7 @@ export default function InputPage() {
                 {/* <Tab label="パートナーの評価" sx={{ backgroundColor: "white" }} /> */}
                 {/* <Tab label="コンシェルジュの提案" sx={{ backgroundColor: 'white'}}/> */}
             </Tabs>
+            </div>
             <TabPanel value={ currentTab } index={0} sx={{ width: 1}} className={styles.taskWrapper}>
                 <br/>
                 <GuideTalk tabnumber={0} ></GuideTalk>
@@ -252,24 +261,40 @@ export default function InputPage() {
               >
               </ResultTabComponent>
             </TabPanel> */}
-            <Grid container spacing={3} justifyContent="center">
-                <Grid container item xs={6} justifyContent="flex-end">
-                    <Link href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
+            <Grid container className={styles.button_wrapper}>
+                <Grid container className={styles.button_cancel} item>
+                    <Link className={styles.mui_link} href="/" passhref={true}><Button variant="outlined" color="secondary">キャンセル</Button></Link>
                 </Grid>
-                <Grid container item xs={6} justifyContent="flex-start">
+
                 {currentTab === 1 ? (
                 // 「私とパートナーの評価」タブでは
-                <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom}} as="/result">
-                    <a className={validateError.length === 0 ?  styles.toResultLink : styles.disAbleLink}>この内容で診断する</a>
-                </NextLink>
-                ): 
-                // 「家事選択」タブでは
-                <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
-                    setCurrentTab(currentTab + 1);
-                    scrollToTop();
-                }}>次へ</Button>
-                }
+                <Grid container className={styles.button_toResult} item>
+                    <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom}} as="/result">
+                        <a className={validateError.length === 0 ?  styles.toResultLink : styles.disAbleLink}>この内容で診断する</a>
+                    </NextLink>
                 </Grid>
+                    ): 
+                    // 「家事選択」タブでは
+                <Grid container className={styles.button_next} item>
+                    <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
+                        setCurrentTab(currentTab + 1);
+                        scrollToTop();
+                    }}>次へ</Button>
+                </Grid>
+                }
+                {/* <Grid container className={`${styles.button_item} ${styles.button_next}`} item>
+                    {currentTab === 1 ? (
+                    // 「私とパートナーの評価」タブでは
+                    <NextLink href={{ pathname: "/result", currentTaskRepartitionAtom: currentTaskRepartitionAtom}} as="/result">
+                        <a className={validateError.length === 0 ?  styles.toResultLink : styles.disAbleLink}>この内容で診断する</a>
+                    </NextLink>
+                    ): 
+                    // 「家事選択」タブでは
+                    <Button variant="contained" color="primary" disabled={currentTab === 3} onClick={() => {
+                        setCurrentTab(currentTab + 1);
+                        scrollToTop();
+                    }}>次へ</Button>}
+                </Grid> */}
             </Grid>
         </div>
     );

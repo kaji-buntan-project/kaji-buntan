@@ -3,7 +3,7 @@ import ResultTableComponent from "./resultTableComponent";
 import MakeBarGraph from "./makeBarGraph";
 import MakePieChart from "./makePieChart";
 import ErrorDialog from "./errorDialog";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid ,Button,Link } from "@mui/material";
 
 import AllocationList from "./allocationList";
 
@@ -17,6 +17,9 @@ import { setDataToDB } from "/lib/setDataToDB";
 import { sendDataToDB } from "/lib/sendDataToDB";
 import { useAtom } from "jotai";
 import { currentTaskRepartitionAtom, leastRepartitionAtom, adjustedRepartitionAtom ,isAxiosErrorAtom } from "../lib/atoms.js";
+
+import NextLink from "next/link";
+import styles from 'styles/resultDashboard.module.css';
 
 
 function makeBothAllocation(TaskRepartition, allTasks){
@@ -92,10 +95,10 @@ export default function ResultDashboard(props) {
 
       <ErrorDialog noInput={noInput} isAxiosError={isAxiosError} />  
 
-      <Grid container item xs={6} justifyContent="center" alignItems="baseline">
+      <Grid className={styles.pieLabel} container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
       </Grid>
-      <Grid container item xs={6} justifyContent="center" alignItems="baseline">
+      <Grid className={styles.pieLabel} container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">パートナー</font></b><Image alt="introduction" src={partnerillust} width={52} height={52}></Image>
       </Grid>
     <Grid container item xs={6} justifyContent="center">
@@ -123,6 +126,16 @@ export default function ResultDashboard(props) {
         ></AllocationList>
       </Grid>
     </Grid>
+    <Grid container item justifyContent="center">
+      <Link className={styles.backToInput}>
+        <Button variant="outlined" color="secondary">
+          <NextLink href={{ pathname: "/input", currentTaskRepartitionAtom: currentTaskRepartitionAtom }} as="/input" className={styles.nextLink}>
+            <a>入力に戻る</a>
+            </NextLink>
+        </Button>
+      </Link>
+    </Grid>
+
     {/* <ResultTableComponent value={props.value}></ResultTableComponent> */}
       {/* <MakeBarGraph value={props.value}></MakeBarGraph> */}
       {/* <ScatterPlotComponent value={props.value}></ScatterPlotComponent> */}

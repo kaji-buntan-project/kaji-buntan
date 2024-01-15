@@ -1,58 +1,54 @@
 .inputPanel {
-    flex-grow: 1;
-    max-width: 100%;
+  flex-grow: 1;
+  max-width: 100%;
 
-    /* display: flex;
+  /* display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center; */
 
-    /*border: 3px solid var(--main-color);
+  /*border: 3px solid var(--main-color);
     border-radius: 20px; */
 
-    padding: 1em;
-
+  padding: 0px 1em 1rem 1rem;
 }
 
 @media only screen and (max-width: 400px) {
-    .inputPanel {
-      width: 100%;
-      padding:0.2em;
-    }
+  .inputPanel {
+    width: 100%;
+    padding: 0.2em;
+  }
 }
-  
 
 .inputPanel > h1 {
-    background-color: var(--main-color);
-    padding: 2px 0.5em;
-    border-radius: 10px;
+  background-color: var(--main-color);
+  padding: 2px 0.5em;
+  border-radius: 10px;
 }
 
-.taskWrapper{
-    max-width: 360px;
-    margin: 0 auto;
+.taskWrapper {
+  max-width: 360px;
+  margin: 0 auto;
 }
-
-
 
 .categorySection {
-    border: 1px solid var(--second-color);
-    border-radius: 5px;
-    margin-bottom: 30px;
-    padding: 0.5em;
-    max-width: 1800px;
-    width: 100%;
+  border: 1px solid var(--second-color);
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 0.5em;
+  max-width: 1800px;
+  width: 100%;
 }
 
 h2.categoryHeader {
-    background-color: var(--main-color);
-    color: white;
-    border-radius: 5px;
-    position: relative;
-    top: -20px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding-left: 1em;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 5px;
+  position: relative;
+  top: -20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 1em;
 }
 
 /* 
@@ -60,101 +56,143 @@ h2.categoryHeader {
     入力ダイアログの下にボタン列（OK,キャンセル）
 */
 .buttonRow {
-    width: clamp(100px, 80%, 500px);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  width: clamp(100px, 80%, 500px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
-    margin-bottom: 10px;
-
-
-
+  margin-bottom: 10px;
 }
 
 /* Input Element -> flexbox for several components */
 
 .inputRow {
+  max-width: 95%;
 
-    max-width: 95%;
+  display: grid;
 
-    display: grid;
-    
-    grid-template-columns: 3fr 130px 130px 2fr;
-    grid-template-areas: "label action effort duration";
+  grid-template-columns: 3fr 130px 130px 2fr;
+  grid-template-areas: "label action effort duration";
 
-    align-items: center;
+  align-items: center;
 
-    margin-bottom: 1.5em;
-
+  margin-bottom: 1.5em;
 }
 
 @media (max-width: 700px) and (min-width: 500px) {
-    .inputRow {
-        grid-template-columns: 1fr 150px 1fr;
-        grid-template-areas: "label action effort"
-        "duration duration duration";
-    }
+  .inputRow {
+    grid-template-columns: 1fr 150px 1fr;
+    grid-template-areas:
+      "label action effort"
+      "duration duration duration";
+  }
 }
 
 @media (max-width: 499px) {
-    .inputRow {
-        grid-template-columns: 150px 1fr;
-        grid-template-areas: "label label" "action effort" "duration duration";
-    }
+  .inputRow {
+    grid-template-columns: 150px 1fr;
+    grid-template-areas: "label label" "action effort" "duration duration";
+  }
 }
 
 .inputRow > * {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .taskLabel {
-    grid-area: label;
+  grid-area: label;
 }
 
-.toResultLink{
-    display: flex;
-    align-items: center;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    line-height: 1.75;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-    min-width: 64px;
-    padding: 6px 16px;
-    border-radius: 4px;
-    color: #fff;
-    background-color: #9c27b0;
-    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+.toResultLink {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #9c27b0;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
-.disAbleLink{
-    display: flex;
-    align-items: center;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 500;
-    font-size: 0.875rem;
-    line-height: 1.75;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-    min-width: 64px;
-    padding: 6px 16px;
-    border-radius: 4px;
-    color: #fff;
-    /* 使えないように */
-    pointer-events: none; 
-    background-color: #3f3f3f;
-    opacity: 0.8;
-    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+.disAbleLink {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  color: #fff;
+  /* 使えないように */
+  pointer-events: none;
+  background-color: #3f3f3f;
+  opacity: 0.8;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
-.guide{
-    margin-left: 10%;
+.guide {
+  /* margin-left: 10%; */
+  padding: 0px 10%;
 }
 
 @media only screen and (max-width: 400px) {
-    .guide {
-        margin-left: 0px;
-    }
+  .guide {
+    /* margin-left: 4%; */
+    padding-left: 10%;
+    padding: 0px 4%;
+  }
 }
+
+.tabs_wrapper {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.faceImage {
+  width: 102px;
+}
+
+.button_wrapper {
+  display: flex;
+  column-gap: 24px;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.button_cancel{
+    display: flex;
+    max-width: 105px;
+    justify-content: flex-end;
+}
+.button_next{
+    display: flex;
+    justify-content: flex-start;
+    width: 65px;
+
+}
+.button_toResult{
+    display: flex;
+    width: 162px;
+    justify-content: flex-start;
+}
+
+/* muiの<Link>での下線取り消し */
+.mui_link{
+    text-decoration: none;
+    }

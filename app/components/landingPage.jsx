@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Button, Typography } from '@mui/material';
 import IntroImageStepper from './introImageStepper';
 import { text } from 'd3';
+import styles from '../styles/landingPage.module.css';
 
 
 export default function LandingPage() {
@@ -14,7 +15,7 @@ export default function LandingPage() {
     return (
         <main style={{textAlign: "center"}}>
             <IntroImageStepper></IntroImageStepper>
-            <Link href="/input" passHref={true} ><Button variant="contained" color="secondary" sx={{m: 2, px: 6, py:2}}><Typography variant="h3">使ってみる</Typography></Button></Link>
+            <Link href="/input" passHref={true} ><Button variant="contained" color="secondary" sx={{m: 2, px: 6, py:2}}><Typography className={styles.button_to_use} variant="h3">使ってみる</Typography></Button></Link>
         </main>
     );
 }
