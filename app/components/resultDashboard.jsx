@@ -95,10 +95,10 @@ export default function ResultDashboard(props) {
 
       <ErrorDialog noInput={noInput} isAxiosError={isAxiosError} />  
 
-      <Grid container item xs={6} justifyContent="center" alignItems="baseline">
+      <Grid className={styles.pieLabel} container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
       </Grid>
-      <Grid container item xs={6} justifyContent="center" alignItems="baseline">
+      <Grid className={styles.pieLabel} container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">パートナー</font></b><Image alt="introduction" src={partnerillust} width={52} height={52}></Image>
       </Grid>
     <Grid container item xs={6} justifyContent="center">
