@@ -2,7 +2,7 @@
   padding: 20px 0px;  
   display: flex;
   align-items: center;
-  justify-content: none;
+  justify-content: space-around;
 }
 .inputBox_wrapper:not(:last-child) {
   border-bottom: 1px solid var(--main-color);;
@@ -13,7 +13,7 @@
     padding: 20px 10px;  
     display: flex;
     align-items: center;
-    justify-content: none;
+    justify-content: flex-start;
     gap: 10px;
   }
 }
@@ -34,8 +34,8 @@
 }
 
 .inputBox_taskName {
-  min-width: 150px;
-  flex: 1;
+  min-width: 135px;
+  
 }
 
 @media only screen and (max-width: 700px) {
@@ -73,7 +73,7 @@
 .inputBox_count::before{
   position: absolute;
   top: -21px;
-  right: -3px;
+  right: 12px;
   content: '合計';
   font-size: 13px;
   width: 70px;
@@ -87,6 +87,6 @@
     margin-left: 0px;
   }
   .inputBox_count::before{
-    right: 7px;
+    right: 12px;
   }
 }
