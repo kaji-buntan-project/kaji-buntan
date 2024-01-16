@@ -76,7 +76,7 @@ h2.categoryHeader {
     
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 700px) {
     .inputRowMe {
         grid-template-columns: 65px 130px;
         grid-template-rows: repeat(2, 1fr);
@@ -93,13 +93,13 @@ h2.categoryHeader {
     max-width: 500px;
     display: grid;
     padding: 5px;
-    grid-gap: 15px;
-    grid-template-columns: 65px 130px 150px;
+    grid-gap: 0px;
+    grid-template-columns: 75px 130px 150px;
     grid-template-areas: "participates effort duration";
     align-items: center;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 700px) {
     .inputRowPartner {
         grid-template-columns: 65px 130px;
         grid-template-rows: repeat(2, 1fr);
@@ -170,10 +170,10 @@ h2.categoryHeader {
 
 .myInputLabel{
     position: relative;
-    margin-left: 80px;
+    margin-left: 12px;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 700px) {
     .myInputLabel{
         margin-left: 0px;
     }
@@ -182,7 +182,7 @@ h2.categoryHeader {
 .myInputLabel::after{
     position: absolute;
     top: 6.5px;
-    right: -57px;
+    right: -4px;
     content: '回';
     width: 15px;
     height: 15px;
@@ -190,33 +190,39 @@ h2.categoryHeader {
 .myInputLabel::before{
     position: absolute;
     top: -20px;
-    right: -10px;
     content: '私';
     font-size: 13px;
     width: 5px;
     height: 5px;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 700px) {
     .myInputLabel::before{
         right: 55px;
     }
-}
-/* 私の「回」の位置 */
-@media (max-width: 1250px) {
+
+    /* 私の「回」の位置 */
     .myInputLabel::after{
         right: 8px;
     }
 }
 
+
 .partnerInputLabel{
     position: relative;
+    padding-right: 5px;
+}
+
+@media (max-width: 700px) {
+    .partnerInputLabel{
+        padding-right: 0;
+    }
 }
 
 .partnerInputLabel::after{
     position: absolute;
     top: 6.5px;
-    right: 8px;
+    right: 16px;
     content: '回';
     width: 15px;
     height: 15px;
@@ -224,11 +230,30 @@ h2.categoryHeader {
 .partnerInputLabel::before{
     position: absolute;
     top: -20px;
-    right: -4px;
     content: 'パートナー';
     font-size: 13px;
     width: 70px;
     height: 6px;
+}
+
+@media (max-width: 700px) {
+    .partnerInputLabel::after{
+        position: absolute;
+        top: 6.5px;
+        right: 8px;
+        content: '回';
+        width: 15px;
+        height: 15px;
+    }
+    .partnerInputLabel::before{
+        position: absolute;
+        top: -20px;
+        right: -4px;
+        content: 'パートナー';
+        font-size: 13px;
+        width: 70px;
+        height: 6px;
+    }
 }
 
 /* エラーメッセージ */
@@ -243,7 +268,7 @@ h2.categoryHeader {
     width: 62px;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 700px) {
     .errorMessage{
         width: 62px;
     }
@@ -256,16 +281,13 @@ width: 130px!important;
 
 /* 家事の時間(スライダー) */
 .slider{
-    min-width: 200px;
-    width: 100%;
+    width: 85%;
     padding: 12px 0px;
 }
-.slider .MuiSlider-markLabel{
-    top: 20px;
-}
 
-@media (max-width: 1250px) {
+@media (max-width: 700px) {
     .slider {
+        width: 100%;
         max-width: 150px;
         min-width: 150px;
         padding-right: 1em ;}

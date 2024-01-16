@@ -41,7 +41,7 @@ main {
   flex-shrink: 1;
   height: auto;
   /* padding: 1rem; */
-  max-width: 1250px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
