@@ -183,16 +183,16 @@ h2.categoryHeader {
 .button_next{
     display: flex;
     justify-content: flex-start;
-    width: 65px;
+    width: 65px!important;
 
 }
 .button_toResult{
     display: flex;
-    width: 162px;
+    width: 162px!important;
     justify-content: flex-start;
 }
 
 /* muiの<Link>での下線取り消し */
 .mui_link{
-    text-decoration: none;
+    text-decoration: none!important;
     }
