@@ -10,7 +10,7 @@
   /*border: 3px solid var(--main-color);
     border-radius: 20px; */
 
-  padding: 0px 1em 1rem 1rem;
+  padding: 0px 5px 5px 5px;
 }
 
 @media only screen and (max-width: 400px) {
@@ -159,7 +159,7 @@ h2.categoryHeader {
   height: auto;
   background-color: #fff;
   position: sticky;
-  top: 0;
+  top: -5px;
   z-index: 10;
 }
 
