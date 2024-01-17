@@ -27,8 +27,9 @@ a {
 }
 
 .app-container {
-  height: 85vh;
-  max-height: 85vh;
+  /* height: 85vh; */
+  /* max-height: 85vh; */
+  height: auto;
   overflow: scroll;
 
   display: flex;
@@ -86,4 +87,12 @@ input[type="number"]::-webkit-inner-spin-button {
     top:30px!important;
     font-size: 0.875rem!important;
   }
+}
+
+.copyright{
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  border-top: solid 1px #9E9E9E;
+  color: #777;
 }
