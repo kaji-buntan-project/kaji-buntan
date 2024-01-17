@@ -7,10 +7,10 @@
   text-decoration: none!important;
 }
 
-.pieLabel.MuiGrid-item {
-  flex-direction: column-reverse;
-  align-items: center;
-  margin-bottom: 10px;
+.pieLabel {
+  flex-direction: column-reverse!important;
+  align-items: center!important;
+  margin-bottom: 10px!important;
 }
 
 .nextLink{
