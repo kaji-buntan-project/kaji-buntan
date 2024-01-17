@@ -289,13 +289,13 @@ width: 130px!important;
 }
 
 /* 家事の時間(スライダー) */
-.slider{
+.slider.MuiSlider-marked{
     width: 85%;
     padding: 12px 0px;
 }
 
 @media (max-width: 700px) {
-    .slider {
+    .slider.MuiSlider-marked {
         width: 100%;
         max-width: 150px;
         min-width: 150px;
