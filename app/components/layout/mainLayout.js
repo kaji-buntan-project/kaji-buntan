@@ -9,6 +9,7 @@ export default function Layout({ children }) {
             <main>
                 { children }
             </main>
+            <div className="copyright">© 家事分担コンシェルジュプロジェクト</div>
         </div>        
         </>
 

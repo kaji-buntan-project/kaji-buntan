@@ -8,9 +8,9 @@
 }
 
 .pieLabel {
-  flex-direction: column-reverse;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-direction: column-reverse!important;
+  align-items: center!important;
+  margin-bottom: 10px!important;
 }
 
 .nextLink{
