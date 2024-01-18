@@ -4,10 +4,10 @@ import NextLink from "next/link";
 import { currentTaskRepartitionAtom } from "../lib/atoms.js";
 
 export default function errorDialog(props) {
-  const {noInput , isAxiosError } = props
+  const {noInput , isAxiosError ,isAllCountZero } = props
   return (
     <div>
-      {noInput || isAxiosError ? (
+      {noInput || isAxiosError || isAllCountZero ? (
         <div className={styles.errorDialog_wrapper}>
           <div className={styles.errorDialog_box}>
             <p>

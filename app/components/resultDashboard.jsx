@@ -89,11 +89,27 @@ export default function ResultDashboard(props) {
       console.log('入力は正常です');
     }
 
+    //入力がすべて0であった場合、エラー画面が表示される
+    let isAllCountZero = false
+    let allTaskCount = []
+
+    const myInputCount = Object.entries(myInputData).map(([key,value])=> value.participates)
+    myInputCount.map((n)=>{allTaskCount.push(n)})
+    
+    const partnerInputCount = Object.entries(partnerInputData).map(([key,value])=> value.participates)
+    partnerInputCount.map((n)=>{allTaskCount.push(n)})
+    
+    if(allTaskCount.every(n => n === 0)){
+      isAllCountZero = true
+    } else {
+      isAllCountZero = false
+    }
+
   return (
     <Box>
       <Grid container spacing={0.5} alignItems="flex-start" justifyContent='center' >
 
-      <ErrorDialog noInput={noInput} isAxiosError={isAxiosError} />  
+      <ErrorDialog isAllCountZero={isAllCountZero} noInput={noInput} isAxiosError={isAxiosError} />  
 
       <Grid className={styles.pieLabel} container item xs={6} justifyContent="center" alignItems="baseline">
         <b><font size="3">私</font></b><Image alt="introduction" src={myillust} width={52} height={52}></Image>
