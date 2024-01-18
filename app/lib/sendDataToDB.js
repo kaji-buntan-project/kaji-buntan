@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from 'cookies-next';
 
   export const sendDataToDB = (data,setIsAxiosError,isAxiosError) => {
   
@@ -7,6 +8,15 @@ import axios from "axios";
       console.log('データがないので送信しません');
       return
     }
+
+    //cookieにidがない場合はAPI送信しない。エラー画面は表示せずに結果を表示（エラーはバックエンドで検知）
+    const cookie = getCookie('cookie_id');
+
+    if(cookie == undefined || cookie == ''){
+      console.log('cookie_idがないので送信しません');
+      return
+    }
+
   //apiエンドポイント
   const apiUrl = "/api/diagnosis";
 
