@@ -13,8 +13,6 @@
       padding:0.2em;
     }
 }
-  
-
 .inputPanel > h1 {
     background-color: var(--main-color);
     padding: 2px 0.5em;
@@ -59,6 +57,25 @@ h2.categoryHeader {
 }
 
 /* Input Element -> flexbox for several components */
+.inputItemMe {
+    display: none;
+}
+.inputItemPartner {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .inputItemMe {
+        display: block;
+        margin: 0;
+        padding-left: 5px;
+    }
+    .inputItemPartner {
+        display: block; 
+        margin: 20px 0px 0px 0px;
+        padding-left: 5px;
+    }
+}
 
 /* 私の入力フォーム */
 .inputRowMe {
@@ -79,12 +96,12 @@ h2.categoryHeader {
 @media (max-width: 700px) {
     .inputRowMe {
         grid-template-columns: 65px 130px;
-        grid-template-rows: repeat(2, 1fr);
         grid-template-areas: 
         "participates effort"
         "duration duration";
-        align-items: center;
+        align-items: flex-start;
         grid-gap: 5px;
+
         margin-bottom: 20px;
     }
 }
@@ -102,14 +119,13 @@ h2.categoryHeader {
 
 @media (max-width: 700px) {
     .inputRowPartner {
-        margin-top: 20px;
         grid-template-columns: 65px 130px;
-        grid-template-rows: repeat(2, 1fr);
         grid-template-areas: 
         "participates effort"
         "duration duration";
-        align-items: center;
+        align-items: flex-start;
         grid-gap: 5px;
+
     }
 }
 
@@ -174,6 +190,11 @@ h2.categoryHeader {
     position: relative;
     margin-left: 12px;
 }
+.myInputLabel label{
+    position: relative;
+    display: inline-block;
+    height: 38px;
+}
 
 @media (max-width: 700px) {
     .myInputLabel{
@@ -181,14 +202,6 @@ h2.categoryHeader {
     }
 }
 
-.myInputLabel::after{
-    position: absolute;
-    top: 8px;
-    right: -4px;
-    content: '回';
-    width: 15px;
-    height: 15px;
-}
 .myInputLabel::before{
     position: absolute;
     top: -20px;
@@ -197,10 +210,18 @@ h2.categoryHeader {
     width: 5px;
     height: 5px;
 }
+.myInputLabel::after{
+    position: absolute;
+    top: 8px;
+    right: -4px;
+    content: '回';
+    width: 15px;
+    height: 15px;
+}
 
 @media (max-width: 700px) {
     .myInputLabel::before{
-        right: 55px;
+        display: none;
     }
 
     /* 私の「回」の位置 */
@@ -213,6 +234,12 @@ h2.categoryHeader {
 .partnerInputLabel{
     position: relative;
     padding-right: 5px;
+}
+
+.partnerInputLabel label{
+    position: relative;
+    display: inline-block;
+    height: 38px;
 }
 
 @media (max-width: 700px) {
@@ -248,13 +275,7 @@ h2.categoryHeader {
         height: 15px;
     }
     .partnerInputLabel::before{
-        position: absolute;
-        top: -20px;
-        right: -4px;
-        content: 'パートナー';
-        font-size: 13px;
-        width: 70px;
-        height: 6px;
+        display: none;
     }
 }
 
@@ -263,16 +284,20 @@ h2.categoryHeader {
     font-size: 10px;
     color: red;
     line-height: 1;
+    display: inline-block;
 
     position: absolute;
-    bottom: -35px;
+    top: 42px;
     left: 0;
-    width: 62px;
 }
 
 @media (max-width: 700px) {
     .errorMessage{
-        width: 62px;
+        display: block;
+        width: 70px;
+        font-size: 10px;
+
+        position: static;
     }
 }
 
