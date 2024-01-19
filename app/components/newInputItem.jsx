@@ -59,6 +59,8 @@ export default function InputItem(props) {
     },[taskCount])
 
     return (
+        <>
+        {person === 'me' ? <p className={styles.inputItemMe}>私</p> : <p className={styles.inputItemPartner}>パートナー</p>}
         <div className={(person === "me" ? styles.inputRowMe : styles.inputRowPartner)}>
         {/*　家事分担回数の入力項目追加 */}
         <div className={(person === "me" ? styles.myInputLabel : styles.partnerInputLabel)} sx={{ gridArea: 'participates' }}>
@@ -104,5 +106,6 @@ export default function InputItem(props) {
             onChange={ (_, newValue) => setTaskTime(newValue) }
             />
         </div>
+        </>
 );
 };
