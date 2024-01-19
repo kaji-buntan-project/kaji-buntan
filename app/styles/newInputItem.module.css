@@ -68,12 +68,12 @@ h2.categoryHeader {
     .inputItemMe {
         display: block;
         margin: 0;
-        padding-bottom: 5px;
+        padding-left: 5px;
     }
     .inputItemPartner {
         display: block; 
         margin: 20px 0px 0px 0px;
-        padding-bottom: 5px;
+        padding-left: 5px;
     }
 }
 
@@ -101,7 +101,7 @@ h2.categoryHeader {
         "duration duration";
         align-items: flex-start;
         grid-gap: 5px;
-        padding: 0;
+
         margin-bottom: 20px;
     }
 }
@@ -125,7 +125,7 @@ h2.categoryHeader {
         "duration duration";
         align-items: flex-start;
         grid-gap: 5px;
-        padding: 0;
+
     }
 }
 
@@ -296,7 +296,7 @@ h2.categoryHeader {
         display: block;
         width: 70px;
         font-size: 10px;
-        
+
         position: static;
     }
 }
