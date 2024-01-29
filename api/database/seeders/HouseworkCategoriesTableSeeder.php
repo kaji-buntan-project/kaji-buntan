@@ -7,33 +7,35 @@ use Illuminate\Support\Facades\DB;
 
 class HouseworkCategoriesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        $categories = [
-            '朝の準備',
-            '料理',
-            '洗濯',
-            'お風呂の準備',
-            '掃除 (お風呂場)',
-            '掃除 (トイレ)',
-            '掃除 (キッチン)',
-            '掃除 (家全体)',
-            'ゴミ捨て',
-            '家庭内の雑用',
-            '子供・学校',
-            'ペット関連',
-            '介護',
-        ];
+        $tableName = 'mst_housework_categories';
+        $csvFilePath = 'database/csv/mst_housework_categories.csv';
 
-        foreach ($categories as $category) {
-            DB::table('mst_housework_categories')->insert([
-                'name' => $category,
-            ]);
+        // Read the CSV file
+        $csvData = array_map('str_getcsv', file($csvFilePath));
+        // Get the header (column names) from the first row
+        $headers = array_shift($csvData);
+
+        // Prepare data for insertion
+        $dataToInsert = [];
+        foreach ($csvData as $row) {
+            // Convert "null" strings to actual null values
+            $row = array_map(function ($value) {
+                return strtolower($value) === 'null' ? null : $value;
+            }, $row);
+
+            $dataToInsert[] = array_combine($headers, $row);
         }
+        // Disable foreign key checks
+        DB::statement('SET foreign_key_checks = 0');
+
+        // Truncate the table
+        DB::table($tableName)->truncate();
+
+        // Enable foreign key checks
+        DB::statement('SET foreign_key_checks = 1');
+        // Insert data into the mst_houseworks table
+        DB::table($tableName)->insert($dataToInsert);
     }
 }
