@@ -1,0 +1,15 @@
+"id","name","created_at","updated_at"
+"1","朝の準備",NULL,NULL
+"2","料理",NULL,NULL
+"3","洗濯",NULL,NULL
+"4","お風呂の準備",NULL,NULL
+"5","掃除 (お風呂場)",NULL,NULL
+"6","掃除 (トイレ)",NULL,NULL
+"7","掃除 (キッチン)",NULL,NULL
+"8","掃除 (家全体)",NULL,NULL
+"9","ゴミ捨て",NULL,NULL
+"10","家庭内の雑用",NULL,NULL
+"11","子供・学校",NULL,NULL
+"12","ペット関連",NULL,NULL
+"13","介護",NULL,NULL
+"14","乳幼児の世話",NULL,NULL
