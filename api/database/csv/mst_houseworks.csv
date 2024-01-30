@@ -1,5 +1,5 @@
 id,mst_housework_category_id,name,created_at,updated_at
-1,1,子供起こす,NULL,NULL
+1,1,子供を起こす,NULL,NULL
 2,1,朝ごはん用意,NULL,NULL
 3,1,布団を畳む、ベッドを整える,NULL,NULL
 4,1,新聞とる,NULL,NULL
