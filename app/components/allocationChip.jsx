@@ -30,7 +30,8 @@ export default function AllocationChip(props) {
         <Chip 
         sx = {{
           backgroundColor: backColor,
-        }} 
+        }}
+        className={styles.chip} 
         avatar={<Avatar src = { avatar }></Avatar>}
         label={`${props.label}　${props.participates}`}
         onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
@@ -45,6 +46,7 @@ export default function AllocationChip(props) {
         sx = {{
           backgroundColor: backColor,
         }} 
+        className={styles.chip} 
         avatar={<Avatar src = { avatar }></Avatar>}
         label={`${props.label}　${props.participates}`}
         // onClick={() => props.repartition(props.person, props.label, props.tabtabnumber)}
@@ -60,6 +62,7 @@ export default function AllocationChip(props) {
       sx = {{
         backgroundColor: backColor,
       }} 
+      className={styles.chip} 
       avatar={<Avatar src = { avatar }></Avatar>}
       label={`${props.label}　${props.participates}`}
       // style={styles.chip}
