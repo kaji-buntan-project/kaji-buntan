@@ -174,8 +174,8 @@ const allTasks = [
             { name: "食後の片付け", checked: false, myDefault: 10, partnerDefault: 11 },
             { name: "食器洗い洗剤の詰替", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "ふきんの除菌・漂白", checked: false, myDefault: 4, partnerDefault: 3 },
-            { name: "まな板除菌・漂白", checked: false, myDefault: 3, partnerDefault: 4 },
-            { name: "包丁研ぐ", checked: false, myDefault: 4, partnerDefault: 3 },
+            { name: "まな板の除菌・漂白", checked: false, myDefault: 3, partnerDefault: 4 },
+            { name: "包丁とぐ", checked: false, myDefault: 4, partnerDefault: 3 },
         ],
     }, {
         name: "洗濯",
@@ -192,7 +192,7 @@ const allTasks = [
         name: "お風呂の準備",
         children: [
             { name: "お風呂を入れる", checked: false, myDefault: 4, partnerDefault: 3 },
-            { name: "シャンプー等の買い出し", checked: false, myDefault: 3, partnerDefault: 4 },
+            { name: "シャンプーなどの買い出し", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "バスタオルの回収・交換", checked: false, myDefault: 4, partnerDefault: 3 },
         ],
     }, {
@@ -211,7 +211,7 @@ const allTasks = [
             { name: "壁・床・棚を拭く", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "トイレマットの交換", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "トイレットペーパーの補充・交換", checked: false, myDefault: 3, partnerDefault: 4 },
-            { name: "トイレ洗剤の購入・補充", checked: false, myDefault: 4, partnerDefault: 3 },
+            { name: "トイレ洗剤の購入と補充", checked: false, myDefault: 4, partnerDefault: 3 },
         ],
     }, {
         name: "掃除 (キッチン)",
@@ -223,7 +223,7 @@ const allTasks = [
             { name: "キッチン台の片付け", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "調理器具をしまう", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "ガス台・ごとくの拭き掃除", checked: false, myDefault: 3, partnerDefault: 4 },
-            { name: "食洗器の掃除", checked: false, myDefault: 4, partnerDefault: 3 },
+            { name: "食洗機の掃除", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "炊飯器の掃除", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "レンジ・オーブンの掃除", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "トースターの掃除", checked: false, myDefault: 3, partnerDefault: 4 },
@@ -246,7 +246,7 @@ const allTasks = [
         name: "ゴミ捨て",
         children: [
             { name: "ゴミを集め分別", checked: false, myDefault: 4, partnerDefault: 3 },
-            { name: "ペットボトルフィルムはがす", checked: false, myDefault: 3, partnerDefault: 4 },
+            { name: "ベットボトルのフィルムはがす", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "ゴミ出し", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "ゴミ箱にゴミ袋装着", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "段ボールを潰して捨てる", checked: false, myDefault: 4, partnerDefault: 3 },
@@ -258,17 +258,16 @@ const allTasks = [
             { name: "郵便物を取りに行く", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "郵便物の仕分け・管理", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "米・ビールの補充", checked: false, myDefault: 4, partnerDefault: 3 },
-            { name: "日用品の買い足し・補充", checked: false, myDefault: 3, partnerDefault: 4 },
+            { name: "日用品の買い出し・補充", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "アイロン", checked: false, myDefault: 4, partnerDefault: 3 },
             { name: "植物に水やり", checked: false, myDefault: 3, partnerDefault: 4 },
-            { name: "加湿器に水入れる", checked: false, myDefault: 4, partnerDefault: 3 },
+            { name: "加湿器に水を入れる", checked: false, myDefault: 4, partnerDefault: 3 },
         ],
     },{
         name: "子供・学校",
         children: [
             { name: "子供の交友関係の把握・管理", checked: false, myDefault: 3, partnerDefault: 2 },
             { name: "子供の勉強をみる", checked: false, myDefault: 2, partnerDefault: 3 },
-            { name: "行事ごとの持ち物把握", checked: false, myDefault: 3, partnerDefault: 2 },
             { name: "子供の行事ごとの持ち物の把握", checked: false, myDefault: 3, partnerDefault: 2 },
             { name: "子供のスマホ・ゲーム時間の管理", checked: false, myDefault: 2, partnerDefault: 3 },
             { name: "子供の習い事送迎", checked: false, myDefault: 3, partnerDefault: 2 },
@@ -294,9 +293,9 @@ const allTasks = [
     },{
         name: "介護",
         children: [
-            { name: "訪問介護・デイケアのお迎え", checked: false, myDefault: 4, partnerDefault: 3 },
-            { name: "食事の手伝い", checked: false, myDefault: 11, partnerDefault: 10 },
-            { name: "ベッド周りの整理整頓", checked: false, myDefault: 3, partnerDefault: 4 },
+            { name: "訪問介護デイケアのお迎え", checked: false, myDefault: 4, partnerDefault: 3 },
+            { name: "食事の手伝い（介護）", checked: false, myDefault: 11, partnerDefault: 10 },
+            { name: "ベット周りの整理整頓（介護）", checked: false, myDefault: 3, partnerDefault: 4 },
             { name: "トイレの介助", checked: false, myDefault: 25, partnerDefault: 25 },
             { name: "外出の介助", checked: false, myDefault: 10, partnerDefault: 11 },
             { name: "通院の手伝い", checked: false, myDefault: 4, partnerDefault: 3 },
