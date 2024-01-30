@@ -29,15 +29,15 @@ export default function GuideTalk(props) {
             return "まずは分担する家事を選択してね";
         }else if (props.tabnumber == 1){
             if(isMobile){
-                return "あなたの\n ・担当家事\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
+                return "週ごとの\n ・担当家事\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
             }else{
-                return "あなたの担当家事，好き嫌い，一回あたりにかかる時間　を教えてね　　　";
+                return "週ごとの担当家事，好き嫌い，一回あたりにかかる時間　を教えてね　　　";
             }
         }else if (props.tabnumber == 2){
             if(isMobile){
-                return "パートナーの\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
+                return "週ごとの\n ・好き嫌い\n ・一回あたりにかかる時間\n を教えてね";
             }else{
-                return "パートナーの好き嫌い，一回あたりにかかる時間　を教えてね　　　　　　";
+                return "週ごとの好き嫌い，一回あたりにかかる時間　を教えてね　　　　　　";
             }
         }else {
             if (props.tabtabnumber == 0){
