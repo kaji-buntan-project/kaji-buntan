@@ -1,0 +1,306 @@
+.categorySection {
+    border: 1px solid var(--second-color);
+    border-radius: 5px;
+    margin-bottom: 30px;
+    padding: 0.5em;
+    width: 100%;
+    max-width: 1500px;
+}
+
+h2.categoryHeader {
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    top: -20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 1em;
+}
+
+/* 
+    Button row at the window bottom 
+    入力ダイアログの下にボタン列（OK,キャンセル）
+*/
+.buttonRow {
+    width: clamp(100px, 80%, 500px);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    margin-bottom: 10px;
+
+
+
+}
+
+/* Input Element -> flexbox for several components */
+.inputItemMe {
+    display: none;
+}
+.inputItemPartner {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .inputItemMe {
+        display: block;
+        margin: 0;
+        padding-left: 5px;
+    }
+    .inputItemPartner {
+        display: block; 
+        margin: 20px 0px 0px 0px;
+        padding-left: 5px;
+    }
+}
+
+/* 私の入力フォーム */
+.inputRowMe {
+
+    max-width: 500px;
+    display: grid;
+    grid-gap: 5px;
+    justify-content: space-between;
+    padding: 5px;
+    
+    grid-template-columns: 130px 150px 65px;
+    grid-template-areas: "effort duration participates";
+    align-items: center;
+    
+    
+}
+
+@media (max-width: 700px) {
+    .inputRowMe {
+        grid-template-columns: 65px 130px;
+        grid-template-areas: 
+        "participates effort"
+        "duration duration";
+        align-items: flex-start;
+        grid-gap: 5px;
+
+        margin-bottom: 20px;
+    }
+}
+/* パートナーの入力フォーム */
+.inputRowPartner {
+    
+    max-width: 500px;
+    display: grid;
+    padding: 5px;
+    grid-gap: 0px;
+    grid-template-columns: 75px 130px 150px;
+    grid-template-areas: "participates effort duration";
+    align-items: center;
+}
+
+@media (max-width: 700px) {
+    .inputRowPartner {
+        grid-template-columns: 65px 130px;
+        grid-template-areas: 
+        "participates effort"
+        "duration duration";
+        align-items: flex-start;
+        grid-gap: 5px;
+
+    }
+}
+
+@media (max-width: 700px) and (min-width: 500px) {
+    .inputRow {
+        grid-template-columns: 1fr 150px 1fr;
+        grid-template-areas: "label action effort"
+        "duration duration duration";
+    }
+}
+
+@media (max-width: 499px) {
+    .inputRow {
+        grid-template-columns: 150px 1fr;
+        grid-template-areas: "label label" "action effort" "duration duration";
+    }
+}
+
+.inputRow > * {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.taskLabel {
+    grid-area: label;
+}
+
+.myInput{
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    width: 65px;
+    height: 38px;
+    border: var(--main-color) 2px solid;
+    padding: 4px 14px 4px 4px;
+    text-align: center;
+
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    -moz-appearance:textfield;
+}
+
+.partnerInput{
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    width: 65px;
+    height: 38px;
+    border: var(--main-color) 2px solid;
+    padding: 4px 14px 4px 4px;
+    text-align: center;
+
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    -moz-appearance:textfield;
+    margin-left: 0px;
+}
+
+.myInputLabel{
+    position: relative;
+    margin-left: 12px;
+}
+.myInputLabel label{
+    position: relative;
+    display: inline-block;
+    height: 38px;
+}
+
+@media (max-width: 700px) {
+    .myInputLabel{
+        margin-left: 0px;
+    }
+}
+
+.myInputLabel::before{
+    position: absolute;
+    top: -20px;
+    content: '私';
+    font-size: 13px;
+    width: 5px;
+    height: 5px;
+}
+.myInputLabel::after{
+    position: absolute;
+    top: 8px;
+    right: -4px;
+    content: '回';
+    width: 15px;
+    height: 15px;
+}
+
+@media (max-width: 700px) {
+    .myInputLabel::before{
+        display: none;
+    }
+
+    /* 私の「回」の位置 */
+    .myInputLabel::after{
+        right: 8px;
+    }
+}
+
+
+.partnerInputLabel{
+    position: relative;
+    padding-right: 5px;
+}
+
+.partnerInputLabel label{
+    position: relative;
+    display: inline-block;
+    height: 38px;
+}
+
+@media (max-width: 700px) {
+    .partnerInputLabel{
+        padding-right: 0;
+    }
+}
+
+.partnerInputLabel::after{
+    position: absolute;
+    top: 8px;
+    right: 18px;
+    content: '回';
+    width: 15px;
+    height: 15px;
+}
+.partnerInputLabel::before{
+    position: absolute;
+    top: -20px;
+    content: 'パートナー';
+    font-size: 13px;
+    width: 70px;
+    height: 6px;
+}
+
+@media (max-width: 700px) {
+    .partnerInputLabel::after{
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        content: '回';
+        width: 15px;
+        height: 15px;
+    }
+    .partnerInputLabel::before{
+        display: none;
+    }
+}
+
+/* エラーメッセージ */
+.errorMessage{
+    font-size: 10px;
+    color: red;
+    line-height: 1;
+    display: inline-block;
+
+    position: absolute;
+    top: 42px;
+    left: 0;
+}
+
+@media (max-width: 700px) {
+    .errorMessage{
+        display: block;
+        width: 70px;
+        font-size: 10px;
+
+        position: static;
+    }
+}
+
+/* 好き・嫌い */
+.effort{
+width: 130px!important;
+}
+
+@media (max-width: 700px) {
+    .effort{
+        justify-content: flex-end;
+        width: 135px!important;
+        }
+}
+
+/* 家事の時間(スライダー) */
+.slider{
+    width: 85%!important;
+    padding: 12px 0px!important;
+}
+
+@media (max-width: 700px) {
+    .slider {
+        width: 100%!important;
+        max-width: 150px;
+        min-width: 150px;
+        padding-right: 1em!important;}
+}

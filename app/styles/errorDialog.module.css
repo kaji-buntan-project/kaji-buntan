@@ -1,0 +1,66 @@
+.errorDialog_wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0,0.8);
+  z-index: 99;
+}
+
+.errorDialog_wrapper .errorDialog_box {
+  text-align: center;
+  max-width: 400px;
+  position: fixed;
+  padding: 20px 10px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 80%;
+  z-index: 100;
+  opacity: 1;
+  justify-content: center;
+
+  /* mui css copy */
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: none;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background-color: rgba(253, 237, 237,1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: rgb(95, 33, 32);
+
+  flex-direction: column;
+}
+
+.errorDialog_box p{
+  margin: 0;
+  display: block;
+}
+
+.errorDialog_link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 120px;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid rgb(143, 2, 0);
+  margin: 20px auto 0px;
+}
+
+.errorDialog_link:hover {
+  background-color: rgb(143, 2, 0);
+  color: #fff;
+  transition: all 0.5s;
+}

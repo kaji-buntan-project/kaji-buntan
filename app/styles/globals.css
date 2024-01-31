@@ -1,0 +1,111 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  /* Color constants  */
+  --main-color: #9c27b0;
+  --second-color: #9c27b0;
+  --third-color: #9c27b0;
+  --error-color: #9c27b0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app-header {
+  height: 15vh;
+  max-height: 15vh;
+}
+
+.app-container {
+  height: 85vh;
+  max-height: 85vh;
+  /* height: auto; */
+  overflow: scroll;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+main {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: auto;
+  /* padding: 1rem; */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background-color: var(--second-color);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 5px; 
+  border-width: 0px;
+}
+
+.errorField {
+  border-width: 1px;
+  border-color: var(--error-color);
+}
+
+.text {
+  white-space: pre-wrap;
+}
+
+/* hover時のスピンボタン（上下の矢印ボタン）削除 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+
+.MuiSlider-markLabel{
+  font-size: 12px!important;  
+}
+
+/* スライダーの文字部分「10分」「30分」など*/
+@media (max-width: 700px) {
+  .MuiSlider-markLabel{
+    top:30px!important;
+    font-size: 0.875rem!important;
+  }
+}
+
+.copyright{
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  border-top: solid 1px #9E9E9E;
+  color: #777;
+
+  display: block;
+  width: 100%;
+}
+
+.css-1exzd8e.MuiToggleButtonGroup-grouped:not(:first-of-type){
+  background-color: #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.12)!important;
+}
+.Mui-selected.MuiToggleButtonGroup-grouped{
+  background-color: rgba(156, 39, 176, 0.12)!important;
+}

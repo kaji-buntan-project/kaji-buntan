@@ -1,0 +1,8 @@
+{
+  "extends": ["next/core-web-vitals","next/babel"],
+  "rules": {
+    "no-undef": "error",
+    "semi-style": ["error", "last"],
+    "no-unused-vars": "off"
+  }
+}

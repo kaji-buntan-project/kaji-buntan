@@ -1,0 +1,125 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "HouseWorkSharing",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http:\/\/localhost"
+        }
+    ],
+    "paths": {
+        "\/api\/diagnosis": {
+            "post": {
+                "tags": [
+                    "DiagnosisData"
+                ],
+                "summary": "診断データを保存する",
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/PostDiagnosisDataRequestBodySchema"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PostDiagnosisDataRequestBodySchema": {
+                "type": "object",
+                "properties": {
+                    "houseworks": {
+                        "description": "診断データ",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "description": "家事の名前",
+                                    "type": "string",
+                                    "example": "朝ごはん用意"
+                                },
+                                "category": {
+                                    "description": "家事の分類",
+                                    "type": "string",
+                                    "example": "朝の準備"
+                                },
+                                "myEffort": {
+                                    "description": "私のその家事の評価",
+                                    "enum": [
+                                        1,
+                                        2,
+                                        3
+                                    ],
+                                    "type": "integer",
+                                    "example": 3
+                                },
+                                "myDuration": {
+                                    "description": "私のその家事にかかる時間",
+                                    "type": "integer",
+                                    "example": 30
+                                },
+                                "partnerEffort": {
+                                    "description": "パートナーのその家事の評価",
+                                    "enum": [
+                                        1,
+                                        2,
+                                        3
+                                    ],
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "partnerDuration": {
+                                    "description": "パートナーがその家事にかかる時間",
+                                    "type": "integer",
+                                    "example": 20
+                                },
+                                "myNowParticipates": {
+                                    "description": "今の私の分担回数",
+                                    "type": "integer",
+                                    "example": 4
+                                },
+                                "partnerNowParticipates": {
+                                    "description": "今のパートナーの分担回数",
+                                    "type": "integer",
+                                    "example": 2
+                                },
+                                "myLeastRepartitionParticipates": {
+                                    "description": "私の少し理想的な分担回数",
+                                    "type": "integer",
+                                    "example": 3
+                                },
+                                "partnerLeastRepartitionParticipates": {
+                                    "description": "パートナーの少し理想的な分担回数",
+                                    "type": "integer",
+                                    "example": 3
+                                },
+                                "myAdjustedRepartitionParticipates": {
+                                    "description": "私の理想的な分担回数",
+                                    "type": "integer",
+                                    "example": 3
+                                },
+                                "partnerAdjustedRepartitionParticipates": {
+                                    "description": "パートナーの理想的な分担回数",
+                                    "type": "integer",
+                                    "example": 3
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "DiagnosisData",
+            "description": "診断データ"
+        }
+    ]
+}
