@@ -1,8 +1,10 @@
 import styles from 'styles/newInputItem.module.css';
-import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup, Slider } from '@mui/material';
+
+import { useAtom } from "jotai";
+import { validateErrorAtom } from "../lib/atoms.js";
 
 import bad from '../public/images/bad.png';
 import soso from '../public/images/soso.png';
@@ -15,9 +17,13 @@ import Image from 'next/image';
 import { validateCount } from 'lib/validateCount';
 
 export default function InputItem(props) {
-
     const {person, label, onTaskChange, initialValue ,setTaskCount ,taskCount, countOurTask , handleValidateError  } = props;
-    const errorMessage = useRef(null);
+    
+    // エラーメッセージ
+    const [errorMessage,setErrorMessage] = useState("");
+
+    //バリデーションのエラーがあるか
+    const [ validateError, setValidateError] = useAtom(validateErrorAtom)
 
     const [ isDoingTask, setDoingTask ] = useState(initialValue.participates);
     const [ happyLevel, setHappyLevel ] = useState(initialValue.effort ? initialValue.effort : 0); // Neutral: 0, Unhappy: -1, Happy: +1
@@ -53,10 +59,21 @@ export default function InputItem(props) {
         }
     }, [taskCount, happyLevel, taskTime, onTaskChange, label, person, initialValue.category ] )
 
-    //分担回数を変える度に合計値を計算する
+    //分担回数を変える度に合計値を計算、エラーハンドリングも行う
     useEffect(()=>{
         countOurTask()
+        validateCount(taskCount,setErrorMessage)
     },[taskCount])
+
+    // エラーメッセージが変わる度にvalidateErrorも更新する
+    useEffect(()=>{
+        handleValidateError(errorMessage,label,person)
+    },[errorMessage])
+
+    // 「家事選択」タブ→から入力画面に戻った時はエラーを空にする
+    useEffect(()=>{
+        setValidateError([])
+    },[])
 
     return (
         <>
@@ -76,9 +93,9 @@ export default function InputItem(props) {
                 max={200}
                 defaultValue={taskCount}
                 //フォーカスアウトした時にバリデーションチェック
-                onBlur={()=>{validateCount(errorMessage,taskCount),handleValidateError(errorMessage)}}
+                // onBlur={()=>{validateCount(errorMessage,taskCount,setErrorMessage)}}
                 />
-                <span className={ styles.errorMessage } ref={errorMessage}></span>
+                <span className={ styles.errorMessage }>{errorMessage}</span>
             </label>
         </div>
 
