@@ -295,6 +295,17 @@ width: 130px!important;
 .slider{
     width: 85%!important;
     padding: 12px 0px!important;
+    position: relative;
+}
+
+.slider::after{
+    position: absolute;
+    content: '（単位：分）';
+    bottom: -35px;
+    right: -20px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 11px!important;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 @media (max-width: 700px) {
@@ -303,4 +314,9 @@ width: 130px!important;
         max-width: 150px;
         min-width: 150px;
         padding-right: 1em!important;}
+
+    .slider::after{
+            bottom: -40px;
+            right: -20px;
+        }
 }
