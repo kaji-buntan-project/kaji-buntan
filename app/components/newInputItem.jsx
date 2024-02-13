@@ -44,19 +44,19 @@ export default function InputItem(props) {
             setTaskTime(1)
             break
 
-            case 5:
+            case 10:
             setTaskTime(3)
             break
 
-            case 15:
+            case 20:
             setTaskTime(5)
             break
 
-            case 30:
+            case 40:
             setTaskTime(10)
             break
 
-            case 45:
+            case 50:
             setTaskTime(20)
             break
 
@@ -97,19 +97,19 @@ export default function InputItem(props) {
             break
 
             case 3:
-            setSliderValue(5)
+            setSliderValue(10)
             break
 
             case 5:
-            setSliderValue(15)
+            setSliderValue(20)
             break
 
             case 10:
-            setSliderValue(30)
+            setSliderValue(40)
             break
 
             case 20:
-            setSliderValue(45)
+            setSliderValue(50)
             break
 
             case 30:
@@ -167,19 +167,19 @@ export default function InputItem(props) {
             label: '1',
         },
         {
-            value: 5,
+            value: 10,
             // label: '3',
         },
         {
-            value: 15,
+            value: 20,
             label: '5',
         },
         {
-            value: 30,
+            value: 40,
             label: '10',
         },
         {
-            value: 45,
+            value: 50,
             // label: '20分',
         },
         {

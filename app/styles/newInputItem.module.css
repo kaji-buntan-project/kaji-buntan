@@ -308,6 +308,28 @@ width: 130px!important;
     color: rgba(0, 0, 0, 0.6);
 }
 
+/*　20分の白点 */
+.slider span[data-index="4"]{
+    display: none;
+}
+/*　40分の白点 */
+.slider span[data-index="6"]{
+    display: none;
+}
+/*　50分の白点 */
+.slider span[data-index="7"]{
+display: none;
+}
+/*　70分の白点 */
+.slider span[data-index="9"]{
+    display: none;
+}
+/*　80分の白点 */
+.slider span[data-index="10"]{
+display: none;
+}
+
+
 @media (max-width: 700px) {
     .slider {
         width: 100%!important;
