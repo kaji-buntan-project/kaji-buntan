@@ -52,39 +52,39 @@ export default function InputItem(props) {
             setTaskTime(5)
             break
 
-            case 40:
+            case 30:
             setTaskTime(10)
             break
 
-            case 50:
+            case 40:
             setTaskTime(20)
             break
 
-            case 60:
+            case 50:
             setTaskTime(30)
             break
 
-            case 70:
+            case 60:
             setTaskTime(40)
             break
 
-            case 80:
+            case 70:
             setTaskTime(50)
             break
 
-            case 90:
+            case 80:
             setTaskTime(60)
             break
 
-            case 100:
+            case 90:
             setTaskTime(70)
             break
 
-            case 110:
+            case 100:
             setTaskTime(80)
             break
 
-            case 120:
+            case 110:
             setTaskTime(90)
             break
         }
@@ -105,39 +105,39 @@ export default function InputItem(props) {
             break
 
             case 10:
-            setSliderValue(40)
+            setSliderValue(30)
             break
 
             case 20:
-            setSliderValue(50)
+            setSliderValue(40)
             break
 
             case 30:
-            setSliderValue(60)
+            setSliderValue(50)
             break
 
             case 40:
-            setSliderValue(70)
+            setSliderValue(60)
             break
 
             case 50:
-            setSliderValue(80)
+            setSliderValue(70)
             break
 
             case 60:
-            setSliderValue(90)
+            setSliderValue(80)
             break
 
             case 70:
-            setSliderValue(100)
+            setSliderValue(90)
             break
 
             case 80:
-            setSliderValue(110)
+            setSliderValue(100)
             break
 
             case 90:
-            setSliderValue(120)
+            setSliderValue(110)
             break
         }
     }
@@ -175,39 +175,39 @@ export default function InputItem(props) {
             label: '5',
         },
         {
-            value: 40,
+            value: 30,
             label: '10',
         },
         {
-            value: 50,
+            value: 40,
             // label: '20分',
         },
         {
-            value: 60,
+            value: 50,
             label: '30',
         },
         {
-            value: 70,
+            value: 60,
             // label: '40分',
         },
         {
-            value: 80,
+            value: 70,
             // label: '50分',
         },
         {
-            value: 90,
+            value: 80,
             label: '60',
         },
         {
-            value: 100,
+            value: 90,
             // label: '70分',
         },
         {
-            value: 110,
+            value: 100,
             // label: '80分',
         },
         {
-            value: 120,
+            value: 110,
             label: '90',
         }
     ];
@@ -282,7 +282,7 @@ export default function InputItem(props) {
             step={null}
             marks= { sliderMarks }
             min={1}
-            max={120}
+            max={110}
             onChange={ (_, newValue) => setSliderValue(newValue) }
             />
         </div>
