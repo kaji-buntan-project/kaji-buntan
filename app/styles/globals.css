@@ -80,7 +80,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .MuiSlider-markLabel{
-  font-size: 12px!important;  
+  font-size: 11px!important;  
 }
 
 /* スライダーの文字部分「10分」「30分」など*/

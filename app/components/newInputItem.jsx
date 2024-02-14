@@ -168,7 +168,7 @@ export default function InputItem(props) {
         },
         {
             value: 10,
-            // label: '3',
+            label: '3',
         },
         {
             value: 20,
