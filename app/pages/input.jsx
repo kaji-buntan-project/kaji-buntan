@@ -122,21 +122,24 @@ export default function InputPage() {
     //現在の家事分担データ
     const [ currentTaskRepartition, setAllTaskRepartition ] = useAtom(currentTaskRepartitionAtom);
 
-    const handleValidateError = (errorMessage)=>{
-        // errorMessageが指定されたref
-        const spanElement = errorMessage.current;
+    // エラーハンドリング
+    const handleValidateError = (errorMessage,label,person)=>{
 
-        // spanの中のテキストコンテンツを取得
-        const textContent = spanElement.innerText || spanElement.textContent;
-
-        // 文字列が空でないかを判定
-        if (textContent.trim() !== '') {
+        // 「誰」の入力欄のどの「家事」でエラーが起きているかのタグ付け
+        let tag = ''
+        if(person == 'me'){
+            tag = `${label}_me`
+        }else{
+            tag = `${label}_partner`
+        }
+        
+        if (errorMessage !== "") {
         // 文字列がある場合の処理
-        setValidateError((prevErrors)=> [...prevErrors,errorMessage])
+        setValidateError((prevErrors)=> [...prevErrors,tag])
         return
     } else {
         // 文字列がない場合の処理
-        setValidateError(validateError.filter((prevErrors) => prevErrors !== errorMessage))
+        setValidateError(validateError.filter((prevErrors) => prevErrors != tag))
         return
     }
     }

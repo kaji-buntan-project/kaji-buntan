@@ -12,14 +12,14 @@ for (let categoryObject of constants.allTasks) {
         myTasks[taskObject.name] = {
             participates: taskObject.myDefault,
             effort: 0,
-            duration : 10,
+            duration : 1,
             category : categoryObject.name,
             userModified: false,
         };
         partnerTasks[taskObject.name] = {
             participates: taskObject.partnerDefault,
             effort: 0,
-            duration : 10,
+            duration : 1,
             category : categoryObject.name,
             userModified: false,
         }
