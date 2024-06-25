@@ -18,8 +18,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libfreetype6-dev \
     supervisor \
     libzip-dev \
-    nodejs \
-    npm
+    nodejs
 
 RUN npm install n -g \
     && n stable \
