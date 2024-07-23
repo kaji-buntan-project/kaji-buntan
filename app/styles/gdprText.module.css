@@ -1,0 +1,17 @@
+.gdprText_wrapper {
+  font-size: 12px;
+  max-width: 500px;
+  margin: 40px auto 40px;
+  border: solid 1px #9e9e9e;
+  padding: 10px;
+  color: #9e9e9e;
+}
+.gdprText_text {
+  color: #606060;
+}
+.gdprText_link {
+  color: #4a158b;
+}
+.gdprText_link:hover {
+  text-decoration: underline;
+}
