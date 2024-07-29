@@ -9,6 +9,7 @@ import  Tab from '@mui/material/Tab';
 import  Tabs from '@mui/material/Tabs';
 import NewInputItem from "../components/newInputItem";
 import InputBox from "../components/InputBox";
+import GdprText from '../components/GdprText';
 import { Box,Grid,Button,Link } from '@mui/material';
 import { useState } from 'react';
 import { useRouter } from "next/router";
@@ -322,6 +323,7 @@ export default function InputPage() {
                     }}>次へ</Button>}
                 </Grid> */}
             </Grid>
+            <GdprText/>
         </div>
     );
 }
