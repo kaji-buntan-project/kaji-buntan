@@ -27,7 +27,7 @@ pub fn find_max_burden_among_nonzero(
             .filter(|&(_burden, &allocation)| allocation > 0)
             .map(|(&burden, _)| burden)
             .max()
-            .unwrap_or(0) // この行は実際には必要ないかもしれないが、リストが空の場合に備えている
+            .unwrap_or(0) 
     }
 }
 
